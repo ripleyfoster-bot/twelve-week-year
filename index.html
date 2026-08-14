@@ -73,13 +73,13 @@ input:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:2px}
 .statv{font:700 25px/1 var(--mono);letter-spacing:-.02em}
 .statl{font:500 10px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
 
-.tac{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+.tac{display:flex;gap:13px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--line)}
 .tac:last-child{border-bottom:0}
-.box{width:26px;height:26px;flex:none;border:1.5px solid var(--line);border-radius:3px;background:transparent;cursor:pointer;font:700 14px/1 var(--mono);color:var(--inv)}
+.box{width:30px;height:30px;flex:none;border:1.5px solid var(--line);border-radius:8px;background:transparent;cursor:pointer;font:700 15px/1 var(--mono);color:var(--inv)}
 .box[aria-pressed="true"]{background:var(--on);border-color:var(--on)}
 .tactext{font:400 15px/1.35 var(--display)}
-.tacmeta{font:500 10px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:5px}
-.done .tactext{color:var(--muted);text-decoration:line-through}
+.tacmeta{font:500 10px/1.35 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.done .item{color:var(--muted);text-decoration:line-through}
 
 .empty{font:400 14px/1.5 var(--display);color:var(--muted);padding:18px 0;text-align:center}
 .note{font:400 12px/1.4 var(--display);color:var(--muted);margin-top:8px}
@@ -90,7 +90,8 @@ input:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:2px}
 .mgrid{display:flex;gap:10px;margin-top:12px}
 .mgrid>div{flex:1;min-width:0}
 .mentry{margin-top:12px}
-.mentry.inline{margin-top:14px;padding:11px 12px;border-left:2px solid var(--line);background:var(--cell);border-radius:0 3px 3px 0}
+.mentry.inline{margin-top:14px;padding:12px 13px;border-left:2px solid var(--on);background:var(--cell);border-radius:0 5px 5px 0}
+.mentry.inline .item{font-size:14px;color:var(--muted)}
 .mentry .tacmeta{margin-top:6px}
 .mrow{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
 .mrow:last-child{border-bottom:0}
@@ -112,9 +113,42 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .prev{margin-top:14px;padding-top:11px;border-top:1px dashed var(--line);font:400 13px/1.45 var(--display);color:var(--muted)}
 .prevtag{display:inline-block;font:600 9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:2px;padding:3px 5px;margin-right:7px}
 
-.weekbar{display:flex;gap:4px;overflow-x:auto;padding:2px 0 8px}
-.wk{flex:none;width:38px;height:38px;border:1px solid var(--line);background:var(--card);border-radius:3px;font:600 12px/1 var(--mono);color:var(--muted);cursor:pointer}
+.weekbar{display:flex;gap:5px;overflow-x:auto;padding:10px 0;position:sticky;top:0;background:var(--paper);z-index:5}
+.wk{flex:none;width:40px;height:40px;border:1px solid var(--line);background:var(--card);border-radius:20px;
+  font:600 13px/1 var(--mono);color:var(--muted);cursor:pointer}
+.wk.hit{border-color:var(--on);color:var(--on)}
 .wk[aria-current="true"]{background:var(--ink);border-color:var(--ink);color:var(--inv)}
+
+.wkhero{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:6px 2px 18px}
+.wkbig{font:700 46px/1 var(--mono);letter-spacing:-.04em}
+.wkring{width:70px;flex:none;opacity:.9}
+.wkring .ringlab{display:none}
+
+.sec{background:var(--card);border:1px solid var(--line);border-radius:6px;margin:0 0 10px;overflow:hidden}
+.sec.open{border-color:var(--ink)}
+.sechead{display:flex;align-items:center;gap:12px;width:100%;padding:14px 14px 13px;background:transparent;
+  border:0;text-align:left;cursor:pointer;color:var(--ink)}
+.secn{flex:none;width:24px;height:24px;border-radius:12px;border:1px solid var(--line);
+  font:600 11px/23px var(--mono);text-align:center;color:var(--muted)}
+.sec.open .secn{background:var(--ink);border-color:var(--ink);color:var(--inv)}
+.sect{display:block;font:600 15px/1.3 var(--display);letter-spacing:-.01em}
+.secmeta{display:block;font:500 10px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.secpct{flex:none;font:700 15px/1 var(--mono)}
+.chev{flex:none;font:400 20px/1 var(--display);color:var(--dim);transition:transform .2s ease}
+.sec.open .chev{transform:rotate(90deg)}
+.secbar{height:3px;background:var(--track)}
+.secbar i{display:block;height:100%;transition:width .3s ease}
+.secbody{padding:6px 14px 16px}
+.notes{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+
+.days{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.dbtn{width:34px;height:34px;border-radius:17px;border:1px solid var(--line);background:transparent;
+  color:var(--muted);font:600 12px/1 var(--mono);cursor:pointer}
+.dbtn[aria-pressed="true"]{background:var(--on);border-color:var(--on);color:var(--inv)}
+.item{font:400 16px/1.35 var(--display);letter-spacing:-.005em}
+.mfield{display:flex;align-items:baseline;gap:8px;margin-top:6px}
+.mfield input{flex:1;font:600 20px/1.2 var(--mono);border-bottom-color:var(--line)}
+.munit{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
 nav{flex:none;display:flex;background:var(--navbg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
 nav button{flex:1;padding:12px 4px 13px;border:0;background:transparent;cursor:pointer;font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-top:2px solid transparent;margin-top:-1px}
@@ -136,7 +170,7 @@ hr{height:1px;background:var(--line);border:0;margin:18px 0}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='10';
+var APP_VERSION='11';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -163,6 +197,7 @@ var THEMES={
 var THEME_ORDER=['graphite','clay','pine','indigo','ember'];
 var MODES=[['light','Light'],['dark','Dark'],['auto','Auto']];
 var theme={preset:'graphite',mode:'auto'};
+var openGoal=null;
 var PREFS_KEY='twy:prefs:v1';
 var prefs={tips:true};
 function savePrefs(){try{localStorage.setItem(PREFS_KEY,JSON.stringify(prefs))}catch(e){}}
@@ -367,11 +402,13 @@ function measureInput(m,w,gi,inline){
   var se=measureSeries(m), raw=(weekOf(w).measures||{})[m.id];
   var need=se.expected(w), col=se.lastWeek?(se.onPace?'var(--on)':'var(--off)'):'var(--muted)';
   return '<div class="mentry'+(inline?' inline':'')+'">'+
-    '<label class="lbl">'+(inline?'':esc(m.name)+' ')+
-      (m.mode==='weekly'?'This week':'Total now')+(m.unit?' — '+esc(m.unit):'')+'</label>'+
-    '<input type="number" inputmode="decimal" data-num="weeks.'+w+'.measures.'+m.id+'" value="'+
-      (raw===undefined||raw===null?'':esc(raw))+'" placeholder="'+(m.mode==='weekly'?'0':tidy(se.current))+'">'+
-    '<div class="tacmeta" style="color:'+col+'">'+esc(m.name)+' · '+tidy(se.cum[w-1])+' of '+tidy(m.target)+
+    '<div class="item">'+esc(m.name)+'</div>'+
+    '<div class="mfield">'+
+      '<input type="number" inputmode="decimal" data-num="weeks.'+w+'.measures.'+m.id+'" value="'+
+        (raw===undefined||raw===null?'':esc(raw))+'" placeholder="'+(m.mode==='weekly'?'this week':'total now')+'">'+
+      (m.unit?'<span class="munit">'+esc(m.unit)+'</span>':'')+
+    '</div>'+
+    '<div class="tacmeta" style="color:'+col+'">'+tidy(se.cum[w-1])+' of '+tidy(m.target)+
       ' · pace needs '+tidy(need)+' by week '+w+'</div>'+
     '</div>';
 }
@@ -523,77 +560,83 @@ function renderPlan(){
 
 function renderWeek(){
   var sc=scoreWeek(week), wk=weekOf(week), out='';
+
   out+='<div class="weekbar">'+WEEKS.map(function(w){
-    return '<button class="wk" aria-current="'+(w===week)+'" data-act="wk" data-w="'+w+'">'+w+'</button>';
+    var s2=scoreWeek(w), cls='wk'+(s2.pct!==null&&s2.pct>=85?' hit':'');
+    return '<button class="'+cls+'" aria-current="'+(w===week)+'" data-act="wk" data-w="'+w+'">'+w+'</button>';
   }).join('')+'</div>';
 
   var col=sc.pct===null?'var(--dim)':(sc.pct>=85?'var(--on)':'var(--off)');
-  out+='<div class="card"><div style="display:flex;align-items:baseline;justify-content:space-between">'+
-    '<span class="lbl" style="margin-bottom:0">Execution score</span>'+
-    '<span class="statv" style="color:'+col+'">'+(sc.pct===null?'—':Math.round(sc.pct)+'%')+'</span></div>'+
-    '<div class="statl" style="margin-top:6px">'+(sc.pct===null?'Nothing due this week':sc.dueTotal+' tactic'+(sc.dueTotal>1?'s':'')+' due · target 85%')+'</div>';
-  if(sc.dueGoals>0){
-    out+='<div class="breakdown">'+sc.goals.map(function(gs,gi){
-      if(!gs)return '';
-      return '<div class="brow"><span>Goal '+(gi+1)+'</span><span class="bbar"><i style="width:'+gs.pct+'%"></i></span><b>'+Math.round(gs.pct)+'%</b></div>';
-    }).join('')+'</div>';
-  }
-  out+='</div>';
+  out+='<div class="wkhero">'+
+    '<div><div class="wkbig" style="color:'+col+'">'+(sc.pct===null?'—':Math.round(sc.pct)+'%')+'</div>'+
+    '<div class="statl">'+(sc.pct===null?'Nothing due this week':sc.dueTotal+' tactic'+(sc.dueTotal>1?'s':'')+' due · target 85%')+'</div></div>'+
+    '<div class="wkring">'+ring(sc.pct,'')+'</div></div>';
 
-  var due=[];
-  state.goals.forEach(function(g,gi){g.tactics.forEach(function(t){
-    if(t.text.trim()&&t.weeks.indexOf(week)>-1)due.push({t:t,gi:gi});
-  })});
-  out+='<h2>Tactics due</h2><div class="card">';
-  if(!due.length)out+='<p class="empty">Nothing due in week '+week+'. Set the weeks for each tactic in Plan.</p>';
-  due.forEach(function(d){
-    var t=d.t, ts=tacticScore(week,t), complete=ts.pct===100, hit=wk.days[t.id]||[];
-    var share=sc.dueTotal?100/sc.dueTotal:0;
-    out+='<div class="tac'+(complete?' done':'')+'">'+
-      '<button class="box" aria-pressed="'+complete+'" data-act="tick" data-id="'+t.id+'" aria-label="'+(complete?'Clear this tactic':'Mark every scheduled day done')+'">'+(complete?'✓':'')+'</button>'+
-      '<div class="grow"><div class="tactext">'+esc(t.text)+'</div>'+
-      '<div class="tacmeta">Goal '+(d.gi+1)+' · '+(ts.scheduled?ts.done+'/'+ts.total+' days':(complete?'done':'one-off'))+
-      ' · '+Math.round(ts.pct/100*share)+'% of '+Math.round(share)+'%</div>';
-    if(ts.scheduled){
-      out+=chips(t.days.map(function(i){
-        return chip(DAYS[i],hit.indexOf(i)>-1,'data-act="td" data-id="'+t.id+'" data-d="'+i+'" aria-label="'+DAY_NAMES[i]+'"','day');
-      }).join(''));
-    }
-    (state.goals[d.gi].measures||[]).forEach(function(m){
-      if(m.tacticId===t.id&&m.name.trim())out+=measureInput(m,week,d.gi,true);
-    });
-    out+='</div></div>';
-  });
-  out+='</div>';
-
-  var ms=[];
-  state.goals.forEach(function(g,gi){(g.measures||[]).forEach(function(m){
-    if(m.name.trim()&&!m.tacticId)ms.push({m:m,gi:gi});
-  })});
-  if(ms.length){
-    out+='<h2>Measurements</h2><div class="card">';
-    ms.forEach(function(x,i){
-      out+='<div class="mrow"'+(i?'':' style="padding-top:0"')+'><div class="grow">'+
-        measureInput(x.m,week,x.gi,false)+'</div></div>';
-    });
-    out+='</div>';
-  }
-
-  out+='<h2>Weekly progress</h2>';
+  var anyDue=false;
   state.goals.forEach(function(g,gi){
+    var due=g.tactics.filter(function(t){return t.text.trim()&&t.weeks.indexOf(week)>-1});
+    var gm=(g.measures||[]).filter(function(m){return m.name.trim()&&!m.tacticId});
     var r=resultOf(week,g.id), p=lastResult(week,g.id);
-    out+='<div class="card"><label class="lbl">Goal '+(gi+1)+(g.title?' — '+esc(g.title):'')+'</label>'+
-      '<div style="margin-top:10px">'+field('Results this week','weeks.'+week+'.results.'+g.id+'.thisWeek',r.thisWeek)+'</div>'+
-      '<div style="margin-top:10px">'+field('Results to date','weeks.'+week+'.results.'+g.id+'.toDate',r.toDate)+'</div>'+
-      '<div class="chips" style="margin-top:14px"><span class="lbl" style="margin-bottom:0;align-self:center;margin-right:6px">On pace</span>'+
-      ['Yes','No'].map(function(v){return chip(v,r.onPace===v,'data-act="pace" data-gid="'+g.id+'" data-v="'+v+'"')}).join('')+'</div>';
-    if(p){
-      out+='<div class="prev"><span class="prevtag">Week '+p.week+'</span>'+esc(p.toDate||p.thisWeek||'—')+
-        (p.onPace?' · on pace: '+p.onPace.toLowerCase():'')+
-        (!r.toDate&&p.toDate?'<button class="btn ghost" style="display:block;margin-top:4px" data-act="carry" data-gid="'+g.id+'">Carry forward</button>':'')+'</div>';
+    var gs=sc.goals[gi];
+    if(due.length)anyDue=true;
+    var open=openGoal===g.id;
+    var doneCount=due.filter(function(t){return tacticScore(week,t).pct===100}).length;
+
+    out+='<section class="sec'+(open?' open':'')+'">'+
+      '<button class="sechead" data-act="sec" data-v="'+g.id+'" aria-expanded="'+open+'">'+
+        '<span class="secn">'+(gi+1)+'</span>'+
+        '<span class="grow"><span class="sect">'+esc(g.title||'Goal '+(gi+1))+'</span>'+
+        '<span class="secmeta">'+(due.length?doneCount+' of '+due.length+' done':'nothing due')+
+          (gm.length?' · '+gm.length+' measurement'+(gm.length>1?'s':''):'')+'</span></span>'+
+        '<span class="secpct" style="color:'+(gs?(gs.pct>=85?'var(--on)':'var(--off)'):'var(--dim)')+'">'+
+          (gs?Math.round(gs.pct)+'%':'—')+'</span>'+
+        '<span class="chev">\u203A</span>'+
+      '</button>'+
+      '<div class="secbar"><i style="width:'+(gs?gs.pct:0)+'%;background:'+(gs?(gs.pct>=85?'var(--on)':'var(--off)'):'transparent')+'"></i></div>';
+
+    if(open){
+      out+='<div class="secbody">';
+      if(!due.length&&!gm.length){
+        out+='<p class="empty">Nothing due for this goal in week '+week+'.</p>';
+      }
+      due.forEach(function(t){
+        var ts=tacticScore(week,t), complete=ts.pct===100, hit=wk.days[t.id]||[];
+        var share=sc.dueTotal?100/sc.dueTotal:0;
+        out+='<div class="tac'+(complete?' done':'')+'">'+
+          '<button class="box" aria-pressed="'+complete+'" data-act="tick" data-id="'+t.id+'" aria-label="'+
+            (complete?'Clear this tactic':'Mark every scheduled day done')+'">'+(complete?'\u2713':'')+'</button>'+
+          '<div class="grow"><div class="item">'+esc(t.text)+'</div>'+
+          '<div class="tacmeta">'+(ts.scheduled?ts.done+' of '+ts.total+' days':(complete?'done':'one-off'))+
+            ' · worth '+Math.round(share)+'% of the week</div>';
+        if(ts.scheduled){
+          out+='<div class="days">'+t.days.map(function(i){
+            return '<button class="dbtn" aria-pressed="'+(hit.indexOf(i)>-1)+'" data-act="td" data-id="'+t.id+
+              '" data-d="'+i+'" aria-label="'+DAY_NAMES[i]+'">'+DAYS[i]+'</button>';
+          }).join('')+'</div>';
+        }
+        (g.measures||[]).forEach(function(m){
+          if(m.tacticId===t.id&&m.name.trim())out+=measureInput(m,week,gi,true);
+        });
+        out+='</div></div>';
+      });
+      gm.forEach(function(m){ out+=measureInput(m,week,gi,false); });
+
+      out+='<div class="notes">'+
+        '<div style="margin-top:10px">'+field('Results this week','weeks.'+week+'.results.'+g.id+'.thisWeek',r.thisWeek)+'</div>'+
+        '<div style="margin-top:14px">'+field('Results to date','weeks.'+week+'.results.'+g.id+'.toDate',r.toDate)+'</div>'+
+        '<div class="chips" style="margin-top:16px"><span class="lbl" style="margin-bottom:0;align-self:center;margin-right:6px">On pace</span>'+
+        ['Yes','No'].map(function(v){return chip(v,r.onPace===v,'data-act="pace" data-gid="'+g.id+'" data-v="'+v+'"')}).join('')+'</div>';
+      if(p){
+        out+='<div class="prev"><span class="prevtag">Week '+p.week+'</span>'+esc(p.toDate||p.thisWeek||'\u2014')+
+          (p.onPace?' · on pace: '+p.onPace.toLowerCase():'')+
+          (!r.toDate&&p.toDate?'<button class="btn ghost" style="display:block;margin-top:4px" data-act="carry" data-gid="'+g.id+'">Carry forward</button>':'')+'</div>';
+      }
+      out+='</div></div>';
     }
-    out+='</div>';
+    out+='</section>';
   });
+
+  if(!anyDue)out+='<p class="empty">No tactics fall due in week '+week+'. Set the weeks for each tactic in Plan.</p>';
   return out;
 }
 
@@ -690,6 +733,14 @@ function render(){
     score:'Execution is the score that predicts the result.',
     vision:'Where this is all pointing.'
   }[view];
+  if(view==='week'&&openGoal===null){
+    var scq=scoreWeek(week), pick='';
+    state.goals.forEach(function(g,gi){
+      if(pick)return;
+      if(scq.goals[gi]&&scq.goals[gi].pct<100)pick=g.id;
+    });
+    openGoal=pick||(state.goals[0]?state.goals[0].id:'');
+  }
   document.getElementById('eyebrow').textContent='12 Week Year · v'+APP_VERSION;
   document.getElementById('title').textContent=t;
   document.getElementById('sub').textContent=sub;
@@ -740,7 +791,8 @@ document.addEventListener('click',function(e){
   var t=(!isNaN(gi)&&!isNaN(ti))?state.goals[gi].tactics[ti]:null;
 
   if(a==='tab'){view=el.getAttribute('data-v')}
-  else if(a==='wk'){week=w}
+  else if(a==='wk'){week=w; openGoal=null}
+  else if(a==='sec'){var id2=el.getAttribute('data-v'); openGoal=(openGoal===id2?'':id2)}
   else if(a==='gow'){week=w;view='week'}
   else if(a==='tw'){var i=t.weeks.indexOf(w); i>-1?t.weeks.splice(i,1):t.weeks.push(w); t.weeks.sort(function(x,y){return x-y})}
   else if(a==='allw'){t.weeks=t.weeks.length===12?[]:WEEKS.slice()}
