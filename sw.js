@@ -1,23 +1,42 @@
-const CACHE = 'twy-v11';
-const SHELL = ['./', './index.html'];
+/* Trading Assistant — service worker.
+   Cache the shell so the app opens without a connection; always try the
+   network first for the page itself so a new version lands on next open.
+   All alerts route through one notify path later, so the delivery
+   mechanism can be swapped for push without touching the app. */
 
-self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
+var CACHE = "ta-wpa-v1-5";
+var SHELL = ["./", "./index.html"];
+
+self.addEventListener("install", function(e){
+  e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(SHELL); }));
+  self.skipWaiting();
 });
 
-self.addEventListener('activate', (e) => {
+self.addEventListener("activate", function(e){
   e.waitUntil(
-    caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
-      .then(() => self.clients.claim())
+    caches.keys().then(function(keys){
+      return Promise.all(keys.map(function(k){
+        if(k !== CACHE) return caches.delete(k);
+      }));
+    })
   );
+  self.clients.claim();
 });
 
-self.addEventListener('fetch', (e) => {
-  if (e.request.method !== 'GET') return;
+self.addEventListener("fetch", function(e){
+  var url = new URL(e.request.url);
+  if(e.request.method !== "GET") return;
+  if(url.origin !== location.origin) return;   /* never cache API calls */
+
   e.respondWith(
-    caches.match(e.request).then((hit) => hit || fetch(e.request).catch(() => {
-      if (e.request.mode === 'navigate') return caches.match('./index.html');
-    }))
+    fetch(e.request).then(function(res){
+      var copy = res.clone();
+      caches.open(CACHE).then(function(c){ c.put(e.request, copy); });
+      return res;
+    }).catch(function(){
+      return caches.match(e.request).then(function(hit){
+        return hit || caches.match("./index.html");
+      });
+    })
   );
 });

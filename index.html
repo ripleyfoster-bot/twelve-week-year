@@ -2,897 +2,2106 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<title>12 Week Year</title>
-<link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%2212%20Week%20Year%22%2C%22short_name%22%3A%2212%20Week%22%2C%22description%22%3A%22Plan%2C%20execute%20and%20score%20a%2012%20week%20year.%22%2C%22start_url%22%3A%22./index.html%22%2C%22scope%22%3A%22./%22%2C%22display%22%3A%22standalone%22%2C%22orientation%22%3A%22portrait%22%2C%22background_color%22%3A%22%23EDF1F2%22%2C%22theme_color%22%3A%22%2316232E%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAIgUlEQVR4nO3dfVAU5x3A8eNAUfcADQF8TxxMiPEljtaJ0UFRpMQ01dgYaxLNpFpTEo1IEYJYXxryotgixZZoghNtQ4xOcaaZ2NSaNjJmqFODoqYWUSOaNhp5Ee6MciJH/2DGyUzZ5bjf3t7t%2Bv385fg8u/eA39ln7%2BDOkNj4MTbAV/ZALwDmRkAQISCIEBBECAgiBAQRAoIIAUGEgCBCQBAhIIgQEEQICCIEBBECgggBQYSAIEJAECEgiBAQRMICvQDT6xsV9fCEcaNHjhg9ckTM3dGRkRGREY42j8fluuZ0uerqGr44VX3ii1OfH6262tQc6MXqL8Ta78qYMnni2lWZgwYO6HQ0MWVWfUOjzycfM%2BrBBfPnps6Y1rNnjy4nt7a2/vVv5bv27K2sOuHzIwYhywYUc3d0btaKR1OmaczxOSCHomRlLJ33o1k%2BHPvRxwfyNhY4nS4fjg1CFtzC7Hb7j%2BfOzlj2swiHwx/nHzRwwM63i9Sual16fGbKhPFjF7%2BUce7LWl3XFRhWu4l%2B4P7hu3ZsXZuT6ad6%2BsfFSurpEBcbs71488AB/fVaVQBZJ6DevXtlZyz7Y%2Bn2MaMe9NND2O32wvw8YT0d4mJjflfwpt1u%2Bu%2B/6b%2BADkmJk/aVlf5k4fzQ0FD/PcrTT815aPRIvc72QMJ9c344U6%2BzBYrp74HiYmNWZ69ImT7V3w/Us2ePl9MWa0z4%2BtLl3WV/qjx6vK6%2BITQsNC42ZuKE8fOenN2vb5TaIcvSFu/98M/t7e1%2BWK9BTB/Qouee0ain8WpTj7CwiAgd7odSpk%2BNiopUG93/yac5a15rcbtv/8352ouH/1m5s3R3ceHGsWNGdXpU/7jYEQn3naqukS8vUCyyhf2/No/n/T17H31i/jdX6nQ54RPq283pM%2BeyVr/63Xpuu9rU/HJm7vXrN9SOnTL5EV2WFyjWDOjY8ZNzn12ct6HA5bqmywntdvu4h1RfMCsqfqe1tVVttL6h8aO/HFAbHR4/TLq4gLJaQA2NV3PXv/HsopeqT5/R8bTD7hnap0/vToecTlf5Z//QPvxI5TG1oei7%2BolWFmimvwe6rc3j2bVnb1FxieuaPled72pvb9/x3gcORVEcikNRIhyKQ1EcDsXhUI4dP9nW1qZ9uMY22q9fX53XaiyLBFRZdSLvzV%2BfPnPOT%2Bf/svbCxoLf%2Bny4xtMsT1fxBTnTB1RXX//KmrwP9%2B0P9EK0DB08SG2oqdlp5Ep0Z/qASnaUBnoJXUuaMklt6PyFi0auRHdWu4kOQkOHDJ6elKg2WnnM3L/dQUB%2Btz53ZajKz7xa3O5DFYcNXo%2B%2BCMi/Xli08JGHv6c2uu/jA3q9UhUoBORHM1Omr1j6gtpoS0vLlq3bjVyPPxCQvyRPS9z0xrqQkBC1CSU739frxywBREB%2B8fjMlN/kv6bxuyWnqmtK3n3PyCX5iemfxgeh5555Kidzuca1x%2Bl0pWetdt%2B8aeSq/ISA9BRqt%2BesXL5g/lyNOa2trRk5a//z30uGrcqvCEg3itKnYMOrUyZP1Jhz69atFdlrKg4fMWxV/kZA%2BhjQP25rUf79w%2BM15rhv3ly5av3fyz8zbFUGICAdjByRsK1oU3T0XRpzmpqbl2bkHK06adiqjMGzMKmJE8bvfHuLdj21F756%2Bvk069VjIyCh5KTEbVt%2BpSh9NOaUH6qYt3BJ7YWvDFuVkdjCfJc8LbFwY15YmNb3cNv23xe9VeLxeAxblcEIyEdJiZO067lxo2XVutf3f/KpkasyHgH5YtzY0Zvzteq5/M2VF9Ozq2vOGrmqgCCgbhs6ZPBbhfm9wsPVJvy7uiYtPftKXb2RqwoUbqK7x6EoxYUbIiMj1CZ8frRq4ZJld0g9NgLqrl/%2BIit%2B2L1qoxWHjyxZmvntt9cNXFGAEVA3zHos9bHUGWqjNWfPLc9a3en7Uy2MgLzVNyoqNytdbdTpdL2Y/sodde3pQEDeylyepvHhCsXv7Pj60mUj1xMkeBbmlXvvGTJn9g/URlvc7obGxtQZWp/HqOF87cWas/56S6S/mT6gNTk/1/40u7i4GI1j3W7V3%2Boq3V12/OS/Ov780%2BcXqL2zwmaz9QoP3/T6Oi8W27l3//BB/mbf3/YaWKYPKDU5SfsHmRq%2Bn5ykMXrwUMXtgDTeWnqH4x4IIgQEEQKCCAFBhIAgYtn/KwPG4AoEEQKCCAFBhIAgQkAQISCIEBBECAgiBAQRAoIIAUGEgCBCQBAhIIgQEEQICCIEBBECgggBQYSAIEJAECEgiBAQRAgIIgQEEQKCCAFBhIAgQkAQISCIEBBECAgiZv2YX/eTSRqj4WUHDT6PYafq1nkMYMorkPY/lTcT9D2Pkafy/jzGMGVACB5m3cJMSsdtLkhwBTKOjttc8CAgiBAQRKx8D2S9G44gZNkrkCVvOIKQZQOCMYJxCzPR67AIuiuQuV6HRdAFBHMhIIgE4z0Q9LJp6mmN0azyBPlDcAWyLO16vJngDQKCCFuYVwzYC0yKK1DXjNkLTIqAIEJAEDH0Hog7Cesx7grEnYQlsYVBhIAgQkAQISCI8Eq0WQXJU1quQKYUPE9pCQgiBAQR3e6BgmRLhsH0uQIFz5YMg7GFQYSAIEJAECEgiBAQRAgIIgQEEQKCCAFBhIAgQkAQISCIEBBECAgiBAQRAoIIAUGEgCBCQBAhIIgQEEQICCIEBBECgggBQYSAIEJAECEgiBAQRAgIIgQEEQKCCAFBhIAgQkAQISCI6BNQlx/CmlWe4M0cm80WXnZQY07HqPacjgl6zbF599Xp%2BHDefAd0/IYLhcTGj5GfBXcstjCIEBBECAgiBAQRAoIIAUGEgCBCQBAhIIgQEEQICCIEBBECgggBQYSAIEJAECEgiBAQRAgIIgQEEQKCyP8A4Rc/eNmYXAYAAAAASUVORK5CYII%3D%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/png%22%7D%2C%7B%22src%22%3A%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAAXMElEQVR4nO3debyWc/748XPqtJ1zcqIVyVLSGNLXnr3BREyWjJ2QIUMaWaJBlspSqYmSyTpkG9mGYTajYRhjN5YxdkoLoUzSqXPO7488/GaaUJ3Pda5zn/fz6R8PPN7X5y739eq6zv257uJ2nbsXARBPo7wXAEA%2BBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgqJK8FwCBdGjfbpOuXTpvuH77dm3btm3Trm2bNmut1bx5s2bNmi77q6a6urJyyeLKysWLFy9eXDnvk08/njfvo4/nffzxJ%2B/PmPnmW%2B%2B88977S5Ysyft10EAUt%2BvcPe81QINVUlKyxWab9txu62233rJb1y4tW5bXcmBVVdV7H8x45dXX//7s839/%2Brn3Z8xMsk5iEgDS67Rex4vOPWu7bbas5ZwJk6Zcfe1NSZZUx0pKSnbdqWfffXrv1HO70tIW2R1o9py5f57%2B1wce/v3zL75cU1OT3YFokNwCIqXGjRsfe9ShJ594XPNmzfJeSz7WW3edo484eN%2B992xVUVEHh%2BvQvt1hBx9w2MEHfDhr9v2//d3U26d9PO%2BTOjguDYMAkMym3bqOHH5Ot002znsh%2BejSecMTjj2qz157NG6Uw2cr1lm7w8AB/Y876vD7Hnjo%2Bptve/e9D%2Bp%2BDRQcASCB5s2bDxo4oP%2BRh%2BRy7svdGmu0HDJo4MEH9i0uLs53JU2bNvnxgX377b/vHXfdN37SLxcs%2BDzf9VDPRXy7ktb22251/69/ddzRh8U8%2B%2B%2B3714P3XPbIf32y/3s/7VGjRoddvABD997e7/99sl7LdRrrgBYfWus0XLokFMO7Bv0LFNa2uLi84b26b1H3gtZsTVbVYwYfs6uO%2B8wbPiofy9cmPdyqI8i/pGNJPbe8we/nTY17Nm/80Yb/PqWa%2Bvt2f9re/5g12m3Xteta5e8F0J9JACssg7t200af9kVl13UuvVaea8lHz26b3bbDZM32mD9vBeyUjqt13Hq9VdvvWWPvBdCvSMArILi4uLDDj7ggbtu6bXLjnmvJTfbb7PV9VePr/2WrrpUWtpiysSxO/bcNu%2BFUL8IACtrow3Wv/m6ieeffXpZWWnea8nNVv%2B3xeQrR7do0Tzvhayy5s2aTRp3mesA/pMA8N1KSkpO%2Bskx99x%2B41Y9Qu8b77Rex6uuGNWsadO8F7KamjZtMmHMyHXXWTvvhVBfCADfoftmm9596/WnnnR806ZN8l5LntZYo%2BU1E0bXzf7e7KzZqmLS%2BEsL8QqGLAgA36i0tMWwMwffduPkjbtslPda8nfBsDM2WH%2B9vFeRQNcunX928ol5r4J6QQBYsV123P6Bu2456rAfNwq5vWs5fXrvsfcPd897FckceWi/7pttmvcqyJ/3Nstbs1XF5SPOv%2BbKMWt3aJ/3WuqF1q3XOv/sIXmvIqVGjRpddN5Qacf/AfyXvn16P3j3rT/q88O8F1KPDBo4oKJijbxXkdgmG3fuvUevvFdBzgSAr6yzdocpE8deNuK8NVsV9s8509pwg04H7b9v3qvIxMDjj64/zy8iF54FRFGjRo2OPPSgn518gg%2BH/K8hgwY2btw4i8mVlUueeua5555/6bV/vfHhrNmffPLpl4sXN27cuKJly4qKNVpVVHyv28Zb9ejeo/tmGV1/dO3Sebedd/jzX/6axXAKggBE17VL54vPH%2BpHgiu0fqeOu%2B%2B2c/KxH8z88Mabb7/vwYcXLvzif//tggWffzDzw6KioseffGpKUVFxcXGvXXY8rv/hWWzC2P9HewtAZAIQWuu11px263UlJf43WLEjDumX9ibJ0qVLJ15zw3W/unXlv9i9pqbmkemPPzL98W226nH5iPM7tG%2BXcD277rxDeVmZZ4WG5WcAoTVp0iT52X/eJ5/%2B6c%2BPpZ2Zi7Ky0gP69kk4cMGCz/ufMGjydTet/Nn/Pz397Av9Dj/ub08/m3BJzZo23eMHuyQcSGERAJKpqam58%2B77%2Bxx4%2BKOPP5H3WhLovXuv8rKyVNMWLvyi/4mnPvfCP2oz5JNPPzvhlDNeevnVVKsqKiraYbttEk6jsAgAafzzX28edszA4SMubzBfQ/jD3XdNOO2MYRf88/U3aj9nyZIlg88899PP5td%2B1DJbb7lFqlEUHAGgtr74YtHl46466IgBL/7jlbzXkkx5WVnPdH80vv2uex99LNlV0ew5cy8dOyHVtLU7tE/7cwUKiABQK3/881/26XfEDTffXlVVlfdaUtplp56pHn43f/6C8RN/mWTU1x58%2BI%2Bz58xNNW2zTbulGkVhEQBW08wPZw0cfNag04clPBPVH9tvs2WqUTfecsf8%2BQtSTVumqqrq5tt%2BnWpap/XWTTWKwiIArLKlS5dee%2BPUfQ86anq62xr1zVaJ7ox/uXjxbXfdk2TUcn7/p0dTjeq47jqpRlFYfACcVfPs8y8OHzn6rbffzXshGWpVUbHh%2Bp2SjHrk0ceS//F/mRkzZ3308by2bVrXfpQAhOUKgJX16Wfzf37BJUcOOLlhn/2Liop6dP9%2Bqv1fDz78xyRzVui5F15KMsfTn8ISAL5bTU3NtPse7HPA4Xff/2Dea6kLXTpvmGROZeWSJ//%2BTJJRK/TmW%2B8kmeMZUGG5BcR3eOPNty8YNbqWO5gKy0YbrJ9kzksvv7Jo0ZdJRq3Qgs/TbLkobdEiyRwKjgDwjRYt%2BnLiL2%2B48ZaG9hHP77TRhmkC8MJL2W6MmJ9oz50rgLAEgBV7ZPrjIy4bN2v2nLwXkoPXXn9j/vwF5eXlLcvLysvLysvLykpLV%2BP7s17957%2ByWN7XUm26XrJkaZI5FBwBYHmzZs8ZOXp8w3ig2%2Bq5cNSY5f5JcXFxaWmLluXl5eVl5WVlLcvLysvKyluWf/U35WVf/atlf1P2VTbefDvNPfpvkuqLClb4VGoiEAD%2Bv6qqqpum3nnVNddleue6ENXU1Cxc%2BMXChV8U1acrooo1WiaZ88WiRUnmUHAEgK88/%2BI/Lhg55l9vvpX3QlhZ63VMs4PXFUBYAkDR/PkLxl45%2Ba57flNTU5P3WlgFm35vkyRzZs2pT9c11CEBCK2mpube3zx0%2BbirEj5emLpRUlKy5RabJxn1zjvvJ5lDwRGA0ObM/eic4SPzXgWrY4ftti4rK00y6q133k0yh4JjJzAUpL777JVq1NvvvJdqFIVFAKDwtGvbpvceuyUZ9eln8995zy2goAQACs8Jxx1VUpLm/u0Tf3u6uro6ySgKjgBAgVlv3XUOPrBvqmmPP/lUqlEUHAGAAnP%2BsNObNEnzdZVV1dWPPyEAcQkAFJL9f7T3Tj23SzVt%2BmNPfDzvk1TTKDgCAAWjU8d1zz3rtIQDb7szk6%2BrpFAIABSG5s2b/2LMyFSf/S8qKnp/xsy//u3vqaZRiAQACkBxcfGoC4d169ol4cwbfnWbh38EJwBQAE4/deDee/4g4cD3Z8y8694HEg6kEAkA1HdHHnrQgP5HpJ05YdKUpUt9D0x0AgD12oF99xl25uC0M1957fXf/u5PaWdSiAQA6q99997z4vOHFhcXJ5xZVV09fMTl7v5TJABQb/Xt0/vSi89bje8i/nZTb5/2ymuvp51JgfI4aKiP%2Bu23z0XnDU1%2B9p89Z%2B6Eq6eknUnhEgCod4458tCzTjs57Z2foqKiqurqM4Zd6Asg%2BZoAQP1y6k9/ctLx/bOYPHnKjc8%2B/2IWkylQAgD1RePGjS/8%2BZn99t83i%2BHPPPfC1VNuzGIyhUsAoF5o0aL5uEsv2nXnHbIYPvPDWT8767wqz/3nvwkA5K9tm9aTJ4zetFvXLIYvXPjFST8bOu%2BTT7MYTkHzMVDI2SYbd77z5ikZnf2rqquHnDP8jTffzmI4hU4AIE%2B77bzD1Ouv7tC%2BXRbDa2pqhg0f%2BZfHn8xiOA2AW0CQmwH9jxgy6MTkH/b/2sjLx9//4O8yGk4DIACQg6ZNm1x83tl99%2Bmd3SHGXXXN1DumZTefBkAAoK61ab3WVVdcssXm38/uEGMnXH3tjVOzm0/DIABQp77XreukcZdmdNN/mUvHXnnT1Duym0%2BD4YfAUHf26LXLrddPyu7sX11dfeGoMc7%2BrCRXAFBHjj3q0DMG/zS7H/lWVi45Y9gFf3hkekbzaXgEADLXuFGjc88ecuhB%2B2d3iM8///dPTzv7medeyO4QNDwCANlq0aL5%2BMsu3mWnntkd4v0PZpw0eOjb776X3SFokAQAMrTWmq0mTxi9%2Bfe/l90hnnr6ucFnnTt//oLsDkFDJQCQlU4d150ycWyn9Tpmd4jb7rxn5OjxVVVV2R2CBkwAIBObbNz52knj2rReK6P5lZVLLrpkzLT7HsxoPhEIAKS3ZY/NJ/9idMuW5RnNnz1n7uAzz33p5Vczmk8Q9gFAYjv23Pa6q8dnd/Z/5rkXDjpigLM/tScAkFKvXXacNO6y5s2aZTR/6h3TjjlxsIf7k4RbQJBM7z16jRk1vKQkk7fV4srK4SMuv%2B%2BBh7MYTkwCAGnstWevMaMuaNy4cRbDZ8%2BZe8qQc1557fUshhOWW0CQwA933y27s/%2Bym/7O/iTnCgBqa/fddr7i0gszOvtPvWPaJWMm%2BKQ/WRAAqJUdtt/miksvyuLsv7iy8sJRY%2B65/7fJJ8MyAgCrb8sem0%2B84pKmTZsknzz3o49PGXLOP155Lflk%2BJqfAcBq2rjLRpN/Mbp58%2BbJJ7/08qsHHTHA2Z%2BsCQCsjg7t2025amwWu70eeOgPRx9/ykcfz0s%2BGZbjFhCssvKysmsnXtG%2BXdvkk6%2B%2B9qYJk6YkHwsrJACwaho1ajRm1PDOG22QduzSpUuHjxh99/0e7kbdEQBYNUMGDdx15x3Szly06MtTz/j5408%2BlXYsfDsBgFXQt0/vAf0PTzvzs/nzTxx0poe7UfcEAFZW9802vej8oWlnzpn70YCTTnvrnXfTjoWVIQCwUlpVVFw5dlSzpk0Tzvxw1uxjTxz8/oyZCWfCyhMAWCkjzj%2B7Xds2CQe%2BP2PmMSecOmv2nIQzYZXYBwDf7ZB%2B%2B%2B3ea%2BeEA2fPmevsT%2B4EAL7Dhht0Ovv0QQkHfvrZ/AEnnebsT%2B4EAL5NkyZNxoy6IOHzHhZXVg489cy3330v1UBYbQIA32bggKM37dY14cARl43ziU/qCQGAb7R%2Bp47HH3NkwoH3/uahu%2B75TcKBUBsCAN/ovKFDEj7qedbsORddOjbVNKg9AYAV22vPXjv23DbhwAsvGbto0ZcJB0ItCQCsQGlpi7NPPzXhwD88Mn36Y08kHAi1JwCwAj859siET3uurq7%2BhYc8U/8IACyvVUXFUYf%2BOOHA3/9p%2Bltvv5twICThURCwvOOOPqysrDThwLXWbHXJhT9PODALMz6cNfGa6/NeBXVKAOC/rNmq4ohD%2BqWdue3W/5d2YBZeee11AYhGAOJq3qzZL6/K5FOJbdu0TjKn3/779txumySjlvn83/8%2B%2BbSzv/2/GdD/8NLSFgkPCvWWAMTVqHGjbbbqkfcqvs2666y97jprJxz42fz53/nfHHzgfgmPCPWZHwLDf2nWrFneS4A6IgAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABBUcbvO3fNeAwA5cAUAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUCV5L4C6sLjfbqlGNZv2aKpRqyThSyhqEK%2BiAbyEovxeBcu4Amj40r5j007L66AN4FU0gJeQxUBWiQA0cFm8wer4TZvR4RrAq2gALyG7sawMAQAISgAAghIAgKAEACAoAQAISgAAgrIRDBqUBrDXjDrjCgAajgaw14y6JADQQDSAvWbUMQEACEoAAIISAICgBAAgKAEACEoAAIISAICg7AQmDRtQoeC4AiABG1ChEAkAtWUDKhQoAQAISgAAghIAgKAEACAoAQAISgAAgrIRLH9pP/JoFxWwklwB5Cz5B959gh5YSQKQp4xO1hoArAwBAAhKAACCEgCAoAQAICgBAAhKAACCshEMCGf0rq8nnHbm9E0STqtLrgCAWNKe/bMYWGcEAAgko5N1gTZAAACCEgCAoAQAICgBAAhKAACCEgCAoGwEg6/YHEQ0rgCgqMjmIEISALA5iKAEACAoAQAISgAAghIAgKAEACAoAQAISgAAgrIT%2BDvYHQo0VK4Avo3doUADJgDfyO5QoGETAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACMo3ggH1i6/hqzOuAIB6xNfw1SUBAOoLX8NXxwQAICgBAAhKAACCEgCAoAQAICgBAAiqsDeC2TACsNoK%2BArAhhGA2ijUANgwAlBLhRoAAGpJAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCKtQAnDl9k6zH1sEhmk17NItD/OfYLA6x3MysD1EHv0oF%2BnvtN2Il1fH7uoAUagCKMvgV/9%2BBdXCI5G%2Bq/x2Y9hArnJb1IergV6ngfq/9RqykXN7XhaK4Xefuea8BgBwU8BUAALUhAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUAIAEJQAAAQlAABBCQBAUP8PkYEc1JWFbdUAAAAASUVORK5CYII%3D%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%7D%2C%7B%22src%22%3A%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAAW%2BklEQVR4nO3de5yWc/748ZmampqZTHREcihpLenrnHOLjdgcss6ELFnSyiFa5FA5VGqjZHNcclo5LcuerJZlrbN1WOtM6UCYbNLUzPz%2B4OG3a0PNfO657nvez6d/PGTe18dDc726rvlc113csVuvIgDiaZb1AgDIhgAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEGVZL0ACKRzp44b9ejebf11O3Xs0KFD%2B44d2rdfY41WrUpLS1t%2B8VddbW119bKl1dVLly5durR64Ucff7hw4QcfLvzww4/enT3n9Tfeeuudd5ctW5b1fwdNRHHHbr2yXgM0WSUlJZttsnGfbbbcesvNe/bo3qZNRQMH1tTUvPPe7JdefvXvTz/79yefeXf2nCTrJCYBIL2u63S54Owzttlq8wbOmTx1%2BpVX35BkSY2spKRk5x36DNir3w59tikra527A82bv%2BDPs/5634O/f/b5F%2Bvq6nJ3IJokt4BIqXnz5kcfcfCJxx/TqrQ067VkY5211zrysAP33nP3tpWVjXC4zp06HnLgfoccuN/7c%2Bfd%2B9vfzbh15ocLP2qE49I0CADJbNyzx5hRZ/XcaMOsF5KN7t3WP%2B7oI/rvsVvzZhnsrVhrzc5DBg865ohD77nvgWtvvOXtd95r/DVQcASABFq1ajV0yOBBhx%2BUybkvc6ut1mb40CEH7j%2BguLg425W0bNnix/sPGLjv3rfdcc%2Bkqb9ctOjTbNdDnov47Upa2269xb2//tUxRx4S8%2By/z957PHDXLQcN3Cfzs/9XmjVrdsiB%2Bz14960D99kr67WQ11wBUH%2BrrdZmxPCT9h8Q9CxTVtb6wnNG9O%2B3W9YLWbHV21aOHnXWzjtuN3LU2H8vXpz1cshHEf/IRhJ77v6D386cEfbs322D9X5909V5e/b/yu4/2Hnmzdf07NE964WQjwSAVda5U8epky657JIL2rVbI%2Bu1ZKN3r01uuW7aBuutm/VCVkrXdbrMuPbKLTfvnfVCyDsCwCooLi4%2B5MD97rvjpr47bZ/1WjKz7VZbXHvlpIY/0tWYyspaT58yYfs%2BW2e9EPKLALCyNlhv3RuvmXLumaeWl5dlvZbMbPF/m027fFzr1q2yXsgqa1VaOnXiJa4D%2BE8CwHcrKSk54SdH3XXr9Vv0Dv3ceNd1ulxx2djSli2zXkg9tWzZYvL4MWuvtWbWCyFfCADfodcmG99587Unn3Bsy5Ytsl5LllZbrc1Vk8c1zvO9ubN628qpky4uxCsYckEA%2BEZlZa1Hnj7sluunbdh9g6zXkr3zRp623rrrZL2KBHp07/azE4/PehXkBQFgxXbaftv77rjpiEN%2B3Czk411f07/fbnv%2BcNesV5HM4QcP7LXJxlmvguz53ubrVm9beenoc6%2B6fPyanTtlvZa80K7dGueeOTzrVaTUrFmzC84ZIe34HcB/GdC/3/133vyj/j/MeiF5ZOiQwZWVq2W9isQ22rBbv936Zr0KMiYAfGmtNTtPnzLhktHnrN62sH/Omdb663U9YN%2B9s15FTgw59sj8eX8RmfAuIIqaNWt2%2BMEH/OzE42wO%2BV/Dhw5p3rx5LiZXVy974qlnnnn2hVf%2B9dr7c%2Bd99NHHny9d2rx588o2bSorV2tbWfm9nhtu0btX716b5Oj6o0f3brvsuN2f//LXXAynIAhAdD26d7vw3BF%2BJLhC63btsusuOyYf%2B96c96%2B/8dZ77n9w8eLP/vdXFy369L057xcVFT36%2BBPTi4qKi4v77rT9MYMOzcVDGPv%2BaE8BiEwAQmu3xuozb76mpMRvgxU77KCBaW%2BSLF%2B%2BfMpV113zq5tX/oPd6%2BrqHpr16EOzHt1qi96Xjj63c6eOCdez847bVZSXe1doWH4GEFqLFi2Sn/0XfvTxn/78SNqZmSgvL9tvQP%2BEAxct%2BnTQcUOnXXPDyp/9/9OTTz838NBj/vbk0wmXVNqy5W4/2CnhQAqLAJBMXV3d7Xfe23//Qx9%2B9LGs15JAv137VpSXp5q2ePFng44/%2BZnn/tGQIR99/MlxJ532wosvp1pVUVHRdttslXAahUUASOOf/3r9kKOGjBp9aZP5GMIf7rpzwmmnjTzvn6%2B%2B1vA5y5YtG3b62R9/UtXwUV/YcvPNUo2i4AgADfXZZ0sunXjFAYcNfv4fL2W9lmQqysv7pPuj8a133P3wI8muiubNX3DxhMmppq3ZuVPanytQQASABvnjn/%2By18DDrrvx1pqamqzXktJOO/RJ9fK7qqpFk6b8Msmor9z/4B/nzV%2BQatomG/dMNYrCIgDU05z35w4ZdsbQU0cmPBPlj2232jzVqOtvuq2qalGqaV%2Boqam58ZZfp5rWdZ21U42isAgAq2z58uVXXz9j7wOOmJXutka%2B2SLRnfHPly695Y67koz6mt//6eFUo7qsvVaqURQWG8BZNU8/%2B/yoMePeePPtrBeSQ20rK9dft2uSUQ89/EjyP/5/YfacuR98uLBD%2B3YNHyUAYbkCYGV9/EnVz8%2B76PDBJzbts39RUVHvXt9P9fzX/Q/%2BMcmcFXrmuReSzPH2p7AEgO9WV1c38577%2B%2B936J333p/1WhpD927rJ5lTXb3s8b8/lWTUCr3%2BxltJ5ngHVFhuAfEdXnv9zfPGjmvgE0yFZYP11k0y54UXX1qy5PMko1Zo0adpHrkoa906yRwKjgDwjZYs%2BXzKL6%2B7/qamtsXzO22wfpoAPPdCbh%2BMqEr0zJ0rgLAEgBV7aNajoy%2BZOHfe/KwXkoFXXn2tqmpRRUVFm4ryioryiory8rKyenx%2B1sv//FculveVVA9dL1u2PMkcCo4A8HVz580fM25S03ihW/2cP3b81/5JcXFxWVnrNhUVFRXlFeXlbSrKK8rLK9pUfPk3FeVf/tIXf1P%2BZTZefzPNPfpvkuqDClb4VmoiEAD%2Bv5qamhtm3H7FVdfk9M51Iaqrq1u8%2BLPFiz8ryqcrosrV2iSZ89mSJUnmUHAEgC89%2B/w/zhsz/l%2Bvv5H1QlhZ63RJ8wSvK4CwBICiqqpFEy6fdsddv6mrq8t6LayCjb%2B3UZI5c%2Bfn03UNjUgAQqurq7v7Nw9cOvGKhK8XpnGUlJRsvtmmSUa99da7SeZQcAQgtPkLPjhr1JisV0F9bLfNluXlZUlGvfHW20nmUHA8CQwFacBee6Qa9eZb76QaRWERACg8HTu077fbLklGffxJ1VvvuAUUlABA4TnumCNKStLcv33sb0/W1tYmGUXBEQAoMOusvdaB%2Bw9INe3Rx59INYqCIwBQYM4deWqLFmk%2BrrKmtvbRxwQgLgGAQrLvj/bcoc82qabNeuSxDxd%2BlGoaBUcAoGB07bL22WecknDgLbfn5OMqKRQCAIWhVatWvxg/JtXe/6Kiondnz/nr3/6eahqFSACgABQXF489f2TPHt0TzrzuV7d4%2BUdwAgAF4NSTh%2By5%2Bw8SDnx39pw77r4v4UAKkQBAvjv84AMGDzos7czJU6cvX%2B5zYKITAMhr%2Bw/Ya%2BTpw9LOfOmVV3/7uz%2BlnUkhEgDIX3vvufuF544oLi5OOLOmtnbU6Evd/adIACBvDejf7%2BILz6nHZxF/uxm3znzplVfTzqRAeR005KOB%2B%2Bx1wTkjkp/9581fMPnK6WlnUrgEAPLOUYcffMYpJ6a981NUVFRTW3vayPN9ACRfEQDILyf/9CcnHDsoF5OnTb/%2B6Wefz8VkCpQAQL5o3rz5%2BT8/feC%2Be%2Bdi%2BFPPPHfl9OtzMZnCJQCQF1q3bjXx4gt23nG7XAyf8/7cn51xTo33/vPfBACy16F9u2mTx23cs0cuhi9e/NkJPxux8KOPczGcgmYbKGRsow273X7j9Byd/Wtqa4efNeq119/MxXAKnQBAlnbZcbsZ117ZuVPHXAyvq6sbOWrMXx59PBfDaQLcAoLMDB502PChxyff7P%2BVMZdOuvf%2B3%2BVoOE2AAEAGWrZsceE5Zw7Yq1/uDjHxiqtm3DYzd/NpAgQAGlv7dmtccdlFm236/dwdYsLkK6%2B%2Bfkbu5tM0CAA0qu/17DF14sU5uun/hYsnXH7DjNtyN58mww%2BBofHs1nenm6%2Bdmruzf21t7fljxzv7s5JcAUAjOfqIg08b9tPc/ci3unrZaSPP%2B8NDs3I0n6ZHACDnmjdrdvaZww8%2BYN/cHeLTT//901POfOqZ53J3CJoeAYDcat261aRLLtxphz65O8S7780%2BYdiIN99%2BJ3eHoEkSAMihNVZvO23yuE2//73cHeKJJ58ZdsbZVVWLcncImioBgFzp2mXt6VMmdF2nS%2B4Occvtd40ZN6mmpiZ3h6AJEwDIiY027Hb11Int262Ro/nV1csuuGj8zHvuz9F8IhAASG/z3ptO%2B8W4Nm0qcjR/3vwFw04/%2B4UXX87RfILwHAAktn2fra%2B5clLuzv5PPfPcAYcNdvan4QQAUuq70/ZTJ17SqrQ0R/Nn3DbzqOOHebk/SbgFBMn0263v%2BLGjSkpy8m21tLp61OhL77nvwVwMJyYBgDT22L3v%2BLHnNW/ePBfD581fcNLws1565dVcDCcst4AggR/uukvuzv5f3PR39ic5VwDQULvusuNlF5%2Bfo7P/jNtmXjR%2Bsp3%2B5IIAQINst%2B1Wl118QS7O/kurq88fO/6ue3%2BbfDJ8QQCg/jbvvemUyy5q2bJF8skLPvjwpOFn/eOlV5JPhq/4GQDU04bdN5j2i3GtWrVKPvmFF18%2B4LDBzv7kmgBAfXTu1HH6FRNy8bTXfQ/84chjT/rgw4XJJ8PXuAUEq6yivPzqKZd16tgh%2BeQrr75h8tTpycfCCgkArJpmzZqNHzuq2wbrpR27fPnyUaPH3Xmvl7vReAQAVs3woUN23nG7tDOXLPn85NN%2B/ujjT6QdC99OAGAVDOjfb/CgQ9PO/KSq6vihp3u5G41PAGBl9dpk4wvOHZF25vwFHww%2B4ZQ33no77VhYGQIAK6VtZeXlE8aWtmyZcOb7c%2Bcdffywd2fPSTgTVp4AwEoZfe6ZHTu0Tzjw3dlzjjru5Lnz5iecCavEcwDw3Q4auM%2BufXdMOHDe/AXO/mROAOA7rL9e1zNPHZpw4MefVA0%2B4RRnfzInAPBtWrRoMX7seQnf97C0unrIyae/%2BfY7qQZCvQkAfJshg4/cuGePhANHXzLRjk/yhADAN1q3a5djjzo84cC7f/PAHXf9JuFAaAgBgG90zojhCV/1PHfe/AsunpBqGjScAMCK7bF73%2B37bJ1w4PkXTViy5POEA6GBBABWoKys9Zmnnpxw4B8emjXrkccSDoSGEwBYgZ8cfXjCtz3X1tb%2BwkueyT8CAF/XtrLyiIN/nHDg7/8064033044EJLwKgj4umOOPKS8vCzhwDVWb3vR%2BT9PODAXZr8/d8pV12a9ChqVAMB/Wb1t5WEHDUw7c%2Bst/y/twFx46ZVXBSAaAYirVWnpL6/Iya7EDu3bJZkzcN%2B9%2B2yzVZJRX/j03/8%2B8ZQzv/3fGTzo0LKy1gkPCnlLAOJq1rzZVlv0znoV32bttdZce601Ew78pKrqO/%2BdA/ffJ%2BERIZ/5ITD8l9LS0qyXAI1EAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAIKjijt16Zb0GADLgCgAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIISAICgBAAgKAEACEoAAIIqyXoB5LulA3ep3xeWznw45TpWxNrqJ5/XRmNyBcC3qfeZooFfm%2Bv51tb4X0seEgC%2BUcO/23N3vrC2rCZrQFMiAABBCQBAUAIAEJQAAARlGygUABs3yQVXAJDvbNwkRwQA8pqNm%2BSOAAAEJQAAQQkAQFACABCUAAAE5TkAGpX97JA/XAHQeOxnh7wiADQS%2B9kh3wgAQFACABCUAAAEJQAAQdkG2gTZagmsDFcATY2tlsBKEoAmxVZLYOUJAEBQAgAQlAAABCUAAEHZBgrkkXE7v1q/Lzx91kZpVxKBKwAgX9T77N/Arw1LAIC80PAzuAasKgEACEoAAIISAICgBAAgKNtA4Us2IBKNKwAoKrIBkZAEAGxAJCgBAAhKAACCEgCAoAQAICjbQPOCDYhA43MFkD0bEIFMCEDGbEAEsiIAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABCUAAEEJAEBQAgAQlAAABOV10ECDeJl54XIFANSfl5kXNAEA6snLzAudAAAEJQAAQQkAQFACABCUbaD1ZOsbUOhcAdSHrW9AEyAAq8zWN6BpEACAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAACCEgCAoAQAICgBAAhKAFbZ6bM2Sjgh7bTSmQ83cNp/Togzzf%2BF%2Bk3L5%2B8FVoYA1EdDfp/979emndaQ7/D//do40/xfqN%2B0fP5e4DsVd%2BzWK%2Bs1AJABVwAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAEJQAAQQkAQFACABCUAAAE9f8ADUMc1HvozkEAAAAASUVORK5CYII%3D%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22maskable%22%7D%5D%7D">
-<meta name="theme-color" content="#16232E">
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12161b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="12 Week Year">
-<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAH3klEQVR4nO3dfXAU5R3A8b2Ey+ntpSEJhAQqBiMmIqJTxyIaieLb2KJiwCiIBoUwJthgMEjK2GBtMkITQAhFUpECBQwMAQYcdESBABozghUpRaYV8oojoAIhFyEw1z86w7S4v714t7e3e/1+/mLy7D15hvnyPHeby+FIShuiAFqiwr0AWBdxQEQcEBEHRMQBEXFARBwQEQdExAERcUBEHBARB0TEARFxQEQcEBEHRMQBEXFA1CPcC7ATVXXfefvQwYOuv/GG65P79I6NjY31qF1dF860t7e3n21qaT1w8ND+Awc/3ff5xYsXw71YAzgi7D2kdwz7ZWnJtP5X/fzHQ7Wb3nn51dmBTTsgtf+zT4391QP3ut1X+r34+ImT6zduWb229rvvTwX27SwicnaOpN69SooLH7xvhLHTRkdH500Yn583ISbG2f2VFEx+ZmxO9ivlFe9/uNPY9ZgpEp5zREdF5T75+NYNawwvw+l0Lqwsnzolr/tlXBLfM25BRVlhQZ6xSzKT7XeOm4cMnjWzOOO6aw2f2eFwzJv9+xFZmcFMkj8p99Sp0yvXrDNqVWaycRw94+KKp+ZnP/Jrh8MRivnHPPrQvXcPD36el4qm7PqovrGpJfipTGbLY8XhcIweNfLdTWtGjxoZojJ6xsVNn1qgc8H5811f/P0fO3Z9tKe+oam5VefK6OjoYt2pLMuWO8fCynJD/k3rGPXQg7GxHs2hrq6uRdXLVq+t7ejwXvrigNT+M4qez7rzds2HjMjKTExM+Pbb70Ky1pCx5c6R2v8qza9fuHBhxeq1Xx7+Z/DfYsyjI6WhopLSPy/763+XoSjK0cbm/Bdm1O3+WPMhDodj+B23Bb8qk9kyDk176hseycmdPbfK2/lDkFOlJPdJG5CqObRte92HO3ZrDvl8vjnzF0lz3nKz/e4n2fJYuUxza9ucuVXb6/YYNeHgQRnSUM36TToPPNrY3NjUknq1xsbWKzEh+IWZzN5xeL2d1ctWLl9Vc/58l4HTnu3oWL9xi6q6VVX1qKrH41bdbo+qulwx+z7br//Y5tY2zTgSEuINXKE5bBzHlq3vVy5YfPzEScNnrm/YW9+wN7DHdgmZRkXZ7wS3ZRwHDx0uLfvj3/YfCPdCNPTrl6L59dOnz5i8kuDZMo6S0rJwL0Fbcp+k9IFpmkNHGptMXkzw7LfXWdnE3HHSTbm9/p6sWBBxGGbwoIyxOdmaQx0d3t0ff2LyeoJHHMZITIhfUFEWLTzrXLdhs9fbafKSgkccBoj1eJYsrOibkqw5+v2p028sXW7uioxBHMGK9Xje/NNcnftmry+qbm8/a+aSjGLLVyvW0SsxYeni+dIrFEVR3tu2Y92GzWYuyUDsHIG7Nm1AzYpqnTK+Otr48quvmbkkYxFHgDKHDX17+ZJ+fbVveSmK0tJ2bGJ+0WU/vLUXjpVAjMvJnvnSC9JrE0VR2o59PWFy4TfHT5i5KsMRx08TFRX12+LC8U+M0bnm4KHDzxVOP2m3t/b8GHH8BDExzoryWfffc5fONdvr9hTPfKUz6PeUWAFxdJfbfeXi+XOG3voL6QKfz7fkrZVVbyz1+XxmLix0iKNbVNVdXVWp824ur7dzxu/+8MGOXWauKtSIw78rXC79MppbWguKSr460mjioszAS1k/evTosaCiTKeMhk8/e+ypvMgrQyEOv0pLpg3PHCaNbty8ddKUaWfOtJu5JNNwrOgZl5P9WPbD0ujyVTVz5olvN48AxCHKSB9Y8uJvpNE3/7JqXtUSM9djPo4VbU6ns7J8ltOp/cv1727bPn9RtclLMh9xaJuUOy7tmlTNobZjX88sLY+Ymxk6iENDUu9ekyc+LY3Oq6r+4dw5M9cTLvZ7zuGKiclIH6hzgaq6Nb8eH9/zphtvkB71ryNHL/0ENe+Z8Ve4XNKVxVPzXyx8rnuL/R/LVr69em1tAA8MF/vF0a9vSs2KQM77EVmZOp/EMv7Zgn2ff/GfP+v/Cn9Kcp8AvruiKD8Tfm3fsjhWNIToMz9shzggIg6IiAMi4oAo0j7BGAZi54CIOCAiDoiIAyLigIg4ICIOiIgDIuKAiDggIg6IiAMi4oCIOCAiDoiIAyLigIg4ICIOiIgDIuKAiDggIg6IiAMi4oCIOCAiDoiIAyLigIg4ICIOiOz0aYLnRt8lDblqd/5/ThJSttk5dP4q/Y5G6iShZps4YD47HSv2Yv1Twy92jpCwxanhF3FAFGnHSgRs5tYRUTtHZGzm1hFRccBYFjpWOBGsxio7ByeCBVklDlgQcUBkoeccCEBF1mFpaHpdepCTs3PYmE4Zfke7gzgg4ljRENK92kbYOS4X6r3aRogDIpOOFTZqOzJj52CjtimOFYiIAyLigIg4ICIOiLhDamnhvQXAzmFdYb8FQBwQGXOscAM0Ihmwc4R990OIcKxARBwQEQdExAERcUBEHBARB0TEARFxQEQcEBEHRMQBEXFARBwQEQdExAERcUBEHBARB0TEARFxQEQcEBEHRMQBEXFARBwQEQdExAERcUBEHBARB0TEARFxQGRAHPof7DS9Lt3vBYq//xzUVbvT7wVGTeJ3tdZZSXf+YoPhSEobEuQUiFQcKxARB0TEARFxQEQcEBEHRMQBEXFARBwQEQdExAERcUBEHBARB0TEARFxQEQcEBEHRMQBEXFA9G8bKgibnWy8vwAAAABJRU5ErkJggg==">
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAIgUlEQVR4nO3dfVAU5x3A8eNAUfcADQF8TxxMiPEljtaJ0UFRpMQ01dgYaxLNpFpTEo1IEYJYXxryotgixZZoghNtQ4xOcaaZ2NSaNjJmqFODoqYWUSOaNhp5Ee6MciJH/2DGyUzZ5bjf3t7t+v385fg8u/eA39ln7+DOkNj4MTbAV/ZALwDmRkAQISCIEBBECAgiBAQRAoIIAUGEgCBCQBAhIIgQEEQICCIEBBECgggBQYSAIEJAECEgiBAQRMICvQDT6xsV9fCEcaNHjhg9ckTM3dGRkRGREY42j8fluuZ0uerqGr44VX3ii1OfH6262tQc6MXqL8Ta78qYMnni2lWZgwYO6HQ0MWVWfUOjzycfM+rBBfPnps6Y1rNnjy4nt7a2/vVv5bv27K2sOuHzIwYhywYUc3d0btaKR1OmaczxOSCHomRlLJ33o1k+HPvRxwfyNhY4nS4fjg1CFtzC7Hb7j+fOzlj2swiHwx/nHzRwwM63i9Sual16fGbKhPFjF7+Uce7LWl3XFRhWu4l+4P7hu3ZsXZuT6ad6+sfFSurpEBcbs71488AB/fVaVQBZJ6DevXtlZyz7Y+n2MaMe9NND2O32wvw8YT0d4mJjflfwpt1u+u+/6b+ADkmJk/aVlf5k4fzQ0FD/PcrTT815aPRIvc72QMJ9c344U6+zBYrp74HiYmNWZ69ImT7V3w/Us2ePl9MWa0z4+tLl3WV/qjx6vK6+ITQsNC42ZuKE8fOenN2vb5TaIcvSFu/98M/t7e1+WK9BTB/Qouee0ain8WpTj7CwiAgd7odSpk+NiopUG93/yac5a15rcbtv/8352ouH/1m5s3R3ceHGsWNGdXpU/7jYEQn3naqukS8vUCyyhf2/No/n/T17H31i/jdX6nQ54RPq283pM+eyVr/63Xpuu9rU/HJm7vXrN9SOnTL5EV2WFyjWDOjY8ZNzn12ct6HA5bqmywntdvu4h1RfMCsqfqe1tVVttL6h8aO/HFAbHR4/TLq4gLJaQA2NV3PXv/HsopeqT5/R8bTD7hnap0/vToecTlf5Z//QPvxI5TG1oei7+olWFmimvwe6rc3j2bVnb1FxieuaPled72pvb9/x3gcORVEcikNRIhyKQ1EcDsXhUI4dP9nW1qZ9uMY22q9fX53XaiyLBFRZdSLvzV+fPnPOT+f/svbCxoLf+ny4xtMsT1fxBTnTB1RXX//KmrwP9+0P9EK0DB08SG2oqdlp5Ep0Z/qASnaUBnoJXUuaMklt6PyFi0auRHdWu4kOQkOHDJ6elKg2WnnM3L/dQUB+tz53ZajKz7xa3O5DFYcNXo++CMi/Xli08JGHv6c2uu/jA3q9UhUoBORHM1Omr1j6gtpoS0vLlq3bjVyPPxCQvyRPS9z0xrqQkBC1CSU739frxywBREB+8fjMlN/kv6bxuyWnqmtK3n3PyCX5iemfxgeh5555Kidzuca1x+l0pWetdt+8aeSq/ISA9BRqt+esXL5g/lyNOa2trRk5a//z30uGrcqvCEg3itKnYMOrUyZP1Jhz69atFdlrKg4fMWxV/kZA+hjQP25rUf79w+M15rhv3ly5av3fyz8zbFUGICAdjByRsK1oU3T0XRpzmpqbl2bkHK06adiqjMGzMKmJE8bvfHuLdj21F756+vk069VjIyCh5KTEbVt+pSh9NOaUH6qYt3BJ7YWvDFuVkdjCfJc8LbFwY15YmNb3cNv23xe9VeLxeAxblcEIyEdJiZO067lxo2XVutf3f/KpkasyHgH5YtzY0Zvzteq5/M2VF9Ozq2vOGrmqgCCgbhs6ZPBbhfm9wsPVJvy7uiYtPftKXb2RqwoUbqK7x6EoxYUbIiMj1CZ8frRq4ZJld0g9NgLqrl/+Iit+2L1qoxWHjyxZmvntt9cNXFGAEVA3zHos9bHUGWqjNWfPLc9a3en7Uy2MgLzVNyoqNytdbdTpdL2Y/sodde3pQEDeylyepvHhCsXv7Pj60mUj1xMkeBbmlXvvGTJn9g/URlvc7obGxtQZWp/HqOF87cWas/56S6S/mT6gNTk/1/40u7i4GI1j3W7V3+oq3V12/OS/Ov780+cXqL2zwmaz9QoP3/T6Oi8W27l3//BB/mbf3/YaWKYPKDU5SfsHmRq+n5ykMXrwUMXtgDTeWnqH4x4IIgQEEQKCCAFBhIAgYtn/KwPG4AoEEQKCCAFBhIAgQkAQISCIEBBECAgiBAQRAoIIAUGEgCBCQBAhIIgQEEQICCIEBBECgggBQYSAIEJAECEgiBAQRAgIIgQEEQKCCAFBhIAgQkAQISCIEBBECAgiZv2YX/eTSRqj4WUHDT6PYafq1nkMYMorkPY/lTcT9D2Pkafy/jzGMGVACB5m3cJMSsdtLkhwBTKOjttc8CAgiBAQRKx8D2S9G44gZNkrkCVvOIKQZQOCMYJxCzPR67AIuiuQuV6HRdAFBHMhIIgE4z0Q9LJp6mmN0azyBPlDcAWyLO16vJngDQKCCFuYVwzYC0yKK1DXjNkLTIqAIEJAEDH0Hog7Cesx7grEnYQlsYVBhIAgQkAQISCI8Eq0WQXJU1quQKYUPE9pCQgiBAQR3e6BgmRLhsH0uQIFz5YMg7GFQYSAIEJAECEgiBAQRAgIIgQEEQKCCAFBhIAgQkAQISCIEBBECAgiBAQRAoIIAUGEgCBCQBAhIIgQEEQICCIEBBECgggBQYSAIEJAECEgiBAQRAgIIgQEEQKCCAFBhIAgQkAQISCI6BNQlx/CmlWe4M0cm80WXnZQY07HqPacjgl6zbF599Xp+HDefAd0/IYLhcTGj5GfBXcstjCIEBBECAgiBAQRAoIIAUGEgCBCQBAhIIgQEEQICCIEBBECgggBQYSAIEJAECEgiBAQRAgIIgQEEQKCyP8A4Rc/eNmYXAYAAAAASUVORK5CYII=">
+<title>Trading Assistant</title>
 <style>
+/* ---------------------------------------------------------------
+   Theme tokens. Five presets to match the 12 Week Year and meal
+   planner apps, plus light / dark / auto.
+   Status colours are deliberately NOT themed — a permission signal
+   must mean the same thing whatever palette is running.
+----------------------------------------------------------------*/
 :root{
-  --paper:#EDF1F2; --grid:#D7E0E4; --card:#FFFFFF; --ink:#16232E;
-  --muted:#5F7280; --line:#C9D4DA; --on:#0F766E; --off:#A16207; --dim:#8FA3AE;
-  --cell:#F2F5F6; --track:#E7ECEE; --inv:#FFFFFF; --navbg:#FFFFFF;
-  --display:"Helvetica Neue",Helvetica,Arial,sans-serif;
-  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --ok:#2e7d4f; --ok-bg:#e6f4ec; --ok-line:#9dcbb2;
+  --caution:#9a6800; --caution-bg:#fdf3dd; --caution-line:#e0bd6a;
+  --off:#8a3a3a; --off-bg:#f7e9e9; --off-line:#d7a9a9;
+  --radius:14px; --radius-sm:9px;
+  --gap:14px;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --f-data:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
 }
-*,*::before,*::after{box-sizing:border-box}
-html{height:100%}
-html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--display);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
-body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;padding-top:env(safe-area-inset-top)}
-main{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 16px 28px;width:100%;max-width:720px;margin:0 auto}
+[data-mode="dark"]{
+  --bg:#12161b; --card:#1a2027; --card-2:#212933; --line:#2c3540;
+  --ink:#e8edf2; --ink-2:#a3b0bd; --ink-3:#6f7d8b;
+  --ok:#5fbd88; --ok-bg:#16301f; --ok-line:#2c5a3c;
+  --caution:#e0b055; --caution-bg:#332813; --caution-line:#5e4a1d;
+  --off:#dd8484; --off-bg:#331a1a; --off-line:#5c2e2e;
+  --shadow:0 1px 2px rgba(0,0,0,.5);
+}
+[data-mode="light"]{
+  --bg:#f2f4f6; --card:#ffffff; --card-2:#f7f9fa; --line:#dde3e8;
+  --ink:#161c22; --ink-2:#5a6773; --ink-3:#8b98a5;
+  --shadow:0 1px 2px rgba(16,24,32,.07);
+}
+[data-accent="graphite"]{ --acc:#4b6478; --acc-ink:#fff; --acc-soft:#e7edf2; }
+[data-accent="clay"]    { --acc:#a35a3c; --acc-ink:#fff; --acc-soft:#f6e9e3; }
+[data-accent="pine"]    { --acc:#2f6b52; --acc-ink:#fff; --acc-soft:#e4f0ea; }
+[data-accent="indigo"]  { --acc:#4a4f9c; --acc-ink:#fff; --acc-soft:#e9e9f6; }
+[data-accent="ember"]   { --acc:#a8492c; --acc-ink:#fff; --acc-soft:#f8e7e1; }
+[data-mode="dark"][data-accent="graphite"]{ --acc:#7fa0ba; --acc-ink:#0e141a; --acc-soft:#1d2831; }
+[data-mode="dark"][data-accent="clay"]    { --acc:#d4886a; --acc-ink:#20120c; --acc-soft:#2e1e17; }
+[data-mode="dark"][data-accent="pine"]    { --acc:#5fae8c; --acc-ink:#0b1a14; --acc-soft:#15271f; }
+[data-mode="dark"][data-accent="indigo"]  { --acc:#8a90e0; --acc-ink:#0f1020; --acc-soft:#1e1f33; }
+[data-mode="dark"][data-accent="ember"]   { --acc:#e07a55; --acc-ink:#1e0d07; --acc-soft:#301810; }
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font:400 16px/1.45 var(--f-body);
+  -webkit-text-size-adjust:100%;
+  padding-bottom:calc(72px + env(safe-area-inset-bottom));
+}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* header */
 header{
-  flex:none;position:relative;padding:22px 16px 16px;width:100%;max-width:720px;margin:0 auto;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:22px 22px;background-position:-1px -1px;
+  position:sticky;top:0;z-index:30;background:var(--bg);
+  padding:calc(10px + env(safe-area-inset-top)) 16px 8px;
+  border-bottom:1px solid var(--line);
 }
-.eyebrow{font:600 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-h1{font:800 27px/1.02 var(--display);letter-spacing:-.035em;text-transform:uppercase;margin:8px 0 0}
-.sub{font:400 13px/1.45 var(--display);color:var(--muted);margin:6px 0 0}
-.save{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);position:absolute;top:24px;right:16px}
-
-.card{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:14px;margin:12px 0}
-.lbl{display:block;font:600 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-input[type=text],input[type=date],input[type=number],textarea{
-  width:100%;font:400 15px/1.45 var(--display);color:var(--ink);background:transparent;
-  border:0;border-bottom:1px solid var(--line);padding:6px 0;border-radius:0;-webkit-appearance:none;font-family:var(--display);
+.h-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+h1{margin:0;font-size:17px;font-weight:650;letter-spacing:-.2px}
+.h-date{font:500 12px/1 var(--f-data);color:var(--ink-3);letter-spacing:.4px}
+.banner{
+  margin-top:8px;padding:8px 11px;border-radius:var(--radius-sm);
+  background:var(--caution-bg);border:1px solid var(--caution-line);
+  color:var(--caution);font-size:13px;line-height:1.35;
 }
-textarea{border:1px solid var(--line);padding:10px;min-height:120px;resize:vertical;border-radius:3px}
-input:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:2px}
-::placeholder{color:var(--dim)}
 
-.row{display:flex;gap:10px;align-items:flex-start}
-.num{font:700 13px/1.6 var(--mono);color:var(--dim);width:20px;flex:none;padding-top:5px}
-.grow{flex:1;min-width:0}
+/* layout */
+main{padding:16px;max-width:900px;margin:0 auto}
+.view{display:none}
+.view.on{display:block}
+h2{margin:0 0 4px;font-size:20px;font-weight:640;letter-spacing:-.3px}
+.sub{margin:0 0 16px;color:var(--ink-2);font-size:14px}
 
-.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-.chip{font:600 11px/1 var(--mono);min-width:26px;height:26px;padding:0 6px;border-radius:13px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--inv)}
-.chip.day[aria-pressed="true"]{background:var(--on);border-color:var(--on)}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:14px;margin-bottom:var(--gap);
+  box-shadow:var(--shadow);
+}
+.card h3{margin:0 0 2px;font-size:15px;font-weight:620}
+.card .hint{margin:0 0 10px;font-size:13px;color:var(--ink-2)}
 
-.btn{font:600 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 14px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:3px;cursor:pointer}
-.btn:disabled{opacity:.4}
-.btn.ghost{border-color:transparent;color:var(--muted);padding:8px 0}
+/* the step spine — order carries meaning here, prep is a fixed sequence */
+.step{display:flex;gap:12px;margin-bottom:var(--gap)}
+.step-n{
+  flex:0 0 26px;height:26px;border-radius:50%;margin-top:13px;
+  display:grid;place-items:center;
+  font:600 12px/1 var(--f-data);
+  background:var(--card-2);border:1px solid var(--line);color:var(--ink-3);
+}
+.step.done .step-n{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.step .card{flex:1;margin-bottom:0}
 
-.strip{display:flex;gap:3px;align-items:flex-end;height:96px;position:relative;margin:4px 0 6px}
-.target{position:absolute;left:0;right:0;bottom:85%;border-top:1px dashed var(--dim);pointer-events:none}
-.target span{position:absolute;right:0;top:-13px;font:600 9px/1 var(--mono);color:var(--dim)}
-.cell{flex:1;height:100%;position:relative;background:var(--cell);border:1px solid var(--line);border-radius:2px;padding:0;cursor:pointer;overflow:hidden}
-.cell[aria-current="true"]{border-color:var(--ink);border-width:2px}
-.fill{position:absolute;left:0;right:0;bottom:0;background:var(--on)}
-.fill.low{background:var(--off)}
-.cellnum{position:absolute;left:0;right:0;bottom:2px;font:600 9px/1 var(--mono);color:var(--muted)}
-.fill+.cellnum{color:var(--inv)}
+label{display:block;font-size:13px;font-weight:560;color:var(--ink-2);margin:10px 0 5px}
+input[type=text],input[type=number],textarea,select{
+  width:100%;padding:9px 11px;background:var(--card-2);
+  border:1px solid var(--line);border-radius:var(--radius-sm);
+}
+textarea{min-height:64px;resize:vertical}
+input[type=text].price{font-family:var(--f-data)}
 
-.stats{display:flex;gap:10px;margin-top:12px}
-.stat{flex:1;border-top:2px solid var(--ink);padding-top:7px}
-.statv{font:700 25px/1 var(--mono);letter-spacing:-.02em}
-.statl{font:500 10px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  padding:7px 12px;border-radius:999px;background:var(--card-2);
+  border:1px solid var(--line);color:var(--ink-2);
+  font-size:13px;cursor:pointer;
+}
+.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink);font-weight:560}
+.chip.sm{padding:5px 10px;font-size:12px}
 
-.tac{display:flex;gap:13px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--line)}
-.tac:last-child{border-bottom:0}
-.box{width:30px;height:30px;flex:none;border:1.5px solid var(--line);border-radius:8px;background:transparent;cursor:pointer;font:700 15px/1 var(--mono);color:var(--inv)}
-.box[aria-pressed="true"]{background:var(--on);border-color:var(--on)}
-.tactext{font:400 15px/1.35 var(--display)}
-.tacmeta{font:500 10px/1.35 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
-.done .item{color:var(--muted);text-decoration:line-through}
+.tags{display:flex;gap:6px}
+.tag{
+  flex:1;padding:8px 0;text-align:center;border-radius:var(--radius-sm);
+  background:var(--card-2);border:1px solid var(--line);
+  font:600 13px/1 var(--f-data);color:var(--ink-3);cursor:pointer;
+}
+.tag[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
 
-.empty{font:400 14px/1.5 var(--display);color:var(--muted);padding:18px 0;text-align:center}
-.note{font:400 12px/1.4 var(--display);color:var(--muted);margin-top:8px}
-.tips{margin:0;padding:0 0 0 18px}
-.tips li{font:400 13px/1.5 var(--display);color:var(--muted);margin-bottom:7px}
-.mset{padding:14px 0;border-bottom:1px solid var(--line)}
-.mset:last-of-type{border-bottom:0}
-.mgrid{display:flex;gap:10px;margin-top:12px}
-.mgrid>div{flex:1;min-width:0}
-.mentry{margin-top:12px}
-.mentry.inline{margin-top:14px;padding:12px 13px;border-left:2px solid var(--on);background:var(--cell);border-radius:0 5px 5px 0}
-.mentry.inline .item{font-size:14px;color:var(--muted)}
-.mentry .tacmeta{margin-top:6px}
-.mrow{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
-.mrow:last-child{border-bottom:0}
-.chart{display:block;width:100%;height:70px;margin:12px 0 8px}
-.gauge{display:block;width:100%;max-width:280px;margin:6px auto 0}
-.rings{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
-.ringbox{width:78px;text-align:center}
-.ring{display:block;width:70px;height:70px;margin:0 auto}
-.ringlab{font:500 9px/1.25 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px;
-  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-input[type=number]{-moz-appearance:textfield}
-input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.breakdown{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
-.brow{display:flex;align-items:center;gap:10px;font:500 11px/1 var(--mono);color:var(--muted);margin-top:9px}
-.brow b{font:700 11px/1 var(--mono);color:var(--ink);width:38px;text-align:right}
-.brow>span:first-child{width:46px;flex:none;letter-spacing:.06em;text-transform:uppercase}
-.bbar{flex:1;height:6px;background:var(--track);border-radius:3px;overflow:hidden}
-.bbar i{display:block;height:100%;background:var(--ink)}
-.prev{margin-top:14px;padding-top:11px;border-top:1px dashed var(--line);font:400 13px/1.45 var(--display);color:var(--muted)}
-.prevtag{display:inline-block;font:600 9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:2px;padding:3px 5px;margin-right:7px}
+.view-row{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.view-row:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.view-name{font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.view-name em{font-style:normal;font:500 11px/1 var(--f-data);color:var(--ink-3);letter-spacing:.5px}
 
-.weekbar{display:flex;gap:5px;overflow-x:auto;padding:10px 0;position:sticky;top:0;background:var(--paper);z-index:5}
-.wk{flex:none;width:40px;height:40px;border:1px solid var(--line);background:var(--card);border-radius:20px;
-  font:600 13px/1 var(--mono);color:var(--muted);cursor:pointer}
-.wk.hit{border-color:var(--on);color:var(--on)}
-.wk[aria-current="true"]{background:var(--ink);border-color:var(--ink);color:var(--inv)}
+.fact{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 0}
+.fact + .fact{border-top:1px dashed var(--line)}
+.fact-q{font-size:13.5px;flex:1}
+.fact-a{display:flex;gap:5px;flex:0 0 auto}
+.fact-a button{
+  padding:5px 9px;border-radius:7px;background:var(--card-2);
+  border:1px solid var(--line);color:var(--ink-3);
+  font:600 11px/1 var(--f-data);cursor:pointer;letter-spacing:.3px;
+}
+.fact-a button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
 
-.wkhero{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:6px 2px 18px}
-.wkbig{font:700 46px/1 var(--mono);letter-spacing:-.04em}
-.wkring{width:70px;flex:none;opacity:.9}
-.wkring .ringlab{display:none}
+/* ---- signature: the permission board ---------------------------
+   Six edges, each a card that states its own verdict and why.
+   This is the thing the app is for, so it gets the boldness.     */
+.board{display:grid;gap:10px}
+@media(min-width:620px){.board{grid-template-columns:1fr 1fr}}
+.edge{
+  border-radius:var(--radius);padding:13px 14px;border:1px solid var(--line);
+  background:var(--card);position:relative;overflow:hidden;
+}
+.edge::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ink-3)}
+.edge.s-on::before{background:var(--ok)}
+.edge.s-caution::before{background:var(--caution)}
+.edge.s-off::before{background:var(--off)}
+.edge-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.edge-name{font-size:15px;font-weight:640;letter-spacing:-.2px}
+.edge-short{font:600 11px/1 var(--f-data);color:var(--ink-3);letter-spacing:.6px}
+.verdict{
+  font:700 11px/1 var(--f-data);letter-spacing:.9px;
+  padding:5px 9px;border-radius:6px;white-space:nowrap;
+}
+.s-on .verdict{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-line)}
+.s-caution .verdict{background:var(--caution-bg);color:var(--caution);border:1px solid var(--caution-line)}
+.s-off .verdict{background:var(--off-bg);color:var(--off);border:1px solid var(--off-line)}
+.edge-why{margin:9px 0 0;padding:0 0 0 16px;font-size:13px;color:var(--ink-2)}
+.edge-why li{margin:2px 0}
+.edge-cost{
+  margin-top:9px;padding:8px 10px;border-radius:var(--radius-sm);
+  background:var(--caution-bg);border:1px solid var(--caution-line);
+  color:var(--caution);font-size:12.5px;line-height:1.35;
+}
+.edge-locked{
+  margin-top:9px;font-size:12.5px;color:var(--ink-3);font-style:italic;
+}
+.edge-ovr{margin-top:9px;display:flex;gap:7px;align-items:center}
+.edge-ovr button{
+  padding:6px 10px;border-radius:7px;background:transparent;
+  border:1px solid var(--line);color:var(--ink-2);font-size:12px;cursor:pointer;
+}
+.ovr-note{
+  margin-top:8px;font-size:12.5px;color:var(--ink-2);
+  padding:8px 10px;background:var(--card-2);border-radius:var(--radius-sm);
+  border-left:3px solid var(--acc);
+}
 
-.sec{background:var(--card);border:1px solid var(--line);border-radius:6px;margin:0 0 10px;overflow:hidden}
-.sec.open{border-color:var(--ink)}
-.sechead{display:flex;align-items:center;gap:12px;width:100%;padding:14px 14px 13px;background:transparent;
-  border:0;text-align:left;cursor:pointer;color:var(--ink)}
-.secn{flex:none;width:24px;height:24px;border-radius:12px;border:1px solid var(--line);
-  font:600 11px/23px var(--mono);text-align:center;color:var(--muted)}
-.sec.open .secn{background:var(--ink);border-color:var(--ink);color:var(--inv)}
-.sect{display:block;font:600 15px/1.3 var(--display);letter-spacing:-.01em}
-.secmeta{display:block;font:500 10px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:5px}
-.secpct{flex:none;font:700 15px/1 var(--mono)}
-.chev{flex:none;font:400 20px/1 var(--display);color:var(--dim);transition:transform .2s ease}
-.sec.open .chev{transform:rotate(90deg)}
-.secbar{height:3px;background:var(--track)}
-.secbar i{display:block;height:100%;transition:width .3s ease}
-.secbody{padding:6px 14px 16px}
-.notes{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.empty{
+  text-align:center;padding:28px 18px;color:var(--ink-2);
+  border:1px dashed var(--line);border-radius:var(--radius);background:var(--card-2);
+}
+.empty strong{display:block;color:var(--ink);font-size:15px;margin-bottom:5px}
 
-.days{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.dbtn{width:34px;height:34px;border-radius:17px;border:1px solid var(--line);background:transparent;
-  color:var(--muted);font:600 12px/1 var(--mono);cursor:pointer}
-.dbtn[aria-pressed="true"]{background:var(--on);border-color:var(--on);color:var(--inv)}
-.item{font:400 16px/1.35 var(--display);letter-spacing:-.005em}
-.mfield{display:flex;align-items:baseline;gap:8px;margin-top:6px}
-.mfield input{flex:1;font:600 20px/1.2 var(--mono);border-bottom-color:var(--line)}
-.munit{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:11px 16px;border-radius:var(--radius-sm);cursor:pointer;
+  background:var(--acc);border:1px solid var(--acc);color:var(--acc-ink);
+  font-size:15px;font-weight:580;
+}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink-2)}
+.btn.wide{width:100%}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
 
-nav{flex:none;display:flex;background:var(--navbg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;padding:12px 4px 13px;border:0;background:transparent;cursor:pointer;font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-top:2px solid transparent;margin-top:-1px}
-nav button[aria-current="true"]{color:var(--ink);border-top-color:var(--ink)}
-h2{font:800 15px/1 var(--display);letter-spacing:-.02em;text-transform:uppercase;margin:22px 0 2px}
-hr{height:1px;background:var(--line);border:0;margin:18px 0}
+.idea{
+  background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:11px;margin-bottom:9px;
+}
+.idea-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.idea-h b{font-size:14px}
+.idea-legs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
+.idea-legs div{font:500 13px/1.3 var(--f-data)}
+.idea-legs span{display:block;font:500 10px/1 var(--f-body);color:var(--ink-3);letter-spacing:.5px;margin-bottom:3px}
+.x{background:none;border:0;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0 4px}
+
+.levels-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.levels-grid label{margin-top:4px}
+
+/* tab bar */
+nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:var(--card);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+nav button{
+  background:none;border:0;padding:9px 4px 10px;cursor:pointer;
+  color:var(--ink-3);font-size:11px;font-weight:560;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+nav button .dot{width:5px;height:5px;border-radius:50%;background:transparent}
+nav button[aria-current="page"]{color:var(--acc)}
+nav button[aria-current="page"] .dot{background:var(--acc)}
+nav .ico{font-size:17px;line-height:1}
+
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;
+  background:var(--ink);color:var(--bg);padding:10px 15px;
+  border-radius:999px;font-size:13.5px;max-width:88%;text-align:center;
+  opacity:0;pointer-events:none;transition:opacity .18s;
+}
+.toast.show{opacity:.96}
+
+.prog{height:4px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:9px}
+.prog i{display:block;height:100%;background:var(--acc);width:0;transition:width .25s}
+.meta{font:500 11px/1 var(--f-data);color:var(--ink-3);letter-spacing:.4px}
+.row-2{display:flex;gap:9px}
+.row-2 > *{flex:1}
+
+.cap-row{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}
+.cap-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 12px;border-radius:var(--radius-sm);cursor:pointer;
+  background:var(--acc-soft);border:1px solid var(--acc);color:var(--acc);
+  font-size:13px;font-weight:560;
+}
+.cap-btn.plain{background:transparent;border-color:var(--line);color:var(--ink-2)}
+.cap-btn[disabled]{opacity:.5;cursor:wait}
+.thumbs{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.thumbs img{width:56px;height:56px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+.thumbs .drop{
+  position:relative;
+}
+.thumbs .drop button{
+  position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;
+  background:var(--ink);color:var(--bg);border:0;font-size:13px;line-height:1;cursor:pointer;
+}
+.proposal{
+  margin-top:10px;border:1px solid var(--acc);border-radius:var(--radius-sm);
+  background:var(--acc-soft);padding:11px;
+}
+.proposal h4{margin:0 0 3px;font-size:13.5px;font-weight:640;color:var(--ink)}
+.proposal p.lead{margin:0 0 9px;font-size:12.5px;color:var(--ink-2)}
+.prop-item{display:flex;gap:9px;align-items:flex-start;padding:6px 0;font-size:13px}
+.prop-item + .prop-item{border-top:1px dashed var(--line)}
+.prop-item input{margin-top:3px;flex:0 0 auto;width:16px;height:16px;accent-color:var(--acc)}
+.prop-item label{margin:0;font-size:13px;color:var(--ink);font-weight:400;flex:1}
+.prop-item b{font-weight:600}
+.prop-unsure{
+  margin-top:9px;font-size:12.5px;color:var(--caution);
+  background:var(--caution-bg);border:1px solid var(--caution-line);
+  padding:7px 9px;border-radius:7px;
+}
+.speak{
+  background:none;border:1px solid var(--line);border-radius:7px;
+  padding:5px 9px;font-size:12px;color:var(--ink-2);cursor:pointer;
+}
+.speak.on{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.asks{margin:6px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-3)}
+.asks li{margin:1px 0}
+
+
+/* ---- guided mode: one thing on screen at a time ---- */
+.wiz{
+  position:fixed;inset:0;z-index:100;background:var(--bg);
+  display:none;flex-direction:column;
+}
+.wiz.on{display:flex}
+.wiz-top{
+  padding:calc(12px + env(safe-area-inset-top)) 16px 10px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.wiz-top .meta{flex:1}
+.wiz-close{background:none;border:0;color:var(--ink-3);font-size:22px;cursor:pointer;padding:2px 8px}
+.wiz-prog{height:4px;background:var(--line)}
+.wiz-prog i{display:block;height:100%;background:var(--acc);transition:width .25s}
+.wiz-body{
+  flex:1;overflow-y:auto;padding:22px 18px;
+  max-width:640px;width:100%;margin:0 auto;
+}
+.wiz-q{font-size:22px;font-weight:650;letter-spacing:-.4px;line-height:1.25;margin:0 0 6px}
+.wiz-sub{font-size:14.5px;color:var(--ink-2);margin:0 0 18px;line-height:1.45}
+.wiz-foot{
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--line);
+  display:flex;gap:10px;background:var(--card);
+}
+.wiz-foot .btn{flex:1}
+.wiz-body .asks{font-size:13.5px;color:var(--ink-2);margin:0 0 14px}
+.wiz-body textarea{min-height:88px;font-size:16px}
+.wiz-body .tags{margin-top:12px}
+.wiz-one-fact{margin-top:6px}
+.wiz-one-fact .fact-a{display:flex;gap:8px;margin-top:16px}
+.wiz-one-fact .fact-a button{flex:1;padding:13px 8px;font-size:14px;border-radius:var(--radius-sm)}
+.wiz-skip{background:none;border:0;color:var(--ink-3);font-size:13px;cursor:pointer;text-decoration:underline;margin-top:14px}
+
+
+/* ---- coach chat ---- */
+.chat{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.45;white-space:pre-wrap}
+.msg.me{align-self:flex-end;background:var(--acc);color:var(--acc-ink);border-bottom-right-radius:5px}
+.msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:5px}
+.msg.ai .speak{margin-top:7px;display:inline-block}
+.chat-input{display:flex;gap:8px;position:sticky;bottom:calc(64px + env(safe-area-inset-bottom))}
+.chat-input textarea{flex:1;min-height:46px;max-height:120px}
+.chat-input .btn{align-self:flex-end}
+.msg.think{align-self:flex-start;color:var(--ink-3);font-size:13px;background:none;border:0}
+
+details summary{cursor:pointer;font-size:13.5px;color:var(--ink-2);padding:4px 0}
 </style>
 </head>
 <body>
+
 <header>
-  <div class="eyebrow" id="eyebrow">12 Week Year</div>
-  <h1 id="title">Week 1</h1>
-  <p class="sub" id="sub"></p>
-  <span class="save" id="status"></span>
+  <div class="h-row">
+    <h1>Trading Assistant</h1>
+    <span class="h-date" id="hdrDate"></span>
+  </div>
+  <div class="prog"><i id="hdrProg"></i></div>
+  <div id="dstBanner"></div>
 </header>
-<main id="app"></main>
-<nav id="nav"></nav>
-<input type="file" id="importer" accept="application/json" hidden>
+
+<main>
+
+<!-- ============================ PREP ============================ -->
+<section class="view on" id="v-prep">
+  <h2>Plan of attack</h2>
+  <p class="sub">Fixed order. Observe first, interpret after — the sequence is the point.</p>
+
+  <div class="card" style="border-color:var(--acc)">
+    <h3>Guided prep</h3>
+    <p class="hint">One thing on screen at a time. It only asks what it still needs.</p>
+    <button class="btn wide" id="startWiz">Start guided prep</button>
+  </div>
+
+  <!-- 1 focus -->
+  <div class="step" id="step1">
+    <div class="step-n">1</div>
+    <div class="card">
+      <h3>Today's focus</h3>
+      <p class="hint">One performance objective. Not P&amp;L.</p>
+      <div class="chips" id="focusChips"></div>
+      <label for="focusFree">Or write your own</label>
+      <input type="text" id="focusFree" placeholder="e.g. wait for the level, don't anticipate">
+    </div>
+  </div>
+
+  <!-- 2 news -->
+  <div class="step" id="step2">
+    <div class="step-n">2</div>
+    <div class="card">
+      <h3>News events</h3>
+      <p class="hint">What's on the calendar that could move the auction.</p>
+      <button class="btn ghost wide" id="pullNews">Pull today's events</button>
+      <div id="newsOut"></div>
+      <details style="margin-top:10px">
+        <summary>Add one by hand</summary>
+        <div class="row-2" style="margin-top:8px">
+          <input type="text" id="newsTime" placeholder="14:30" class="price">
+          <input type="text" id="newsWhat" placeholder="CPI">
+        </div>
+        <button class="btn ghost wide" id="addNews" style="margin-top:8px">Add event</button>
+      </details>
+    </div>
+  </div>
+
+  <!-- 3 observations -->
+  <div class="step" id="step3">
+    <div class="step-n">3</div>
+    <div class="card">
+      <h3>Timeframe observations</h3>
+      <p class="hint">Six views, in order. Note what you see and tag who's in control. No trade ideas yet.</p>
+      <div id="views"></div>
+    </div>
+  </div>
+
+  <!-- 4 facts -->
+  <div class="step" id="step4">
+    <div class="step-n">4</div>
+    <div class="card">
+      <h3>Structural facts</h3>
+      <p class="hint">These, and the L/S/B tags above, are what the board actually computes from. Your written notes feed them via "Read this view" — they aren't read directly.</p>
+      <button class="cap-btn plain" type="button" id="readAll" style="margin-bottom:10px">Read every view I've shot</button>
+      <div id="facts"></div>
+    </div>
+  </div>
+
+  <!-- 5 levels -->
+  <div class="step" id="step5">
+    <div class="step-n">5</div>
+    <div class="card">
+      <h3>Levels</h3>
+      <p class="hint">Zones, not lines. Roughly two points either side on mES.</p>
+      <div class="levels-grid" id="levels"></div>
+      <label for="extraLevels">Other levels in play</label>
+      <textarea id="extraLevels" placeholder="Composite HVNs / LVNs, weekly value edges, overnight high and low…"></textarea>
+    </div>
+  </div>
+
+  <!-- 6 analysis -->
+  <div class="step" id="step6">
+    <div class="step-n">6</div>
+    <div class="card">
+      <h3>General analysis</h3>
+      <p class="hint">Now you can interpret. What do you make of all that?</p>
+      <textarea id="analysis" placeholder="Your read of the day…" style="min-height:96px"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BOARD ============================ -->
+<section class="view" id="v-board">
+  <h2>Edge permission</h2>
+  <p class="sub" id="boardSub">What the day allows.</p>
+  <div id="boardOut"></div>
+</section>
+
+<!-- ============================ PLAN ============================ -->
+<section class="view" id="v-plan">
+  <h2>Trade ideas</h2>
+  <p class="sub">Only edges the day permits. Idea, stop, entry — all three or no trade.</p>
+  <div class="card">
+    <label for="ideaEdge">Edge</label>
+    <select id="ideaEdge"></select>
+    <div class="row-2" style="margin-top:4px">
+      <div>
+        <label for="ideaDir">Direction</label>
+        <select id="ideaDir"><option>Long</option><option>Short</option></select>
+      </div>
+      <div>
+        <label for="ideaEntry">Entry zone</label>
+        <input type="text" id="ideaEntry" class="price" placeholder="0000–0000">
+      </div>
+    </div>
+    <div class="row-2">
+      <div>
+        <label for="ideaStop">Stop zone</label>
+        <input type="text" id="ideaStop" class="price" placeholder="beyond 0000">
+      </div>
+      <div>
+        <label for="ideaTarget">Target</label>
+        <input type="text" id="ideaTarget" class="price" placeholder="POC 0000">
+      </div>
+    </div>
+    <label for="ideaNote">Note</label>
+    <input type="text" id="ideaNote" placeholder="Why this one, in a line">
+    <button class="btn wide" id="addIdea" style="margin-top:12px">Add idea</button>
+  </div>
+  <div id="ideasOut"></div>
+</section>
+
+<!-- ============================ COACH ============================ -->
+<section class="view" id="v-coach">
+  <h2>Coach</h2>
+  <p class="sub">Ask about the method, the board, or today's read. It knows your prep.</p>
+  <div class="chat" id="chatOut"></div>
+  <div class="chat-input">
+    <textarea id="chatIn" placeholder="Ask anything — why is an edge off, what does acceptance mean, is this a Sand day…"></textarea>
+    <button class="btn" id="chatSend">Send</button>
+  </div>
+</section>
+
+<!-- ============================ SETTINGS ============================ -->
+<section class="view" id="v-set">
+  <h2>Settings</h2>
+  <p class="sub">Stage one: prep and the permission board. Risk, journal and coach come next.</p>
+
+  <div class="card">
+    <h3>Appearance</h3>
+    <p class="hint">Same palettes as your other apps.</p>
+    <label>Mode</label>
+    <div class="chips" id="modeChips"></div>
+    <label>Colour</label>
+    <div class="chips" id="accChips"></div>
+  </div>
+
+  <div class="card">
+    <h3>Session</h3>
+    <label for="pmStart">Afternoon starts (UK)</label>
+    <input type="text" id="pmStart" class="price" placeholder="17:30">
+    <p class="hint" style="margin-top:6px">Afternoon Delight stays shut before this.</p>
+    <label for="openTime">Cash open (UK)</label>
+    <input type="text" id="openTime" class="price" placeholder="14:30">
+  </div>
+
+  <div class="card">
+    <h3>Claude API key</h3>
+    <p class="hint">Kept on this device only. Used to pull the calendar and, later, to coach.</p>
+    <input type="text" id="apiKey" placeholder="sk-ant-…" autocomplete="off" spellcheck="false">
+    <div class="row-2" style="margin-top:10px">
+      <button class="btn ghost" id="testKey">Test connection</button>
+      <button class="btn ghost" id="saveKey">Save key</button>
+    </div>
+    <div id="keyOut" style="margin-top:9px;font-size:13px;color:var(--ink-2)"></div>
+  </div>
+
+  <div class="card">
+    <h3>Your data</h3>
+    <p class="hint">Everything lives on this device. Export a file to back it up or move it to another device; import it there. Your API key is never included in the export.</p>
+    <div class="row-2">
+      <button class="btn ghost" id="expData">Export data</button>
+      <label class="btn ghost" style="text-align:center">Import data<input type="file" id="impData" accept=".json,application/json" style="display:none"></label>
+    </div>
+    <div id="dataOut" style="margin-top:9px;font-size:13px;color:var(--ink-2)"></div>
+  </div>
+
+  <div class="card">
+    <h3>Day</h3>
+    <p class="hint">Prep is stored per day. Starting a new day keeps yesterday's focus.</p>
+    <button class="btn ghost wide" id="newDay">Start a new trading day</button>
+  </div>
+</section>
+
+</main>
+
+<div class="wiz" id="wiz" role="dialog" aria-modal="true">
+  <div class="wiz-top">
+    <div class="meta" id="wizWhere"></div>
+    <button class="speak" id="wizSay" type="button">Read aloud</button>
+    <button class="wiz-close" id="wizClose" aria-label="Close">×</button>
+  </div>
+  <div class="wiz-prog"><i id="wizProg"></i></div>
+  <div class="wiz-body" id="wizBody"></div>
+  <div class="wiz-foot">
+    <button class="btn ghost" id="wizBack">Back</button>
+    <button class="btn" id="wizNext">Next</button>
+  </div>
+</div>
+
+<nav>
+  <button data-go="prep" aria-current="page"><span class="ico">◷</span>Prep<span class="dot"></span></button>
+  <button data-go="board"><span class="ico">▤</span>Board<span class="dot"></span></button>
+  <button data-go="plan"><span class="ico">◎</span>Ideas<span class="dot"></span></button>
+  <button data-go="coach"><span class="ico">✳</span>Coach<span class="dot"></span></button>
+  <button data-go="set"><span class="ico">⚙</span>Settings<span class="dot"></span></button>
+</nav>
+
+<div class="toast" id="toast"></div>
 
 <script>
-/* ------------------------------------------------------------------ model */
-var APP_VERSION='11';
-var KEY='twy:plan:v1';
-var DAYS=['M','T','W','T','F','S','S'];
-var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-var PATTERNS=[['Every day',[0,1,2,3,4,5,6]],['Weekdays',[0,1,2,3,4]],['Weekend',[5,6]],['Once',[]]];
-var WEEKS=[1,2,3,4,5,6,7,8,9,10,11,12];
-var THEME_KEY='twy:theme:v1';
-var THEMES={
-  graphite:{name:'Graphite',
-    light:{paper:'#EDF1F2',grid:'#D7E0E4',card:'#FFFFFF',cell:'#F2F5F6',track:'#E7ECEE',line:'#C9D4DA',ink:'#16232E',muted:'#5F7280',dim:'#8FA3AE',on:'#0F766E',off:'#A16207',inv:'#FFFFFF',navbg:'#FFFFFF'},
-    dark:{paper:'#0E1519',grid:'#1B262C',card:'#151E24',cell:'#101A20',track:'#1E2A31',line:'#27353D',ink:'#E4ECEF',muted:'#94A6B0',dim:'#5F727C',on:'#2DD4BF',off:'#F0B429',inv:'#0E1519',navbg:'#131C22'}},
-  clay:{name:'Clay',
-    light:{paper:'#F4EFE7',grid:'#E3D9C9',card:'#FFFDF9',cell:'#F7F2EA',track:'#EBE2D5',line:'#D9CDB9',ink:'#2A211A',muted:'#7A6A5A',dim:'#A6947F',on:'#4F6B3A',off:'#B05B1E',inv:'#FFFDF9',navbg:'#FFFDF9'},
-    dark:{paper:'#17120E',grid:'#241C15',card:'#1E1712',cell:'#191310',track:'#2A2119',line:'#33291F',ink:'#F0E7DA',muted:'#A9977F',dim:'#6F6153',on:'#8FBF6A',off:'#E08A3C',inv:'#17120E',navbg:'#1C1611'}},
-  pine:{name:'Pine',
-    light:{paper:'#ECF1EE',grid:'#D3E0DA',card:'#FFFFFF',cell:'#F1F5F3',track:'#E2EAE6',line:'#C3D3CB',ink:'#12241D',muted:'#5A7268',dim:'#8AA398',on:'#0B6E4F',off:'#9A6B12',inv:'#FFFFFF',navbg:'#FFFFFF'},
-    dark:{paper:'#0C1512',grid:'#1A2620',card:'#121D19',cell:'#0F1A16',track:'#1D2A24',line:'#26352E',ink:'#E2EDE7',muted:'#90A89C',dim:'#5D7268',on:'#34D399',off:'#EAB308',inv:'#0C1512',navbg:'#101A16'}},
-  indigo:{name:'Indigo',
-    light:{paper:'#EEEFF6',grid:'#DADCEB',card:'#FFFFFF',cell:'#F3F4F9',track:'#E6E8F1',line:'#CBCEE1',ink:'#1A1B33',muted:'#5F6288',dim:'#9093B2',on:'#17796B',off:'#B2405F',inv:'#FFFFFF',navbg:'#FFFFFF'},
-    dark:{paper:'#0E0F1A',grid:'#1C1E31',card:'#161829',cell:'#121425',track:'#1F2237',line:'#292C42',ink:'#E6E7F5',muted:'#9799C0',dim:'#62648A',on:'#2DD4BF',off:'#EC7FA0',inv:'#0E0F1A',navbg:'#121423'}},
-  ember:{name:'Ember',
-    light:{paper:'#F2F0EE',grid:'#DFDBD6',card:'#FFFFFF',cell:'#F6F4F2',track:'#E8E4E0',line:'#D2CCC6',ink:'#21201E',muted:'#6E6862',dim:'#9C948C',on:'#3F6C51',off:'#B4531F',inv:'#FFFFFF',navbg:'#FFFFFF'},
-    dark:{paper:'#121110',grid:'#232120',card:'#1A1817',cell:'#161413',track:'#262322',line:'#302C2A',ink:'#EFEAE5',muted:'#A39A92',dim:'#6B635C',on:'#6EA88A',off:'#E2884A',inv:'#121110',navbg:'#181615'}}
-};
-var THEME_ORDER=['graphite','clay','pine','indigo','ember'];
-var MODES=[['light','Light'],['dark','Dark'],['auto','Auto']];
-var theme={preset:'graphite',mode:'auto'};
-var openGoal=null;
-var PREFS_KEY='twy:prefs:v1';
-var prefs={tips:true};
-function savePrefs(){try{localStorage.setItem(PREFS_KEY,JSON.stringify(prefs))}catch(e){}}
-function loadPrefs(){try{var r=localStorage.getItem(PREFS_KEY); if(r)prefs=Object.assign(prefs,JSON.parse(r))}catch(e){}}
+"use strict";
 
-function darkNow(){
-  if(theme.mode==='dark')return true;
-  if(theme.mode==='light')return false;
-  return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
-function applyTheme(){
-  var t=THEMES[theme.preset]||THEMES.graphite;
-  var dark=darkNow(), p=dark?t.dark:t.light, r=document.documentElement;
-  Object.keys(p).forEach(function(k){r.style.setProperty('--'+k,p[k])});
-  r.style.colorScheme=dark?'dark':'light';
-  var m=document.querySelector('meta[name=theme-color]');
-  if(m)m.setAttribute('content',p.navbg);
-}
-function loadTheme(){
-  try{var raw=localStorage.getItem(THEME_KEY); if(raw)theme=Object.assign(theme,JSON.parse(raw))}catch(e){}
-}
-function saveTheme(){
-  try{localStorage.setItem(THEME_KEY,JSON.stringify(theme))}catch(e){}
-}
-var uid=function(){return Math.random().toString(36).slice(2,9)};
-var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){
-  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];})};
-var sameDays=function(a,b){a=a||[];b=b||[];return a.length===b.length&&a.every(function(d){return b.indexOf(d)>-1})};
+/* =====================================================================
+   Storage. Everything lives on this device. Prep is keyed by day so
+   yesterday's read never quietly becomes today's.
+===================================================================== */
+var KEY = "ta_wpa_1";
+var S = load();
 
-function blankTactic(){return{id:uid(),text:'',weeks:[],days:[]}}
-function blankGoal(){return{id:uid(),title:'',start:'',tactics:[blankTactic()],measures:[]}}
-function blankMeasure(){return{id:uid(),name:'',start:0,target:0,unit:'',mode:'weekly',tacticId:''}}
-function blankResult(){return{thisWeek:'',toDate:'',onPace:''}}
-function blankState(){return{vision:{longTerm:'',threeYear:'',age:''},goals:[blankGoal(),blankGoal()],weeks:{}}}
-
-var state=blankState(), view='week', week=1;
-
-function ensureWeek(w){
-  var wk=state.weeks[w]=state.weeks[w]||{done:{},days:{},results:{}};
-  wk.done=wk.done||{}; wk.days=wk.days||{}; wk.results=wk.results||{}; wk.measures=wk.measures||{};
-  return wk;
-}
-function weekOf(w){return state.weeks[w]||{done:{},days:{},results:{},measures:{}}}
-function resultOf(w,gid){return (weekOf(w).results||{})[gid]||blankResult()}
-function lastResult(w,gid){
-  for(var i=w-1;i>=1;i--){var r=resultOf(i,gid);
-    if(r.thisWeek||r.toDate||r.onPace)return{week:i,thisWeek:r.thisWeek,toDate:r.toDate,onPace:r.onPace}}
-  return null;
-}
-function latestOnPace(gid){
-  for(var i=12;i>=1;i--){var r=resultOf(i,gid); if(r.onPace)return{week:i,value:r.onPace}}
-  return null;
-}
-
-/* A tactic scores on the days it is scheduled for.
-   No days set = a one-off, scored by its tick box. */
-function tacticScore(w,t){
-  var wk=weekOf(w), sched=t.days||[];
-  if(!sched.length){var d=wk.done[t.id]?1:0;return{done:d,total:1,pct:d*100,scheduled:false}}
-  var hit=(wk.days[t.id]||[]).filter(function(d){return sched.indexOf(d)>-1});
-  return{done:hit.length,total:sched.length,pct:hit.length/sched.length*100,scheduled:true};
-}
-/* Headline: every tactic due this week counts once, pooled across all goals,
-   with part-completed days scoring pro rata. Goal bars: mean within that goal. */
-function scoreWeek(w){
-  var pool=[];
-  var goals=state.goals.map(function(g){
-    var due=g.tactics.filter(function(t){return t.text.trim()&&t.weeks.indexOf(w)>-1});
-    if(!due.length)return null;
-    var sum=0;
-    due.forEach(function(t){var ts=tacticScore(w,t); sum+=ts.pct; pool.push(ts.pct)});
-    return{pct:sum/due.length,due:due.length};
-  });
-  var active=goals.filter(Boolean);
-  var pct=pool.length?pool.reduce(function(a,b){return a+b},0)/pool.length:null;
-  return{pct:pct,goals:goals,dueGoals:active.length,dueTotal:pool.length};
-}
-/* A measurement is the lag indicator: the number the work is meant to move.
-   mode 'weekly' = enter what you did that week, the app accumulates.
-   mode 'total'  = enter where the number stands now, carried forward. */
-function measureSeries(m){
-  var st=Number(m.start)||0, tg=Number(m.target)||0;
-  var cum=[], entered=[], run=st, lastWeek=0;
-  for(var w=1;w<=12;w++){
-    var raw=(weekOf(w).measures||{})[m.id];
-    var v=(raw===undefined||raw===null||raw==='')?null:Number(raw);
-    entered.push(v);
-    if(v!==null){lastWeek=w; run = m.mode==='total' ? v : run+v;}
-    else if(m.mode==='weekly'){/* nothing added */}
-    cum.push(run);
-  }
-  var expected=function(w){return st+(tg-st)*(w/12)};
-  var current=lastWeek?cum[lastWeek-1]:st;
-  var falling=tg<st;
-  var due=expected(lastWeek||0);
-  return{start:st,target:tg,cum:cum,entered:entered,lastWeek:lastWeek,current:current,
-    expected:expected,falling:falling,
-    onPace:lastWeek?(falling?current<=due:current>=due):null,
-    gap:current-due,
-    pctOfTarget:(tg-st)===0?null:Math.max(0,Math.min(100,(current-st)/(tg-st)*100))};
-}
-function tidy(n){return (Math.round(n*100)/100).toString()}
-
-/* Rev-counter gauge: 0-100% execution, 85 marked as the line that matters. */
-function gauge(pct){
-  var cx=100, cy=100, r=78, W=200, H=118;
-  var pt=function(v,rad){var th=Math.PI*(1-Math.max(0,Math.min(100,v))/100);
-    return [(cx+rad*Math.cos(th)).toFixed(2),(cy-rad*Math.sin(th)).toFixed(2)]};
-  var arc=function(v1,v2,rad,col,w,op){
-    var a=pt(v1,rad), b=pt(v2,rad);
-    return '<path d="M'+a[0]+' '+a[1]+' A'+rad+' '+rad+' 0 0 1 '+b[0]+' '+b[1]+
-      '" fill="none" stroke="'+col+'" stroke-width="'+w+'" stroke-linecap="butt" opacity="'+op+'"/>';
-  };
-  var out='<svg class="gauge" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">';
-  out+=arc(0,60,r,'var(--off)',13,0.85);
-  out+=arc(60,85,r,'var(--off)',13,0.45);
-  out+=arc(85,100,r,'var(--on)',13,0.95);
-  var t=pt(85,r+9), t2=pt(85,r-9);
-  out+='<line x1="'+t[0]+'" y1="'+t[1]+'" x2="'+t2[0]+'" y2="'+t2[1]+'" stroke="var(--ink)" stroke-width="1.5"/>';
-  var lab=pt(85,r+18);
-  out+='<text x="'+lab[0]+'" y="'+lab[1]+'" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="'+
-    'ui-monospace,Menlo,monospace">85</text>';
-  var v=pct===null?0:pct;
-  var n=pt(v,r-14), tail=pt(v,-10);
-  out+='<line x1="'+tail[0]+'" y1="'+tail[1]+'" x2="'+n[0]+'" y2="'+n[1]+
-    '" stroke="'+(pct===null?'var(--dim)':'var(--ink)')+'" stroke-width="3.5" stroke-linecap="round"/>';
-  out+='<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>';
-  out+='<text x="'+(cx-r)+'" y="'+(cy+14)+'" text-anchor="middle" font-size="9" fill="var(--dim)" font-family="ui-monospace,Menlo,monospace">0</text>';
-  out+='<text x="'+(cx+r)+'" y="'+(cy+14)+'" text-anchor="middle" font-size="9" fill="var(--dim)" font-family="ui-monospace,Menlo,monospace">100</text>';
-  return out+'</svg>';
-}
-
-/* Ring per goal — share of that goal's weekly execution achieved so far. */
-function ring(pct,label){
-  var r=26, c=2*Math.PI*r, done=pct===null?0:Math.max(0,Math.min(100,pct));
-  var col=pct===null?'var(--dim)':(pct>=85?'var(--on)':'var(--off)');
-  return '<div class="ringbox"><svg class="ring" viewBox="0 0 70 70" aria-hidden="true">'+
-    '<circle cx="35" cy="35" r="'+r+'" fill="none" stroke="var(--track)" stroke-width="7"/>'+
-    '<circle cx="35" cy="35" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="7" stroke-linecap="round"'+
-    ' stroke-dasharray="'+(c*done/100).toFixed(2)+' '+c.toFixed(2)+'" transform="rotate(-90 35 35)"/>'+
-    '<text x="35" y="39" text-anchor="middle" font-size="15" font-family="ui-monospace,Menlo,monospace"'+
-    ' fill="var(--ink)">'+(pct===null?'—':Math.round(pct))+'</text></svg>'+
-    '<div class="ringlab">'+label+'</div></div>';
-}
-
-/* Which week the plan is actually on — from the start date if set,
-   otherwise the last week with anything recorded. Weeks beyond it are
-   not yet scored and must not drag the average down. */
-function programmeWeek(){
-  var st=state.goals[0]&&state.goals[0].start;
-  if(st){
-    var d=new Date(st+'T00:00:00');
-    if(!isNaN(d.getTime())){
-      var n=Math.floor((Date.now()-d.getTime())/(7*24*3600*1000))+1;
-      return Math.max(1,Math.min(12,n));
-    }
-  }
-  var last=1;
-  WEEKS.forEach(function(w){
-    var wk=state.weeks[w]; if(!wk)return;
-    var any=['done','days','measures','results'].some(function(k){
-      return wk[k]&&Object.keys(wk[k]).length;
-    });
-    if(any)last=w;
-  });
-  return last;
-}
-
-function goalAverages(){
-  var sums=state.goals.map(function(){return{t:0,n:0}});
-  var cw=programmeWeek();
-  WEEKS.forEach(function(w){
-    if(w>cw)return;
-    var sc=scoreWeek(w);
-    sc.goals.forEach(function(g,gi){ if(g){sums[gi].t+=g.pct; sums[gi].n++;} });
-  });
-  return sums.map(function(x){return x.n?x.t/x.n:null});
-}
-
-function measureChart(m,s){
-  var vals=s.cum.concat([s.start,s.target]);
-  var lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals);
-  if(hi===lo)hi=lo+1;
-  var W=240,H=70;
-  var X=function(w){return w/12*W}, Y=function(v){return H-(v-lo)/(hi-lo)*H};
-  var bars='';
-  for(var w=1;w<=s.lastWeek;w++){
-    var good=s.falling?s.cum[w-1]<=s.expected(w):s.cum[w-1]>=s.expected(w);
-    var yv=Y(s.cum[w-1]);
-    bars+='<rect x="'+(X(w-1)+1.5).toFixed(1)+'" y="'+Math.min(yv,H-1).toFixed(1)+
-      '" width="'+(W/12-3).toFixed(1)+'" height="'+Math.max(1,H-yv).toFixed(1)+
-      '" fill="var(--'+(good?'on':'off')+')" opacity="0.9"/>';
-  }
-  return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true">'+
-    bars+
-    '<line x1="0" y1="'+Y(s.start).toFixed(1)+'" x2="'+W+'" y2="'+Y(s.target).toFixed(1)+
-    '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/>'+
-    '</svg>';
-}
-
-function measureInput(m,w,gi,inline){
-  var se=measureSeries(m), raw=(weekOf(w).measures||{})[m.id];
-  var need=se.expected(w), col=se.lastWeek?(se.onPace?'var(--on)':'var(--off)'):'var(--muted)';
-  return '<div class="mentry'+(inline?' inline':'')+'">'+
-    '<div class="item">'+esc(m.name)+'</div>'+
-    '<div class="mfield">'+
-      '<input type="number" inputmode="decimal" data-num="weeks.'+w+'.measures.'+m.id+'" value="'+
-        (raw===undefined||raw===null?'':esc(raw))+'" placeholder="'+(m.mode==='weekly'?'this week':'total now')+'">'+
-      (m.unit?'<span class="munit">'+esc(m.unit)+'</span>':'')+
-    '</div>'+
-    '<div class="tacmeta" style="color:'+col+'">'+tidy(se.cum[w-1])+' of '+tidy(m.target)+
-      ' · pace needs '+tidy(need)+' by week '+w+'</div>'+
-    '</div>';
-}
-
-function weekDates(start,w){
-  if(!start)return null;
-  var d=new Date(start+'T00:00:00'); if(isNaN(d))return null;
-  d.setDate(d.getDate()+(w-1)*7);
-  var e=new Date(d); e.setDate(e.getDate()+6);
-  var f=function(x){return x.toLocaleDateString('en-GB',{day:'numeric',month:'short'})};
-  return f(d)+' – '+f(e);
-}
-
-/* ---------------------------------------------------------------- storage */
-var saveTimer=null;
-function setStatus(t){document.getElementById('status').textContent=t}
-function save(){
-  setStatus('Saving');
-  clearTimeout(saveTimer);
-  saveTimer=setTimeout(function(){
-    try{localStorage.setItem(KEY,JSON.stringify(state));setStatus('Saved')}
-    catch(e){setStatus('Storage full')}
-  },400);
-}
 function load(){
-  var raw=null;
-  try{raw=localStorage.getItem(KEY)}catch(e){}
-  if(!raw){setStatus('New plan');return}
   try{
-    var d=JSON.parse(raw), s=blankState();
-    s.vision=Object.assign(s.vision,d.vision||{});
-    if(d.goals&&d.goals.length)s.goals=d.goals;
-    s.weeks=d.weeks||{};
-    state=s;
-    s.goals.forEach(function(g){ if(!g.id)g.id=uid(); });
-    // results were once an array indexed by goal position — key them by goal id
-    Object.keys(s.weeks).forEach(function(w){
-      var wk=s.weeks[w]; if(!wk||!wk.results)return;
-      if(Array.isArray(wk.results)){
-        var o={};
-        wk.results.forEach(function(r,gi){ if(r&&s.goals[gi])o[s.goals[gi].id]=r; });
-        wk.results=o;
-      }
-    });
-    s.goals.forEach(function(g,gi){
-      g.measures=g.measures||[];
-      g.tactics=(g.tactics&&g.tactics.length?g.tactics:[blankTactic()]).map(function(t){
-        t.weeks=t.weeks||[];t.days=t.days||[];return t});
-      if(g.results&&(g.results.thisWeek||g.results.toDate||g.results.onPace)){
-        var wk=ensureWeek(1); if(!wk.results[g.id])wk.results[g.id]=g.results;
-      }
-      delete g.results;
-    });
-    state=s; setStatus('Saved');
-  }catch(e){setStatus('New plan')}
+    var raw = localStorage.getItem(KEY);
+    if(raw) return migrate(JSON.parse(raw));
+  }catch(e){}
+  return migrate({});
+}
+function migrate(s){
+  s.mode = s.mode || "auto";
+  s.accent = s.accent || "graphite";
+  s.pmStart = s.pmStart || "17:30";
+  s.openTime = s.openTime || "14:30";
+  s.apiKey = s.apiKey || "";
+  s.days = s.days || {};
+  return s;
+}
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }
+  catch(e){ toast("Couldn't save — device storage is full"); }
 }
 
-/* ----------------------------------------------------------------- render */
-function chips(html){return '<div class="chips">'+html+'</div>'}
-function chip(label,pressed,attrs,cls){
-  return '<button class="chip'+(cls?' '+cls:'')+'" aria-pressed="'+(pressed?'true':'false')+'" '+attrs+'>'+label+'</button>';
+function todayKey(){
+  var d = new Date();
+  return d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
 }
-function field(label,path,value,type){
-  return '<label class="lbl">'+label+'</label><input type="'+(type||'text')+'" data-bind="'+path+'" value="'+esc(value)+'">';
-}
+function pad(n){ return (n<10?"0":"") + n; }
 
-function renderVision(){
-  var v=state.vision;
-  return '<h2>Long-term vision</h2>'+
-  '<div class="card"><label class="lbl">Five, ten, fifteen years out</label>'+
-  '<textarea data-bind="vision.longTerm" placeholder="Write it as if it has already happened.">'+esc(v.longTerm)+'</textarea></div>'+
-  '<h2>36-month vision</h2>'+
-  '<div class="card">'+field("Age you'll be",'vision.age',v.age)+
-  '<div style="height:16px"></div><label class="lbl">Three years from now</label>'+
-  '<textarea data-bind="vision.threeYear" placeholder="Work and personal. Concrete enough to aim at.">'+esc(v.threeYear)+'</textarea></div>';
+function day(){
+  var k = S.currentDay || todayKey();
+  S.currentDay = k;
+  if(!S.days[k]){
+    var prev = lastDay();
+    S.days[k] = {
+      focus: prev ? prev.focus : "",       /* focus carries over, by design */
+      focusFree: prev ? prev.focusFree : "",
+      news: [],
+      views: {}, facts: {}, levels: {},
+      extraLevels: "", analysis: "",
+      ideas: [], overrides: {}
+    };
+  }
+  return S.days[k];
 }
-
-function renderPlan(){
-  var tips = prefs.tips===false ? '' :
-    '<div class="card"><label class="lbl">Writing a plan that holds up</label>'+
-    '<ul class="tips">'+
-    '<li>Fewer goals beat more. Three is plenty; one is not too few.</li>'+
-    '<li>Tactics are actions you control, not outcomes you hope for. "Publish three outlines" — not "get more traction".</li>'+
-    '<li>If a tactic can\'t be answered yes or no at the end of a day, it is still too vague.</li>'+
-    '<li>Set the days deliberately. Three chosen days beat a vague "most days".</li>'+
-    '<li>Add a measurement for the number the work is meant to move. Tactics tell you whether you did the work; the measurement tells you whether it worked.</li>'+
-    '</ul><button class="btn ghost" data-act="hidetips">Hide these</button></div>';
-  return tips+state.goals.map(function(g,gi){
-    var tac=g.tactics.map(function(t,ti){
-      var wchips=WEEKS.map(function(w){
-        return chip(w,t.weeks.indexOf(w)>-1,'data-act="tw" data-g="'+gi+'" data-t="'+ti+'" data-w="'+w+'"');
-      }).join('')+chip('All',t.weeks.length===12,'data-act="allw" data-g="'+gi+'" data-t="'+ti+'"');
-      var pchips=PATTERNS.map(function(p,pi){
-        return chip(p[0],sameDays(t.days,p[1]),'data-act="pat" data-g="'+gi+'" data-t="'+ti+'" data-p="'+pi+'"');
-      }).join('');
-      var dchips=DAYS.map(function(d,i){
-        return chip(d,(t.days||[]).indexOf(i)>-1,'data-act="pd" data-g="'+gi+'" data-t="'+ti+'" data-d="'+i+'" aria-label="'+DAY_NAMES[i]+'"','day');
-      }).join('');
-      var n=(t.days||[]).length;
-      return '<div class="row" style="margin-top:'+(ti?22:4)+'px"><span class="num">'+(ti+1)+'</span><div class="grow">'+
-        '<input type="text" data-bind="goals.'+gi+'.tactics.'+ti+'.text" value="'+esc(t.text)+'" placeholder="Action, not outcome">'+
-        '<label class="lbl" style="margin-top:12px">Weeks due</label>'+chips(wchips)+
-        '<label class="lbl" style="margin-top:12px">Days in each of those weeks</label>'+chips(pchips)+chips(dchips)+
-        '<div class="note">'+(n?'Scored out of '+n+' day'+(n>1?'s':'')+' a week.':'One-off — scored done or not done in each week it falls due.')+'</div>'+
-        (g.tactics.length>1?'<button class="btn ghost" data-act="rmt" data-g="'+gi+'" data-t="'+ti+'">Remove</button>':'')+
-        '</div></div>';
-    }).join('');
-    return '<h2>Goal '+(gi+1)+'</h2>'+
-      '<div class="card">'+field('Goal','goals.'+gi+'.title',g.title)+
-      '<div style="height:16px"></div>'+field('Start (Monday of week 1)','goals.'+gi+'.start',g.start,'date')+'</div>'+
-      '<div class="card"><label class="lbl">Tactics</label>'+tac+'<hr>'+
-      '<button class="btn" data-act="addt" data-g="'+gi+'"'+(g.tactics.length>=12?' disabled':'')+'>Add tactic</button>'+
-      (state.goals.length>1?'<button class="btn ghost" style="display:block;margin-top:10px" data-act="rmg" data-g="'+gi+'">Delete goal '+(gi+1)+'</button>':'')+
-      '</div>'+
-      '<div class="card"><label class="lbl">Measurements</label>'+
-      '<div class="note" style="margin-top:0">The number this goal is meant to move. Charted weekly against the pace needed to hit your target.</div>'+
-      g.measures.map(function(m,mi){
-        return '<div class="mset">'+
-          '<input type="text" data-bind="goals.'+gi+'.measures.'+mi+'.name" value="'+esc(m.name)+'" placeholder="What are you measuring?">'+
-          '<div class="mgrid">'+
-            '<div><label class="lbl">Start</label><input type="number" inputmode="decimal" data-num="goals.'+gi+'.measures.'+mi+'.start" value="'+esc(m.start)+'"></div>'+
-            '<div><label class="lbl">Target</label><input type="number" inputmode="decimal" data-num="goals.'+gi+'.measures.'+mi+'.target" value="'+esc(m.target)+'"></div>'+
-            '<div><label class="lbl">Unit</label><input type="text" data-bind="goals.'+gi+'.measures.'+mi+'.unit" value="'+esc(m.unit)+'" placeholder="projects"></div>'+
-          '</div>'+
-          '<label class="lbl" style="margin-top:12px">Each week I enter</label>'+
-          chips(chip('What I did that week',m.mode==='weekly','data-act="mmode" data-g="'+gi+'" data-m="'+mi+'" data-v="weekly"')+
-                chip('Where the total stands',m.mode==='total','data-act="mmode" data-g="'+gi+'" data-m="'+mi+'" data-v="total"'))+
-          '<div class="note">'+(m.mode==='weekly'
-            ? 'Weekly amounts add up, so a light week can be caught up by a heavy one.'
-            : 'A running figure — weight, balance, total to date. Carried forward if you skip a week.')+'</div>'+
-          '<label class="lbl" style="margin-top:14px">Show it with</label>'+
-          chips(chip('This goal',!m.tacticId,'data-act="mtac" data-g="'+gi+'" data-m="'+mi+'" data-v=""')+
-            g.tactics.filter(function(t){return t.text.trim()}).map(function(t,ti){
-              return chip(esc(t.text.length>26?t.text.slice(0,26)+'…':t.text),m.tacticId===t.id,
-                'data-act="mtac" data-g="'+gi+'" data-m="'+mi+'" data-v="'+t.id+'"');
-            }).join(''))+
-          '<div class="note">'+(m.tacticId
-            ? 'The number is entered underneath that tactic on the Week tab.'
-            : 'The number is entered on its own, under Measurements on the Week tab.')+'</div>'+
-          '<button class="btn ghost" data-act="rmm" data-g="'+gi+'" data-m="'+mi+'">Remove measurement</button>'+
-          '</div>';
-      }).join('')+
-      '<button class="btn" data-act="addm" data-g="'+gi+'" style="margin-top:'+(g.measures.length?14:4)+'px">Add measurement</button>'+
-      '</div>';
-  }).join('')+
-  '<hr><button class="btn" data-act="addg">Add another goal</button>'+
-  (state.goals.length>3?'<div class="note">'+state.goals.length+' goals. The method works best at three or fewer — each extra goal dilutes the weekly score and your attention.</div>':'');
+function lastDay(){
+  var keys = Object.keys(S.days).sort();
+  if(!keys.length) return null;
+  return S.days[keys[keys.length-1]];
 }
 
-function renderWeek(){
-  var sc=scoreWeek(week), wk=weekOf(week), out='';
+/* =====================================================================
+   Content model
+===================================================================== */
+var FOCUS_OPTIONS = [
+  "Patience — wait for the level",
+  "No revenge trades",
+  "Hold winners to target",
+  "Size discipline",
+  "Stick to the permitted edge",
+  "No trade without an idea",
+  "Journal every trade"
+];
 
-  out+='<div class="weekbar">'+WEEKS.map(function(w){
-    var s2=scoreWeek(w), cls='wk'+(s2.pct!==null&&s2.pct>=85?' hit':'');
-    return '<button class="'+cls+'" aria-current="'+(w===week)+'" data-act="wk" data-w="'+w+'">'+w+'</button>';
-  }).join('')+'</div>';
+var VIEWS = [
+  { id:"overnight", name:"Overnight session", note:"Globex, before the cash open",
+    asks:["Range high, low and size in points","Where it opened, and the overnight POC","Muted, directional or balanced"] },
+  { id:"rth",       name:"Recent cash session", note:"US regular hours, 14:30–21:00 UK",
+    asks:["Yesterday's high, low, VWAP and POC","Did it gap, and did the gap hold or fill","Accepted higher or lower, or gave it back"] },
+  { id:"micro",     name:"Micro composite",   note:"The last few sessions together",
+    asks:["Do the recent value areas overlap, or is each stacked away from the last","Composite VAH, VAL and POC if there is one","Which way the short-term auction is leaning"] },
+  { id:"composite", name:"Composite profile", note:"The wider balance you're trading inside",
+    asks:["The HVNs that price keeps returning to","The LVNs between them — your decision lines","Which of those is nearest to price now"] },
+  { id:"monthly",   name:"Monthly",           note:"Where the month sits",
+    asks:["Above, below or inside monthly value","Direction of the monthly auction"] },
+  { id:"weekly",    name:"Weekly",            note:"Where the week sits",
+    asks:["Above, below or inside weekly value","Direction of the weekly auction"] }
+];
 
-  var col=sc.pct===null?'var(--dim)':(sc.pct>=85?'var(--on)':'var(--off)');
-  out+='<div class="wkhero">'+
-    '<div><div class="wkbig" style="color:'+col+'">'+(sc.pct===null?'—':Math.round(sc.pct)+'%')+'</div>'+
-    '<div class="statl">'+(sc.pct===null?'Nothing due this week':sc.dueTotal+' tactic'+(sc.dueTotal>1?'s':'')+' due · target 85%')+'</div></div>'+
-    '<div class="wkring">'+ring(sc.pct,'')+'</div></div>';
+/* Structural facts. Each one exists because at least one edge rule
+   needs it — nothing here is asked for the sake of asking. */
+var FACTS = [
+  { id:"priorBalanced",  q:"Prior day balanced (not strongly directional)?", a:["Yes","No"] },
+  { id:"insideValue",    q:"Opened inside prior value?",                      a:["Yes","No"] },
+  { id:"nakedPoc",       q:"Prior POC still naked (untagged)?",               a:["Yes","No"] },
+  { id:"trendDay",       q:"Trend day developing?",                           a:["Yes","No","Early"] },
+  { id:"pullback",       q:"Pullback into value available?",                  a:["Yes","No","Early"] },
+  { id:"choppyVwap",     q:"Chopping around VWAP?",                           a:["Yes","No"] },
+  { id:"edgeFailed",     q:"Value-area extreme already failed repeatedly?",   a:["Yes","No"] },
+  { id:"hvnDefined",     q:"Composite HVNs clearly defined?",                 a:["Yes","No"] },
+  { id:"lvnClear",       q:"Decision LVN clear?",                             a:["Yes","No"] },
+  { id:"accepting",      q:"Price accepting through the decision level?",     a:["Yes","No"] },
+  { id:"secondDist",     q:"Second distribution formed?",                     a:["Yes","No","Forming"] },
+  { id:"pocShifting",    q:"Developing POC shifting rapidly?",                a:["Yes","No"] },
+  { id:"overlapping",    q:"Short-term value areas overlapping?",             a:["Yes","No"] },
+  { id:"compositeWide",  q:"Micro composite too wide to define risk?",        a:["Yes","No"] },
+  { id:"mcBias",         q:"Micro composite bias?",                           a:["Clear","Tentative","None"] },
+  { id:"deepPullback",   q:"Deep afternoon pullback into the midpoint holding?", a:["Yes","No","Early"] },
+  { id:"midAccepted",    q:"Midpoint being accepted through?",                a:["Yes","No"] },
+  { id:"exhausted",      q:"Trend exhausted into major support/resistance?",  a:["Yes","No"] }
+];
 
-  var anyDue=false;
-  state.goals.forEach(function(g,gi){
-    var due=g.tactics.filter(function(t){return t.text.trim()&&t.weeks.indexOf(week)>-1});
-    var gm=(g.measures||[]).filter(function(m){return m.name.trim()&&!m.tacticId});
-    var r=resultOf(week,g.id), p=lastResult(week,g.id);
-    var gs=sc.goals[gi];
-    if(due.length)anyDue=true;
-    var open=openGoal===g.id;
-    var doneCount=due.filter(function(t){return tacticScore(week,t).pct===100}).length;
+var LEVELS = [
+  { id:"pdVah", name:"Prior VAH" }, { id:"pdVal", name:"Prior VAL" },
+  { id:"pdPoc", name:"Prior POC" }, { id:"nPoc",  name:"Naked POC" },
+  { id:"onHigh",name:"Overnight high" }, { id:"onLow", name:"Overnight low" }
+];
 
-    out+='<section class="sec'+(open?' open':'')+'">'+
-      '<button class="sechead" data-act="sec" data-v="'+g.id+'" aria-expanded="'+open+'">'+
-        '<span class="secn">'+(gi+1)+'</span>'+
-        '<span class="grow"><span class="sect">'+esc(g.title||'Goal '+(gi+1))+'</span>'+
-        '<span class="secmeta">'+(due.length?doneCount+' of '+due.length+' done':'nothing due')+
-          (gm.length?' · '+gm.length+' measurement'+(gm.length>1?'s':''):'')+'</span></span>'+
-        '<span class="secpct" style="color:'+(gs?(gs.pct>=85?'var(--on)':'var(--off)'):'var(--dim)')+'">'+
-          (gs?Math.round(gs.pct)+'%':'—')+'</span>'+
-        '<span class="chev">\u203A</span>'+
-      '</button>'+
-      '<div class="secbar"><i style="width:'+(gs?gs.pct:0)+'%;background:'+(gs?(gs.pct>=85?'var(--on)':'var(--off)'):'transparent')+'"></i></div>';
+var EDGES = [
+  { id:"flow", name:"Go With The Flow",  short:"FLOW" },
+  { id:"sand", name:"Line in the Sand",  short:"SAND" },
+  { id:"ntb",  name:"Naked Tractor Beam",short:"NTB"  },
+  { id:"dd",   name:"Playing with DDs",  short:"DD"   },
+  { id:"ad",   name:"Afternoon Delight", short:"AD"   },
+  { id:"mcf",  name:"MC Flow",           short:"MCF"  }
+];
 
-    if(open){
-      out+='<div class="secbody">';
-      if(!due.length&&!gm.length){
-        out+='<p class="empty">Nothing due for this goal in week '+week+'.</p>';
-      }
-      due.forEach(function(t){
-        var ts=tacticScore(week,t), complete=ts.pct===100, hit=wk.days[t.id]||[];
-        var share=sc.dueTotal?100/sc.dueTotal:0;
-        out+='<div class="tac'+(complete?' done':'')+'">'+
-          '<button class="box" aria-pressed="'+complete+'" data-act="tick" data-id="'+t.id+'" aria-label="'+
-            (complete?'Clear this tactic':'Mark every scheduled day done')+'">'+(complete?'\u2713':'')+'</button>'+
-          '<div class="grow"><div class="item">'+esc(t.text)+'</div>'+
-          '<div class="tacmeta">'+(ts.scheduled?ts.done+' of '+ts.total+' days':(complete?'done':'one-off'))+
-            ' · worth '+Math.round(share)+'% of the week</div>';
-        if(ts.scheduled){
-          out+='<div class="days">'+t.days.map(function(i){
-            return '<button class="dbtn" aria-pressed="'+(hit.indexOf(i)>-1)+'" data-act="td" data-id="'+t.id+
-              '" data-d="'+i+'" aria-label="'+DAY_NAMES[i]+'">'+DAYS[i]+'</button>';
-          }).join('')+'</div>';
-        }
-        (g.measures||[]).forEach(function(m){
-          if(m.tacticId===t.id&&m.name.trim())out+=measureInput(m,week,gi,true);
-        });
-        out+='</div></div>';
-      });
-      gm.forEach(function(m){ out+=measureInput(m,week,gi,false); });
+/* =====================================================================
+   The environment engine.
 
-      out+='<div class="notes">'+
-        '<div style="margin-top:10px">'+field('Results this week','weeks.'+week+'.results.'+g.id+'.thisWeek',r.thisWeek)+'</div>'+
-        '<div style="margin-top:14px">'+field('Results to date','weeks.'+week+'.results.'+g.id+'.toDate',r.toDate)+'</div>'+
-        '<div class="chips" style="margin-top:16px"><span class="lbl" style="margin-bottom:0;align-self:center;margin-right:6px">On pace</span>'+
-        ['Yes','No'].map(function(v){return chip(v,r.onPace===v,'data-act="pace" data-gid="'+g.id+'" data-v="'+v+'"')}).join('')+'</div>';
-      if(p){
-        out+='<div class="prev"><span class="prevtag">Week '+p.week+'</span>'+esc(p.toDate||p.thisWeek||'\u2014')+
-          (p.onPace?' · on pace: '+p.onPace.toLowerCase():'')+
-          (!r.toDate&&p.toDate?'<button class="btn ghost" style="display:block;margin-top:4px" data-act="carry" data-gid="'+g.id+'">Carry forward</button>':'')+'</div>';
-      }
-      out+='</div></div>';
+   Two tiers, and the difference is structural possibility, not taste:
+     OFF     — the setup cannot exist today. No door.
+     CAUTION — it exists, the context doesn't back it. Minimum size,
+               and you type a reason first.
+===================================================================== */
+function htfBias(){
+  var d = day();
+  var m = (d.views.monthly||{}).tag, w = (d.views.weekly||{}).tag;
+  if(!m || !w) return "unknown";
+  var dir = function(t){ return t==="L" ? 1 : t==="S" ? -1 : 0; };
+  var a = dir(m), b = dir(w);
+  if(a && b && a === b) return "aligned";
+  if(a && b && a !== b) return "conflicted";
+  if(a || b) return "weak";
+  return "balanced";
+}
+
+function isAfternoon(){
+  var now = new Date();
+  var parts = (S.pmStart || "17:30").split(":");
+  var cut = new Date(now); cut.setHours(+parts[0]||17, +parts[1]||30, 0, 0);
+  return now >= cut;
+}
+
+function verdicts(){
+  var f = day().facts, bias = htfBias(), out = {};
+  var is = function(id, v){ return f[id] === v; };
+  var unknown = function(id){ return !f[id]; };
+
+  /* --- Go With The Flow ------------------------------------------ */
+  (function(){
+    var off = [], caution = [], on = [];
+    if(bias === "conflicted") off.push("Higher timeframes are conflicted");
+    if(bias === "balanced")   off.push("No higher-timeframe direction to follow");
+    if(is("choppyVwap","Yes")) off.push("Chopping around VWAP");
+    if(is("edgeFailed","Yes")) off.push("Value-area extreme has already failed repeatedly");
+    if(!off.length){
+      if(bias === "weak") caution.push("Higher-timeframe bias is only partial");
+      if(is("pullback","No")) caution.push("No pullback into value on offer yet");
+      if(is("pullback","Early")) caution.push("Too early to know if a pullback comes");
+      if(bias === "aligned" && is("pullback","Yes")) on.push("Aligned higher-timeframe bias with a pullback to value");
     }
-    out+='</section>';
-  });
+    out.flow = decide(off, caution, on, ["monthly","weekly"]);
+  })();
 
-  if(!anyDue)out+='<p class="empty">No tactics fall due in week '+week+'. Set the weeks for each tactic in Plan.</p>';
+  /* --- Line in the Sand ------------------------------------------ */
+  (function(){
+    var off = [], caution = [], on = [];
+    if(is("lvnClear","No"))   off.push("No clear LVN to use as the line");
+    if(is("accepting","Yes")) off.push("Price is accepting through the level, not rejecting it");
+    if(!off.length){
+      if(is("hvnDefined","No")) caution.push("Composite HVNs aren't cleanly defined");
+      if(is("hvnDefined","Yes") && is("lvnClear","Yes")) on.push("Clean rotation between defined HVNs with a clear LVN between");
+    }
+    out.sand = decide(off, caution, on, []);
+  })();
+
+  /* --- Naked Tractor Beam ---------------------------------------- */
+  (function(){
+    var off = [], caution = [], on = [];
+    if(is("nakedPoc","No")) off.push("No naked POC — it's been tagged, so the setup doesn't exist");
+    if(!off.length){
+      if(is("priorBalanced","No")) caution.push("Prior day was directional, not balanced");
+      if(is("insideValue","No"))   caution.push("Didn't open inside prior value");
+      if(is("nakedPoc","Yes") && is("priorBalanced","Yes") && is("insideValue","Yes"))
+        on.push("Balanced prior day, inside-value open, POC still naked");
+    }
+    out.ntb = decide(off, caution, on, []);
+  })();
+
+  /* --- Playing with DDs ------------------------------------------ */
+  (function(){
+    var off = [], caution = [], on = [];
+    if(is("secondDist","No"))   off.push("No second distribution — there's nothing to trade between");
+    if(is("pocShifting","Yes")) off.push("Developing POC is shifting too fast to target");
+    if(is("lvnClear","No"))     off.push("Separating LVN isn't clear");
+    if(!off.length){
+      if(is("secondDist","Forming")) caution.push("Second distribution is forming but not confirmed");
+      if(is("secondDist","Yes") && is("lvnClear","Yes") && is("pocShifting","No"))
+        on.push("Confirmed second distribution with a clear separating LVN");
+    }
+    out.dd = decide(off, caution, on, []);
+  })();
+
+  /* --- Afternoon Delight ----------------------------------------- */
+  (function(){
+    var off = [], caution = [], on = [];
+    if(!isAfternoon())         off.push("It's not the afternoon yet — this one is time-gated");
+    if(is("trendDay","No"))    off.push("Not a trend day");
+    if(is("midAccepted","Yes"))off.push("Midpoint is being accepted through");
+    if(is("exhausted","Yes"))  off.push("Trend has exhausted into major support or resistance");
+    if(!off.length){
+      if(is("trendDay","Early"))     caution.push("Trend day not confirmed yet");
+      if(is("deepPullback","No"))    caution.push("Pullback isn't deep enough into the midpoint");
+      if(is("deepPullback","Early")) caution.push("Waiting on the afternoon pullback");
+      if(is("trendDay","Yes") && is("deepPullback","Yes"))
+        on.push("Confirmed trend day with a deep pullback holding the midpoint");
+    }
+    out.ad = decide(off, caution, on, []);
+  })();
+
+  /* --- MC Flow ---------------------------------------------------- */
+  (function(){
+    var off = [], caution = [], on = [];
+    if(is("overlapping","No"))    off.push("Value areas aren't overlapping — no composite to read");
+    if(is("compositeWide","Yes")) off.push("Composite is too wide to define risk");
+    if(is("mcBias","None"))       off.push("No directional bias in the composite");
+    if(!off.length){
+      if(is("mcBias","Tentative")) caution.push("Composite bias is tentative");
+      if(is("overlapping","Yes") && is("mcBias","Clear"))
+        on.push("Clear micro composite with a directional bias");
+    }
+    out.mcf = decide(off, caution, on, []);
+  })();
+
   return out;
+
+  function decide(off, caution, on, needTags){
+    if(off.length) return { status:"off", why:off, hard:true };
+    var missing = needTags.filter(function(v){ return !(day().views[v]||{}).tag; });
+    if(caution.length) return { status:"caution", why:caution };
+    if(on.length)      return { status:"on", why:on };
+    return { status:"caution", why:["Not enough of the day read yet to call this on"], thin:true };
+  }
 }
 
-function renderScore(){
-  var scores=WEEKS.map(scoreWeek);
-  var cw=programmeWeek();
-  var scored=scores.filter(function(s,i){return i<cw&&s.pct!==null});
-  var avg=scored.length?Math.round(scored.reduce(function(a,b){return a+b.pct},0)/scored.length):null;
-  var hit=scored.filter(function(s){return s.pct>=85}).length;
-  var out='<div class="card"><label class="lbl">Average execution</label>'+gauge(avg)+
-    '<div style="text-align:center;margin-top:-6px">'+
-    '<div class="statv" style="font-size:34px;color:'+(avg===null?'var(--dim)':(avg>=85?'var(--on)':'var(--off)'))+'">'+
-      (avg===null?'—':avg+'%')+'</div>'+
-    '<div class="statl">'+(avg===null?'No weeks scored yet':
-      ('weeks 1–'+cw+' · '+scored.length+' scored · '+hit+' at 85%+'))+'</div></div>';
-  var ga=goalAverages();
-  if(ga.some(function(x){return x!==null})){
-    out+='<div class="rings">'+state.goals.map(function(g,gi){
-      return ring(ga[gi], esc(g.title||('Goal '+(gi+1))));
-    }).join('')+'</div>';
-  }
-  out+='</div>';
+function factsAnswered(){
+  var f = day().facts, n = 0;
+  FACTS.forEach(function(x){ if(f[x.id]) n++; });
+  return n;
+}
+function prepComplete(){
+  var d = day();
+  var tagged = VIEWS.filter(function(v){ return (d.views[v.id]||{}).tag; }).length;
+  return !!(d.focus || d.focusFree) && tagged === VIEWS.length && factsAnswered() >= 10;
+}
+function prepPercent(){
+  var d = day(), got = 0, total = 4;
+  if(d.focus || d.focusFree) got++;
+  got += VIEWS.filter(function(v){ return (d.views[v.id]||{}).tag; }).length / VIEWS.length;
+  got += Math.min(1, factsAnswered() / 10);
+  if(d.analysis) got++;
+  return Math.round(got / total * 100);
+}
 
-  out+='<div class="card"><label class="lbl">Weekly execution — tap a week</label><div class="strip"><div class="target"><span>85%</span></div>';
-  scores.forEach(function(s,i){
-    out+='<button class="cell" aria-current="'+(i+1===week)+'" data-act="gow" data-w="'+(i+1)+'" aria-label="Week '+(i+1)+(s.pct===null?', not scored':', '+Math.round(s.pct)+' percent')+'">'+
-      (s.pct!==null&&s.pct>0?'<span class="fill'+(s.pct<85?' low':'')+'" style="height:'+s.pct+'%"></span>':'')+
-      '<span class="cellnum">'+(i+1)+'</span></button>';
+/* =====================================================================
+   Render
+===================================================================== */
+function $(id){ return document.getElementById(id); }
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt != null) n.textContent = txt;
+  return n;
+}
+var toastT;
+function toast(msg){
+  var t = $("toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(function(){ t.classList.remove("show"); }, 2400);
+}
+
+function applyTheme(){
+  var mode = S.mode;
+  if(mode === "auto"){
+    mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  document.documentElement.setAttribute("data-mode", mode);
+  document.documentElement.setAttribute("data-accent", S.accent);
+  document.querySelector('meta[name=theme-color]')
+    .setAttribute("content", mode === "dark" ? "#12161b" : "#f2f4f6");
+}
+
+/* The UK/US offset drifts for a few weeks each spring and autumn.
+   That's when people turn up an hour early or late, so say so. */
+function dstCheck(){
+  var box = $("dstBanner"); box.innerHTML = "";
+  var now = new Date();
+  var hourIn = function(tz){
+    return +new Intl.DateTimeFormat("en-GB", {timeZone:tz, hour:"numeric", hour12:false}).format(now);
+  };
+  var diff = (hourIn("Europe/London") - hourIn("America/New_York") + 24) % 24;
+  if(diff !== 5){
+    var b = el("div","banner",
+      "London is " + diff + " hours ahead of New York today, not the usual 5. The cash open moves — check the clock before you sit down.");
+    box.appendChild(b);
+  }
+}
+
+function renderHeader(){
+  var d = new Date(S.currentDay || todayKey());
+  $("hdrDate").textContent = new Intl.DateTimeFormat("en-GB",
+    {weekday:"short", day:"numeric", month:"short"}).format(d).toUpperCase();
+  $("hdrProg").style.width = prepPercent() + "%";
+}
+
+function renderFocus(){
+  var wrap = $("focusChips"); wrap.innerHTML = "";
+  FOCUS_OPTIONS.forEach(function(t){
+    var b = el("button","chip",t);
+    b.type = "button";
+    b.setAttribute("aria-pressed", day().focus === t ? "true" : "false");
+    b.onclick = function(){
+      day().focus = (day().focus === t) ? "" : t;
+      save(); renderFocus(); renderSteps(); renderHeader();
+    };
+    wrap.appendChild(b);
   });
-  out+='</div></div>';
-
-  out+='<h2>Goals</h2>';
-  state.goals.forEach(function(g,gi){
-    var p=latestOnPace(g.id);
-    out+='<div class="card"><div class="tactext">'+esc(g.title||'Goal '+(gi+1)+' not set')+'</div>'+
-      '<div class="tacmeta">'+g.tactics.filter(function(t){return t.text.trim()}).length+' tactics'+
-      (p?' · on pace at week '+p.week+': '+p.value.toLowerCase():'')+'</div></div>';
-  });
-
-  var anyM=false;
-  state.goals.forEach(function(g){(g.measures||[]).forEach(function(m){if(m.name.trim())anyM=true})});
-  if(anyM){
-    out+='<h2>Results</h2>';
-    state.goals.forEach(function(g,gi){
-      (g.measures||[]).forEach(function(m){
-        if(!m.name.trim())return;
-        var se=measureSeries(m);
-        var col=se.onPace===null?'var(--dim)':(se.onPace?'var(--on)':'var(--off)');
-        out+='<div class="card">'+
-          '<div style="display:flex;align-items:baseline;justify-content:space-between">'+
-          '<span class="lbl" style="margin-bottom:0">'+esc(m.name)+'</span>'+
-          '<span class="statv" style="color:'+col+'">'+tidy(se.current)+'</span></div>'+
-          '<div class="statl" style="margin-top:6px">of '+tidy(se.target)+(m.unit?' '+esc(m.unit):'')+
-            ' · goal '+(gi+1)+
-            (se.lastWeek?' · '+(se.gap===0?'exactly on pace':(se.onPace?'ahead by ':'behind by ')+tidy(Math.abs(se.gap))):' · no entries yet')+
-          '</div>'+
-          '<div class="bbar" style="margin-top:12px"><i style="width:'+(se.pctOfTarget===null?0:se.pctOfTarget.toFixed(1))+
-            '%;background:'+col+'"></i></div>'+
-          measureChart(m,se)+
-          '<div class="statl">Dashed line is the pace needed to reach your target by week 12.</div>'+
-          '</div>';
-      });
-    });
-  }
-
-  out+='<h2>Appearance</h2><div class="card">'+
-    '<label class="lbl">Colour</label>'+chips(THEME_ORDER.map(function(k){
-      return chip(THEMES[k].name,theme.preset===k,'data-act="theme" data-v="'+k+'"');
-    }).join(''))+
-    '<label class="lbl" style="margin-top:14px">Mode</label>'+chips(MODES.map(function(m){
-      return chip(m[1],theme.mode===m[0],'data-act="mode" data-v="'+m[0]+'"');
-    }).join(''))+
-    '<div class="note">Auto follows your iPhone\'s light and dark setting.</div></div>';
-
-  out+='<h2>Your data</h2><div class="card"><div class="note" style="margin:0 0 12px">'+
-    'Everything is stored on this device only. Export a copy before clearing your browser data or changing phone.</div>'+
-    '<button class="btn" data-act="export">Export backup</button> '+
-    '<button class="btn" data-act="import">Import backup</button>'+
-    '<div class="note" style="margin-top:14px">Version '+APP_VERSION+'. Updates arrive on their own; this forces the check.</div>'+
-    '<button class="btn ghost" data-act="update">Check for updates now</button></div>'+
-    '<hr><button class="btn" data-act="reset">Start a new 12 weeks</button>';
-  return out;
+  $("focusFree").value = day().focusFree || "";
 }
 
-var TABS=[['week','Week'],['plan','Plan'],['score','Score'],['vision','Vision']];
-function render(){
-  var main=document.getElementById('app');
-  var y=main.scrollTop;
-  var t={week:'Week '+week,plan:'The plan',score:'Execution',vision:'My vision'}[view];
-  var start=state.goals[0].start;
-  var sub={
-    week:weekDates(start,week)||'Tick tactics as you finish them.',
-    plan:'Goals, their tactics, the weeks they fall due and the days in each week.',
-    score:'Execution is the score that predicts the result.',
-    vision:'Where this is all pointing.'
-  }[view];
-  if(view==='week'&&openGoal===null){
-    var scq=scoreWeek(week), pick='';
-    state.goals.forEach(function(g,gi){
-      if(pick)return;
-      if(scq.goals[gi]&&scq.goals[gi].pct<100)pick=g.id;
-    });
-    openGoal=pick||(state.goals[0]?state.goals[0].id:'');
-  }
-  document.getElementById('eyebrow').textContent='12 Week Year · v'+APP_VERSION;
-  document.getElementById('title').textContent=t;
-  document.getElementById('sub').textContent=sub;
-  try{
-    main.innerHTML=
-      view==='week'?renderWeek():view==='plan'?renderPlan():view==='score'?renderScore():renderVision();
-  }catch(err){
-    main.innerHTML='<div class="card"><label class="lbl">Something went wrong</label>'+
-      '<div class="note">'+esc(err&&err.message||err)+'</div></div>';
-  }
-  document.getElementById('nav').innerHTML=TABS.map(function(x){
-    return '<button data-act="tab" data-v="'+x[0]+'" aria-current="'+(view===x[0])+'">'+x[1]+'</button>';
-  }).join('');
-  main.scrollTop=y;
-}
-
-/* ------------------------------------------------------------------ events */
-function setPath(path,value){
-  var parts=path.split('.'), o=state;
-  if(parts[0]==='weeks')ensureWeek(parseInt(parts[1],10));
-  if(parts[0]==='weeks'&&parts[2]==='measures')ensureWeek(parseInt(parts[1],10)).measures=ensureWeek(parseInt(parts[1],10)).measures||{};
-  for(var i=0;i<parts.length-1;i++){
-    var k=parts[i];
-    if(o[k]==null)o[k]={};
-    o=o[k];
-  }
-  o[parts[parts.length-1]]=value;
-}
-document.addEventListener('input',function(e){
-  var p=e.target.getAttribute&&e.target.getAttribute('data-bind');
-  if(!p)return;
-  setPath(p,e.target.value);
-  save();
-});
-document.addEventListener('change',function(e){
-  var p=e.target.getAttribute&&e.target.getAttribute('data-num');
-  if(!p)return;
-  var v=e.target.value;
-  setPath(p, v===''?null:Number(v));
-  save(); render();
-});
-document.addEventListener('click',function(e){
-  var el=e.target.closest('[data-act]'); if(!el)return;
-  var a=el.getAttribute('data-act');
-  var gi=parseInt(el.getAttribute('data-g'),10), ti=parseInt(el.getAttribute('data-t'),10);
-  var d=parseInt(el.getAttribute('data-d'),10), w=parseInt(el.getAttribute('data-w'),10);
-  var id=el.getAttribute('data-id'), gid=el.getAttribute('data-gid');
-  var t=(!isNaN(gi)&&!isNaN(ti))?state.goals[gi].tactics[ti]:null;
-
-  if(a==='tab'){view=el.getAttribute('data-v')}
-  else if(a==='wk'){week=w; openGoal=null}
-  else if(a==='sec'){var id2=el.getAttribute('data-v'); openGoal=(openGoal===id2?'':id2)}
-  else if(a==='gow'){week=w;view='week'}
-  else if(a==='tw'){var i=t.weeks.indexOf(w); i>-1?t.weeks.splice(i,1):t.weeks.push(w); t.weeks.sort(function(x,y){return x-y})}
-  else if(a==='allw'){t.weeks=t.weeks.length===12?[]:WEEKS.slice()}
-  else if(a==='pat'){t.days=PATTERNS[parseInt(el.getAttribute('data-p'),10)][1].slice()}
-  else if(a==='pd'){t.days=t.days||[];var j=t.days.indexOf(d); j>-1?t.days.splice(j,1):t.days.push(d); t.days.sort(function(x,y){return x-y})}
-  else if(a==='addt'){state.goals[gi].tactics.push(blankTactic())}
-  else if(a==='rmt'){state.goals[gi].tactics.splice(ti,1)}
-  else if(a==='addg'){state.goals.push(blankGoal())}
-  else if(a==='addm'){state.goals[gi].measures.push(blankMeasure())}
-  else if(a==='rmm'){
-    if(!confirm('Remove this measurement and its weekly figures?'))return;
-    state.goals[gi].measures.splice(parseInt(el.getAttribute('data-m'),10),1);
-  }
-  else if(a==='mtac'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].tacticId=el.getAttribute('data-v')}
-  else if(a==='mmode'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].mode=el.getAttribute('data-v')}
-  else if(a==='hidetips'){prefs.tips=false; savePrefs()}
-  else if(a==='rmg'){
-    if(!confirm('Delete goal '+(gi+1)+' and its tactics? Your weekly ticks for it will be discarded.'))return;
-    state.goals.splice(gi,1);
-  }
-  else if(a==='tick'){
-    var wk=ensureWeek(week), tt=findTactic(id), ts=tacticScore(week,tt);
-    if(!ts.scheduled)wk.done[id]=!wk.done[id];
-    else wk.days[id]=ts.pct===100?[]:tt.days.slice();
-  }
-  else if(a==='td'){
-    var wk2=ensureWeek(week), arr=wk2.days[id]||[], k=arr.indexOf(d);
-    k>-1?arr.splice(k,1):arr.push(d); wk2.days[id]=arr;
-  }
-  else if(a==='pace'){
-    var wk3=ensureWeek(week), cur=wk3.results[gid]||blankResult();
-    var v=el.getAttribute('data-v');
-    cur.onPace=cur.onPace===v?'':v; wk3.results[gid]=cur;
-  }
-  else if(a==='carry'){
-    var p=lastResult(week,gid), wk4=ensureWeek(week);
-    var c=wk4.results[gid]||blankResult(); c.toDate=p?p.toDate:''; wk4.results[gid]=c;
-  }
-  else if(a==='theme'){theme.preset=el.getAttribute('data-v'); saveTheme(); applyTheme(); render(); return}
-  else if(a==='mode'){theme.mode=el.getAttribute('data-v'); saveTheme(); applyTheme(); render(); return}
-  else if(a==='update'){
-    var step=window.caches?caches.keys().then(function(k){return Promise.all(k.map(function(x){return caches.delete(x)}))}):Promise.resolve();
-    step.then(function(){
-      return (navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)?navigator.serviceWorker.getRegistrations():[];
-    }).then(function(rs){
-      return Promise.all((rs||[]).map(function(r){return r.unregister()}));
-    })['catch'](function(){})
-    .then(function(){location.reload()});
+function renderNews(){
+  var out = $("newsOut"); out.innerHTML = "";
+  var list = day().news || [];
+  if(!list.length){
+    out.appendChild(el("p","hint","Nothing logged yet."));
     return;
   }
-  else if(a==='export'){exportData();return}
-  else if(a==='import'){document.getElementById('importer').click();return}
-  else if(a==='reset'){
-    if(!confirm('Clear the whole plan and start a new 12 week year? This cannot be undone.'))return;
-    state=blankState(); week=1;
-  }
-  else return;
-  save(); render();
-});
-function findTactic(id){
-  for(var i=0;i<state.goals.length;i++){
-    var f=state.goals[i].tactics.filter(function(t){return t.id===id});
-    if(f.length)return f[0];
-  }
-  return {days:[]};
+  list.forEach(function(n, i){
+    var row = el("div","idea");
+    var h = el("div","idea-h");
+    h.appendChild(el("b", null, n.time + "  " + n.what));
+    var x = el("button","x","×");
+    x.onclick = function(){ list.splice(i,1); save(); renderNews(); };
+    h.appendChild(x);
+    row.appendChild(h);
+    if(n.impact) row.appendChild(el("div","meta", n.impact.toUpperCase()));
+    out.appendChild(row);
+  });
 }
-function exportData(){
-  var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='12-week-year-'+new Date().toISOString().slice(0,10)+'.json';
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(function(){URL.revokeObjectURL(a.href)},2000);
+
+function renderViews(){
+  var wrap = $("views"); wrap.innerHTML = "";
+  VIEWS.forEach(function(v){
+    var d = day();
+    d.views[v.id] = d.views[v.id] || {};
+    var row = el("div","view-row");
+    row.id = "vr-" + v.id;
+
+    var name = el("div","view-name");
+    name.appendChild(el("span", null, v.name));
+    name.appendChild(el("em", null, v.note));
+    row.appendChild(name);
+
+    /* say plainly what this box wants — no guessing at 6am */
+    var asks = el("ul","asks");
+    v.asks.forEach(function(a){ asks.appendChild(el("li", null, a)); });
+    row.appendChild(asks);
+
+    var ta = el("textarea");
+    ta.placeholder = "Type it, dictate it with the mic on your keyboard, or shoot the chart below";
+    ta.value = d.views[v.id].note || "";
+    ta.oninput = function(){ d.views[v.id].note = ta.value; save(); };
+    ta.style.marginTop = "8px";
+    row.appendChild(ta);
+
+    /* ---- capture row: this is now the main way in ---- */
+    var cap = el("div","cap-row");
+
+    var shoot = el("label","cap-btn");
+    shoot.appendChild(document.createTextNode("Shoot the chart"));
+    var file = el("input"); file.type = "file"; file.accept = "image/*";
+    file.multiple = true; file.style.display = "none";
+    file.onchange = function(){ addShots(v.id, file.files); file.value = ""; };
+    shoot.appendChild(file);
+    cap.appendChild(shoot);
+
+    var read = el("button","cap-btn plain");
+    read.type = "button";
+    read.textContent = "Read this view";
+    read.onclick = function(){ analyseView(v.id, read); };
+    cap.appendChild(read);
+
+    var say = el("button","speak");
+    say.type = "button"; say.textContent = "Read aloud";
+    say.onclick = function(){ speak(v.name + ". " + (d.views[v.id].note || "Nothing noted yet.")); };
+    cap.appendChild(say);
+
+    row.appendChild(cap);
+
+    /* thumbnails of anything shot for this view */
+    var shots = SHOTS[v.id] || [];
+    if(shots.length){
+      var th = el("div","thumbs");
+      shots.forEach(function(s, i){
+        var d2 = el("div","drop");
+        var img = el("img"); img.src = s.url; img.alt = "chart";
+        var x = el("button", null, "×");
+        x.onclick = function(){ shots.splice(i,1); renderViews(); };
+        d2.appendChild(img); d2.appendChild(x);
+        th.appendChild(d2);
+      });
+      row.appendChild(th);
+    }
+
+    /* pending proposal from Claude, waiting on your confirmation */
+    if(PROPOSALS[v.id]) row.appendChild(proposalBox(v.id));
+
+    var tags = el("div","tags"); tags.style.marginTop = "10px";
+    [["L","Longs"],["S","Shorts"],["B","Balanced"]].forEach(function(t){
+      var b = el("button","tag", t[0] + " · " + t[1]);
+      b.type = "button";
+      b.setAttribute("aria-pressed", d.views[v.id].tag === t[0] ? "true" : "false");
+      b.onclick = function(){
+        d.views[v.id].tag = (d.views[v.id].tag === t[0]) ? "" : t[0];
+        save(); renderViews(); renderSteps(); renderHeader(); renderBoard();
+      };
+      tags.appendChild(b);
+    });
+    row.appendChild(tags);
+    wrap.appendChild(row);
+  });
 }
-document.getElementById('importer').addEventListener('change',function(e){
-  var f=e.target.files[0]; if(!f)return;
-  var r=new FileReader();
-  r.onload=function(){
-    try{
-      var d=JSON.parse(r.result);
-      if(!d.goals)throw 0;
-      state=Object.assign(blankState(),d); save(); render();
-    }catch(err){alert("That file isn't a 12 Week Year backup.")}
+
+/* ---------------------------------------------------------------
+   Chart capture. Images are held in memory for the session only —
+   they're big, and localStorage fills at about a dozen of them.
+----------------------------------------------------------------*/
+var SHOTS = {};
+var PROPOSALS = {};
+
+function addShots(viewId, files){
+  SHOTS[viewId] = SHOTS[viewId] || [];
+  var list = Array.prototype.slice.call(files || []);
+  var pending = list.length;
+  if(!pending) return;
+  list.forEach(function(f){
+    var r = new FileReader();
+    r.onload = function(){
+      SHOTS[viewId].push({
+        url: r.result,
+        b64: String(r.result).split(",")[1],
+        type: f.type || "image/jpeg"
+      });
+      if(--pending === 0){ renderViews(); toast("Shot added — tap Read this view"); }
+    };
+    r.onerror = function(){ if(--pending === 0) renderViews(); };
+    r.readAsDataURL(f);
+  });
+}
+
+/* Facts the model is allowed to propose, with their permitted answers.
+   Kept explicit so it can't invent an answer the engine doesn't understand. */
+function factMenu(){
+  return FACTS.map(function(f){ return f.id + ": " + f.a.join("|"); }).join("\n");
+}
+
+async function analyseView(viewId, btn){
+  var v = VIEWS.filter(function(x){ return x.id === viewId; })[0];
+  var d = day();
+  var shots = SHOTS[viewId] || [];
+  var note = (d.views[viewId] || {}).note || "";
+
+  if(!shots.length && !note.trim()){
+    toast("Shoot the chart or write a line first");
+    return;
+  }
+  if(btn){ btn.disabled = true; btn.textContent = "Reading…"; }
+
+  var content = [];
+  shots.forEach(function(s){
+    content.push({ type:"image", source:{ type:"base64", media_type:s.type, data:s.b64 } });
+  });
+  content.push({ type:"text", text:
+    "This is the '" + v.name + "' view of my pre-market prep for micro E-mini S&P futures (mES), " +
+    "using Auction Market Theory and volume profile.\n\n" +
+    (note ? "My own notes on this view:\n" + note + "\n\n" : "") +
+    (shots.length ? "Charts attached.\n\n" : "") +
+    "For this view I am trying to establish:\n- " + v.asks.join("\n- ") + "\n\n" +
+    "Return ONLY this JSON, no prose and no code fences:\n" +
+    '{"note":"one tidy line summarising this view, keeping every price I gave you",' +
+    '"tag":"L|S|B|",' +
+    '"levels":{"pdVah":"","pdVal":"","pdPoc":"","nPoc":"","onHigh":"","onLow":""},' +
+    '"facts":{},' +
+    '"unsure":["anything you could not read confidently"]}\n\n' +
+    "Rules: only fill a level or a fact you can actually support from what I gave you — " +
+    "leave it out rather than guessing, and list the guess in 'unsure' instead. " +
+    "Never read a price off a pixel position; only use printed numbers or numbers I typed.\n\n" +
+    "Permitted facts and their only permitted answers:\n" + factMenu()
+  });
+
+  try{
+    var text = await callClaudeRaw([{ role:"user", content:content }],
+      "You read volume profile charts for a discretionary futures trader. " +
+      "You are precise and you never invent a price. You reply with JSON only.");
+    var clean = text.replace(/```json|```/g, "").trim();
+    var p = JSON.parse(clean);
+    PROPOSALS[viewId] = p;
+    renderViews();
+    var vr = $("vr-" + viewId); if(vr) vr.scrollIntoView({block:"center", behavior:"smooth"});
+  }catch(e){
+    toast(e.message === "no-key" ? "Add your API key in Settings"
+        : e.message === "bad-key" ? "That key was rejected — check Settings"
+        : "Couldn't read that one — " + e.message.slice(0,60));
+  }
+  if(btn){ btn.disabled = false; btn.textContent = "Read this view"; }
+}
+
+/* Nothing lands without you agreeing to it. */
+function proposalBox(viewId){
+  var p = PROPOSALS[viewId];
+  var box = el("div","proposal");
+  box.appendChild(el("h4", null, "What Claude read"));
+  box.appendChild(el("p","lead", "Untick anything wrong. Nothing is saved until you apply it."));
+
+  var items = [];
+
+  if(p.note){
+    items.push({ kind:"note", label:"Note: " + p.note, val:p.note });
+  }
+  if(p.tag && ["L","S","B"].indexOf(p.tag) > -1){
+    var tagName = { L:"Longs in control", S:"Shorts in control", B:"Balanced" }[p.tag];
+    items.push({ kind:"tag", label:"Tag: " + tagName, val:p.tag });
+  }
+  Object.keys(p.levels || {}).forEach(function(k){
+    var val = p.levels[k];
+    if(!val) return;
+    var name = (LEVELS.filter(function(l){ return l.id === k; })[0] || {}).name || k;
+    items.push({ kind:"level", label:name + ": " + val, val:val, key:k });
+  });
+  Object.keys(p.facts || {}).forEach(function(k){
+    var f = FACTS.filter(function(x){ return x.id === k; })[0];
+    if(!f) return;
+    var val = p.facts[k];
+    if(f.a.indexOf(val) < 0) return;      /* refuse an answer the engine can't use */
+    items.push({ kind:"fact", label:f.q + "  →  " + val, val:val, key:k });
+  });
+
+  if(!items.length){
+    box.appendChild(el("p","lead","Nothing readable came back. Fill it in by hand."));
+  }
+
+  items.forEach(function(it, i){
+    var row = el("div","prop-item");
+    var cb = el("input"); cb.type = "checkbox"; cb.checked = true;
+    cb.id = "prop-" + viewId + "-" + i;
+    it.box = cb;
+    var lab = el("label", null, it.label);
+    lab.setAttribute("for", cb.id);
+    row.appendChild(cb); row.appendChild(lab);
+    box.appendChild(row);
+  });
+
+  if((p.unsure || []).length){
+    box.appendChild(el("div","prop-unsure",
+      "Couldn't read confidently: " + p.unsure.join("; ") + ". Check these yourself."));
+  }
+
+  var row = el("div","cap-row");
+  var apply = el("button","cap-btn"); apply.type = "button"; apply.textContent = "Apply";
+  apply.onclick = function(){
+    var d = day(), n = 0;
+    items.forEach(function(it){
+      if(!it.box.checked) return;
+      n++;
+      if(it.kind === "note")  d.views[viewId].note = it.val;
+      if(it.kind === "tag")   d.views[viewId].tag  = it.val;
+      if(it.kind === "level") d.levels[it.key]     = it.val;
+      if(it.kind === "fact")  d.facts[it.key]      = it.val;
+    });
+    delete PROPOSALS[viewId];
+    save();
+    renderViews(); renderFacts(); renderLevels(); renderSteps(); renderHeader(); renderBoard();
+    toast(n + (n === 1 ? " thing applied" : " things applied"));
   };
-  r.readAsText(f); e.target.value='';
+  var drop = el("button","cap-btn plain"); drop.type = "button"; drop.textContent = "Discard";
+  drop.onclick = function(){ delete PROPOSALS[viewId]; renderViews(); };
+  var say = el("button","speak"); say.type = "button"; say.textContent = "Read aloud";
+  say.onclick = function(){
+    speak("Claude read: " + (p.note || "") + ". " +
+      items.filter(function(i){ return i.kind === "fact"; })
+           .map(function(i){ return i.label; }).join(". "));
+  };
+  row.appendChild(apply); row.appendChild(drop); row.appendChild(say);
+  box.appendChild(row);
+  return box;
+}
+
+/* ---------------------------------------------------------------
+   Speech. Reading works reliably on iPhone; dictation comes from
+   the keyboard mic, which is Apple's engine and works everywhere.
+----------------------------------------------------------------*/
+function speak(text){
+  if(!("speechSynthesis" in window)){ toast("This device can't read aloud"); return; }
+  if(speechSynthesis.speaking){ speechSynthesis.cancel(); return; }
+  var u = new SpeechSynthesisUtterance(text);
+  u.rate = 1.02; u.pitch = 1;
+  var vs = speechSynthesis.getVoices();
+  var uk = vs.filter(function(v){ return /en-GB/i.test(v.lang); })[0];
+  if(uk) u.voice = uk;
+  speechSynthesis.speak(u);
+}
+
+function renderFacts(){
+  var wrap = $("facts"); wrap.innerHTML = "";
+  FACTS.forEach(function(f){
+    var row = el("div","fact");
+    row.appendChild(el("div","fact-q", f.q));
+    var ans = el("div","fact-a");
+    f.a.forEach(function(a){
+      var b = el("button", null, a);
+      b.type = "button";
+      b.setAttribute("aria-pressed", day().facts[f.id] === a ? "true" : "false");
+      b.onclick = function(){
+        var cur = day().facts[f.id];
+        day().facts[f.id] = (cur === a) ? "" : a;
+        save(); renderFacts(); renderSteps(); renderHeader(); renderBoard();
+      };
+      ans.appendChild(b);
+    });
+    row.appendChild(ans);
+    wrap.appendChild(row);
+  });
+}
+
+function renderLevels(){
+  var wrap = $("levels"); wrap.innerHTML = "";
+  LEVELS.forEach(function(l){
+    var box = el("div");
+    var lab = el("label", null, l.name);
+    lab.setAttribute("for","lv-"+l.id);
+    var inp = el("input"); inp.type = "text"; inp.className = "price"; inp.id = "lv-"+l.id;
+    inp.placeholder = "0000.00";
+    inp.value = day().levels[l.id] || "";
+    inp.oninput = function(){ day().levels[l.id] = inp.value; save(); };
+    box.appendChild(lab); box.appendChild(inp);
+    wrap.appendChild(box);
+  });
+  $("extraLevels").value = day().extraLevels || "";
+  $("analysis").value = day().analysis || "";
+}
+
+function renderSteps(){
+  var d = day();
+  $("step1").classList.toggle("done", !!(d.focus || d.focusFree));
+  $("step2").classList.toggle("done", (d.news||[]).length > 0);
+  $("step3").classList.toggle("done",
+    VIEWS.every(function(v){ return (d.views[v.id]||{}).tag; }));
+  $("step4").classList.toggle("done", factsAnswered() >= 10);
+  $("step5").classList.toggle("done",
+    LEVELS.some(function(l){ return d.levels[l.id]; }) || !!d.extraLevels);
+  $("step6").classList.toggle("done", !!d.analysis);
+}
+
+function renderBoard(){
+  var out = $("boardOut"); out.innerHTML = "";
+  var sub = $("boardSub");
+
+  if(!prepComplete()){
+    sub.textContent = "Locked until prep is done.";
+    var e = el("div","empty");
+    e.appendChild(el("strong", null, "Finish the prep first"));
+    e.appendChild(el("span", null,
+      "Tag all six timeframes and answer at least ten structural facts. The board can't tell you what's on until it knows what kind of day it is."));
+    out.appendChild(e);
+    return;
+  }
+
+  var v = verdicts();
+  var onCount = EDGES.filter(function(x){ return v[x.id].status === "on"; }).length;
+
+  var say = el("button","speak");
+  say.type = "button"; say.textContent = "Read the board aloud";
+  say.style.marginBottom = "12px";
+  say.onclick = function(){
+    var lines = EDGES.map(function(e){
+      var r = v[e.id];
+      return e.name + " is " + (r.status === "on" ? "on" : r.status === "caution" ? "on caution" : "off") +
+        ". " + r.why.join(". ") + ".";
+    });
+    speak("Today's board. " + lines.join(" "));
+  };
+  out.appendChild(say);
+  sub.textContent = onCount === 0
+    ? "Nothing is on today. That's a valid answer."
+    : onCount + (onCount === 1 ? " edge is on today." : " edges are on today.");
+
+  var board = el("div","board");
+  EDGES.forEach(function(e){
+    var r = v[e.id], ovr = day().overrides[e.id];
+    var card = el("div","edge s-" + r.status);
+
+    var top = el("div","edge-top");
+    var left = el("div");
+    left.appendChild(el("div","edge-name", e.name));
+    left.appendChild(el("div","edge-short", e.short));
+    top.appendChild(left);
+    top.appendChild(el("div","verdict",
+      r.status === "on" ? "ON" : r.status === "caution" ? "CAUTION" : "OFF"));
+    card.appendChild(top);
+
+    var ul = el("ul","edge-why");
+    r.why.forEach(function(w){ ul.appendChild(el("li", null, w)); });
+    card.appendChild(ul);
+
+    if(r.status === "caution"){
+      card.appendChild(el("div","edge-cost",
+        "Minimum size only, and you type a reason before you take it."));
+    }
+    if(r.status === "off"){
+      card.appendChild(el("div","edge-locked",
+        "The setup can't exist today. This one has no door."));
+    }
+
+    if(r.status === "caution"){
+      if(ovr){
+        card.appendChild(el("div","ovr-note", "Your reason: " + ovr));
+      } else {
+        var row = el("div","edge-ovr");
+        var b = el("button", null, "Give a reason to use it");
+        b.onclick = function(){
+          var why = prompt("Why this one, when the day isn't backing it?");
+          if(why && why.trim()){
+            day().overrides[e.id] = why.trim();
+            save(); renderBoard(); renderIdeaEdges();
+            toast("Logged — it'll show up in review beside what it returned");
+          }
+        };
+        row.appendChild(b);
+        card.appendChild(row);
+      }
+    }
+    board.appendChild(card);
+  });
+  out.appendChild(board);
+
+  var note = el("div","card");
+  note.appendChild(el("h3", null, "How this was decided"));
+  var p = el("p","hint");
+  var bias = htfBias();
+  p.textContent = "Higher-timeframe read: " +
+    (bias === "aligned" ? "aligned" : bias === "conflicted" ? "conflicted" :
+     bias === "weak" ? "partial" : bias === "balanced" ? "balanced" : "not tagged") +
+    ". " + factsAnswered() + " of " + FACTS.length + " structural facts answered. " +
+    (isAfternoon() ? "Afternoon session." : "Morning — Afternoon Delight is shut.");
+  note.appendChild(p);
+  out.appendChild(note);
+}
+
+function renderIdeaEdges(){
+  var sel = $("ideaEdge"); sel.innerHTML = "";
+  if(!prepComplete()){
+    sel.appendChild(new Option("Finish prep first", ""));
+    sel.disabled = true; $("addIdea").disabled = true;
+    return;
+  }
+  sel.disabled = false; $("addIdea").disabled = false;
+  var v = verdicts(), any = false;
+  EDGES.forEach(function(e){
+    var r = v[e.id];
+    if(r.status === "off") return;
+    if(r.status === "caution" && !day().overrides[e.id]) return;
+    sel.appendChild(new Option(
+      e.name + (r.status === "caution" ? "  (caution — minimum size)" : ""), e.id));
+    any = true;
+  });
+  if(!any){
+    sel.appendChild(new Option("No edge is available today", ""));
+    sel.disabled = true; $("addIdea").disabled = true;
+  }
+}
+
+function renderIdeas(){
+  var out = $("ideasOut"); out.innerHTML = "";
+  var list = day().ideas || [];
+  if(!list.length){
+    var e = el("div","empty");
+    e.appendChild(el("strong", null, "No ideas yet"));
+    e.appendChild(el("span", null, "What is the trade idea, where is the stop, where is the entry."));
+    out.appendChild(e);
+    return;
+  }
+  list.forEach(function(it, i){
+    var name = (EDGES.filter(function(x){ return x.id === it.edge; })[0] || {}).name || it.edge;
+    var card = el("div","card");
+    var h = el("div","idea-h");
+    h.appendChild(el("b", null, name + " · " + it.dir + (it.caution ? "  · caution" : "")));
+    var x = el("button","x","×");
+    x.onclick = function(){ list.splice(i,1); save(); renderIdeas(); };
+    h.appendChild(x);
+    card.appendChild(h);
+
+    var legs = el("div","idea-legs");
+    [["ENTRY", it.entry],["STOP", it.stop],["TARGET", it.target]].forEach(function(p){
+      var d = el("div");
+      d.appendChild(el("span", null, p[0]));
+      d.appendChild(document.createTextNode(p[1] || "—"));
+      legs.appendChild(d);
+    });
+    card.appendChild(legs);
+    if(it.note) card.appendChild(el("p","hint", it.note));
+    out.appendChild(card);
+  });
+}
+
+/* =====================================================================
+   Claude API — used here only to pull the day's calendar.
+   The browser can't reach Financial Juice or Trading Economics
+   directly, so the model fetches and we confirm what it found.
+===================================================================== */
+async function callClaude(system, user, opts){
+  return callClaudeRaw([{ role:"user", content:user }], system, opts);
+}
+
+async function callClaudeRaw(messages, system, opts){
+  opts = opts || {};
+  if(!S.apiKey) throw new Error("no-key");
+  var body = {
+    model: "claude-sonnet-4-6",
+    max_tokens: 1500,
+    system: system,
+    messages: messages
+  };
+  if(opts.search) body.tools = [{ type:"web_search_20250305", name:"web_search" }];
+
+  var res = await fetch("https://api.anthropic.com/v1/messages", {
+    method:"POST",
+    headers:{
+      "content-type":"application/json",
+      "x-api-key": S.apiKey,
+      "anthropic-version":"2023-06-01",
+      "anthropic-dangerous-direct-browser-access":"true"
+    },
+    body: JSON.stringify(body)
+  });
+  if(res.status === 401) throw new Error("bad-key");
+  if(!res.ok){
+    var t = await res.text();
+    var err = new Error(t.slice(0,140)); err.status = res.status; throw err;
+  }
+  var data = await res.json();
+  return (data.content || [])
+    .map(function(c){ return c.type === "text" ? c.text : ""; })
+    .filter(Boolean).join("\n");
+}
+
+async function pullNewsCore(){
+    var d = new Date();
+    var when = new Intl.DateTimeFormat("en-GB",
+      {weekday:"long", day:"numeric", month:"long", year:"numeric"}).format(d);
+    var text = await callClaude(
+      "You return only JSON. No preamble, no markdown fences.",
+      "Find today's US economic calendar events for " + when + ", the ones that move equity index " +
+      "futures. Check Financial Juice and Trading Economics. Return JSON: " +
+      '{"events":[{"time":"HH:MM UK time","what":"event name","impact":"high|medium|low"}]} ' +
+      "High impact only, maximum 5. If nothing significant, return an empty array.",
+      { search:true }
+    );
+    var clean = text.replace(/```json|```/g, "").trim();
+    var parsed = JSON.parse(clean);
+    var evs = parsed.events || [];
+    if(!evs.length){
+      toast("Nothing significant on the calendar today");
+    } else {
+      day().news = evs.map(function(e){
+        return { time:e.time || "", what:e.what || "", impact:e.impact || "" };
+      });
+      save(); renderNews(); renderSteps();
+      toast("Found " + evs.length + " — check them before you rely on them");
+    }
+}
+
+async function pullNews(){
+  var btn = $("pullNews");
+  btn.disabled = true; btn.textContent = "Looking…";
+  try{
+    await pullNewsCore();
+  }catch(e){
+    toast(e.message === "no-key" ? "Add your API key in Settings"
+        : e.message === "bad-key" ? "That key was rejected — check Settings"
+        : "Couldn't pull the calendar — add events by hand");
+  }
+  btn.disabled = false; btn.textContent = "Pull today's events";
+}
+
+/* =====================================================================
+   Wiring
+===================================================================== */
+function go(name){
+  ["prep","board","plan","coach","set"].forEach(function(v){
+    $("v-" + v).classList.toggle("on", v === name);
+  });
+  document.querySelectorAll("nav button").forEach(function(b){
+    if(b.dataset.go === name) b.setAttribute("aria-current","page");
+    else b.removeAttribute("aria-current");
+  });
+  if(name === "board") renderBoard();
+  if(name === "plan"){ renderIdeaEdges(); renderIdeas(); }
+  if(name === "coach") renderCoach();
+  window.scrollTo(0,0);
+}
+
+document.querySelectorAll("nav button").forEach(function(b){
+  b.onclick = function(){ go(b.dataset.go); };
 });
 
-/* --------------------------------------------------------------- start up */
-loadTheme();
-loadPrefs();
-applyTheme();
-if(window.matchMedia){
-  var mq=window.matchMedia('(prefers-color-scheme: dark)');
-  var onScheme=function(){if(theme.mode==='auto')applyTheme()};
-  mq.addEventListener?mq.addEventListener('change',onScheme):mq.addListener(onScheme);
+$("focusFree").oninput = function(){
+  day().focusFree = this.value; save(); renderSteps(); renderHeader();
+};
+$("extraLevels").oninput = function(){ day().extraLevels = this.value; save(); renderSteps(); };
+$("analysis").oninput = function(){ day().analysis = this.value; save(); renderSteps(); renderHeader(); };
+
+$("pullNews").onclick = pullNews;
+
+$("readAll").onclick = async function(){
+  var btn = this;
+  var todo = VIEWS.filter(function(v){
+    return (SHOTS[v.id] || []).length || ((day().views[v.id] || {}).note || "").trim();
+  });
+  if(!todo.length){ toast("Shoot a chart or write a note first"); return; }
+  btn.disabled = true;
+  for(var i = 0; i < todo.length; i++){
+    btn.textContent = "Reading " + (i+1) + " of " + todo.length + "…";
+    await analyseView(todo[i].id, null);
+  }
+  btn.disabled = false;
+  btn.textContent = "Read every view I've shot";
+  toast("Done — check each proposal before applying");
+};
+$("addNews").onclick = function(){
+  var t = $("newsTime").value.trim(), w = $("newsWhat").value.trim();
+  if(!w){ toast("What's the event?"); return; }
+  day().news.push({ time:t || "—", what:w, impact:"" });
+  $("newsTime").value = ""; $("newsWhat").value = "";
+  save(); renderNews(); renderSteps();
+};
+
+$("addIdea").onclick = function(){
+  var edge = $("ideaEdge").value;
+  if(!edge){ toast("Pick an edge the day allows"); return; }
+  var entry = $("ideaEntry").value.trim(), stop = $("ideaStop").value.trim();
+  if(!entry || !stop){ toast("An idea without a stop and an entry isn't an idea"); return; }
+  var v = verdicts();
+  day().ideas.push({
+    edge: edge, dir: $("ideaDir").value,
+    entry: entry, stop: stop,
+    target: $("ideaTarget").value.trim(),
+    note: $("ideaNote").value.trim(),
+    caution: v[edge].status === "caution"
+  });
+  ["ideaEntry","ideaStop","ideaTarget","ideaNote"].forEach(function(id){ $(id).value = ""; });
+  save(); renderIdeas(); toast("Idea added");
+};
+
+/* settings */
+function renderSettings(){
+  var m = $("modeChips"); m.innerHTML = "";
+  [["auto","Auto"],["light","Light"],["dark","Dark"]].forEach(function(o){
+    var b = el("button","chip", o[1]); b.type = "button";
+    b.setAttribute("aria-pressed", S.mode === o[0] ? "true" : "false");
+    b.onclick = function(){ S.mode = o[0]; save(); applyTheme(); renderSettings(); };
+    m.appendChild(b);
+  });
+  var a = $("accChips"); a.innerHTML = "";
+  [["graphite","Graphite"],["clay","Clay"],["pine","Pine"],["indigo","Indigo"],["ember","Ember"]]
+    .forEach(function(o){
+      var b = el("button","chip", o[1]); b.type = "button";
+      b.setAttribute("aria-pressed", S.accent === o[0] ? "true" : "false");
+      b.onclick = function(){ S.accent = o[0]; save(); applyTheme(); renderSettings(); };
+      a.appendChild(b);
+    });
+  $("pmStart").value = S.pmStart;
+  $("openTime").value = S.openTime;
+  $("apiKey").value = S.apiKey ? "sk-ant-…" + S.apiKey.slice(-6) : "";
 }
-load();
-render();
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){})});
+$("pmStart").onchange = function(){ S.pmStart = this.value.trim() || "17:30"; save(); renderBoard(); };
+$("openTime").onchange = function(){ S.openTime = this.value.trim() || "14:30"; save(); };
+
+$("saveKey").onclick = function(){
+  var v = $("apiKey").value.trim();
+  if(v.indexOf("…") > -1){ toast("Key unchanged"); return; }
+  S.apiKey = v; save(); renderSettings();
+  toast(v ? "Key saved on this device" : "Key cleared");
+};
+$("testKey").onclick = async function(){
+  var out = $("keyOut"); out.textContent = "Testing…";
+  try{
+    var r = await callClaude("Reply with the single word: ready", "Test", {});
+    out.textContent = "Connected. Claude said: " + r.trim().slice(0,40);
+  }catch(e){
+    out.textContent = e.message === "no-key" ? "No key saved yet."
+      : e.message === "bad-key" ? "Key rejected. Check it and save again."
+      : "Couldn't reach Claude: " + e.message;
+  }
+};
+
+$("expData").onclick = function(){
+  var copy = JSON.parse(JSON.stringify(S));
+  delete copy.apiKey;                       /* keys never leave the device */
+  copy._app = "trading-assistant"; copy._ver = 1;
+  var blob = new Blob([JSON.stringify(copy, null, 1)], { type:"application/json" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "trading-assistant-" + todayKey() + ".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+  $("dataOut").textContent = "Exported " + Object.keys(S.days).length + " day(s). Keep the file with your other backups.";
+};
+
+$("impData").onchange = function(){
+  var f = this.files && this.files[0]; this.value = "";
+  if(!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    var inc;
+    try{ inc = JSON.parse(r.result); }
+    catch(e){ $("dataOut").textContent = "That file isn't readable as a backup."; return; }
+    if(inc._app !== "trading-assistant" || !inc.days){
+      $("dataOut").textContent = "That doesn't look like a Trading Assistant export.";
+      return;
+    }
+    var mine = Object.keys(S.days).length, theirs = Object.keys(inc.days).length;
+    var merge = confirm(
+      "Import " + theirs + " day(s)?\n\nOK = merge into this device (the file wins where the same day exists on both).\nCancel = stop, import nothing."
+    );
+    if(!merge) return;
+    Object.keys(inc.days).forEach(function(k){ S.days[k] = inc.days[k]; });
+    ["mode","accent","pmStart","openTime"].forEach(function(k){ if(inc[k]) S[k] = inc[k]; });
+    save(); renderAll();
+    $("dataOut").textContent = "Imported. This device now holds " + Object.keys(S.days).length + " day(s). Your API key was untouched.";
+  };
+  r.readAsText(f);
+};
+
+$("newDay").onclick = function(){
+  if(!confirm("Start a new trading day? Today's prep stays saved.")) return;
+  S.currentDay = todayKey();
+  if(S.days[S.currentDay] && Object.keys(S.days[S.currentDay].facts || {}).length){
+    if(!confirm("There's already prep for today. Clear it and start again?")) return;
+    delete S.days[S.currentDay];
+  }
+  day(); save(); renderAll(); go("prep"); toast("New day — focus carried over");
+};
+
+
+/* =====================================================================
+   Guided prep. The same data, one decision at a time.
+   Steps are built fresh each run so it only asks what's still missing.
+===================================================================== */
+var WIZ = { steps: [], i: 0 };
+
+function wizStepFocus(){
+  return {
+    say: "What is today's focus? One performance objective, not P and L.",
+    render: function(box){
+      box.appendChild(el("h2","wiz-q","What's today's focus?"));
+      box.appendChild(el("p","wiz-sub","One performance objective. Not P&L. Yesterday's carries over unless you change it."));
+      var chips = el("div","chips");
+      FOCUS_OPTIONS.forEach(function(t){
+        var b = el("button","chip",t); b.type = "button";
+        b.setAttribute("aria-pressed", day().focus === t ? "true" : "false");
+        b.onclick = function(){
+          day().focus = (day().focus === t) ? "" : t;
+          save(); wizRerender();
+        };
+        chips.appendChild(b);
+      });
+      box.appendChild(chips);
+      var inp = el("input"); inp.type = "text";
+      inp.placeholder = "Or write your own";
+      inp.style.marginTop = "14px";
+      inp.value = day().focusFree || "";
+      inp.oninput = function(){ day().focusFree = inp.value; save(); };
+      box.appendChild(inp);
+    },
+    ready: function(){ return !!(day().focus || day().focusFree); },
+    need: "Pick a focus or write one"
+  };
+}
+
+function wizStepNews(){
+  return {
+    say: "News. Pull today's calendar, or skip it if you already know the day.",
+    render: function(box){
+      box.appendChild(el("h2","wiz-q","Anything on the calendar?"));
+      box.appendChild(el("p","wiz-sub","High-impact events that could move the auction. Pull them, or add what you already know."));
+      var pull = el("button","btn wide", null); pull.textContent = "Pull today's events"; pull.type = "button";
+      pull.onclick = async function(){
+        pull.disabled = true; pull.textContent = "Looking…";
+        try{ await pullNewsCore(); }catch(e){}
+        pull.disabled = false; pull.textContent = "Pull today's events";
+        wizRerender();
+      };
+      box.appendChild(pull);
+      var list = day().news || [];
+      list.forEach(function(n, idx){
+        var row = el("div","idea");
+        var h = el("div","idea-h");
+        h.appendChild(el("b", null, n.time + "  " + n.what));
+        var x = el("button","x","×");
+        x.onclick = function(){ list.splice(idx,1); save(); wizRerender(); };
+        h.appendChild(x); row.appendChild(h);
+        box.appendChild(row);
+      });
+      var r2 = el("div","row-2"); r2.style.marginTop = "12px";
+      var t = el("input"); t.type = "text"; t.placeholder = "14:30"; t.className = "price";
+      var w = el("input"); w.type = "text"; w.placeholder = "Event";
+      r2.appendChild(t); r2.appendChild(w); box.appendChild(r2);
+      var add = el("button","cap-btn plain"); add.type = "button"; add.textContent = "Add event";
+      add.style.marginTop = "8px";
+      add.onclick = function(){
+        if(!w.value.trim()) return;
+        day().news.push({ time:t.value.trim() || "—", what:w.value.trim(), impact:"" });
+        save(); wizRerender();
+      };
+      box.appendChild(add);
+    },
+    ready: function(){ return true; },   /* a quiet day is a valid answer */
+    need: ""
+  };
+}
+
+function wizStepView(v){
+  return {
+    say: v.name + ". " + v.asks.join(". "),
+    render: function(box){
+      var d = day(); d.views[v.id] = d.views[v.id] || {};
+      box.appendChild(el("h2","wiz-q", v.name));
+      box.appendChild(el("p","wiz-sub", v.note + ". Shoot the chart and let Claude read it, or say it in your own words with the keyboard mic."));
+      var asks = el("ul","asks");
+      v.asks.forEach(function(a){ asks.appendChild(el("li", null, a)); });
+      box.appendChild(asks);
+
+      var cap = el("div","cap-row");
+      var shoot = el("label","cap-btn");
+      shoot.appendChild(document.createTextNode("Shoot the chart"));
+      var file = el("input"); file.type = "file"; file.accept = "image/*"; file.multiple = true;
+      file.style.display = "none";
+      file.onchange = function(){ addShots(v.id, file.files); file.value = ""; setTimeout(wizRerender, 400); };
+      shoot.appendChild(file); cap.appendChild(shoot);
+
+      var read = el("button","cap-btn"); read.type = "button"; read.textContent = "Ask Claude to read it";
+      read.onclick = async function(){
+        read.disabled = true; read.textContent = "Reading…";
+        await analyseView(v.id, null);
+        read.disabled = false; read.textContent = "Ask Claude to read it";
+        wizRerender();
+      };
+      cap.appendChild(read);
+      box.appendChild(cap);
+
+      var shots = SHOTS[v.id] || [];
+      if(shots.length){
+        var th = el("div","thumbs");
+        shots.forEach(function(s, i){
+          var d2 = el("div","drop");
+          var img = el("img"); img.src = s.url;
+          var x = el("button", null, "×");
+          x.onclick = function(){ shots.splice(i,1); wizRerender(); };
+          d2.appendChild(img); d2.appendChild(x); th.appendChild(d2);
+        });
+        box.appendChild(th);
+      }
+
+      var ta = el("textarea");
+      ta.placeholder = "What you see, in your own words";
+      ta.style.marginTop = "12px";
+      ta.value = d.views[v.id].note || "";
+      ta.oninput = function(){ d.views[v.id].note = ta.value; save(); };
+      box.appendChild(ta);
+
+      if(PROPOSALS[v.id]) box.appendChild(proposalBox(v.id));
+
+      box.appendChild(el("p","wiz-sub", "Who's in control on this view?")).style.marginTop = "16px";
+      var tags = el("div","tags");
+      [["L","Longs"],["S","Shorts"],["B","Balanced"]].forEach(function(t){
+        var b = el("button","tag", t[0] + " · " + t[1]); b.type = "button";
+        b.setAttribute("aria-pressed", d.views[v.id].tag === t[0] ? "true" : "false");
+        b.onclick = function(){
+          d.views[v.id].tag = (d.views[v.id].tag === t[0]) ? "" : t[0];
+          save(); wizRerender();
+        };
+        tags.appendChild(b);
+      });
+      box.appendChild(tags);
+    },
+    ready: function(){ return !!(day().views[v.id] || {}).tag; },
+    need: "Tag who's in control before moving on"
+  };
+}
+
+function wizStepFact(f){
+  return {
+    _factId: f.id,
+    say: f.q,
+    render: function(box){
+      var wrap = el("div","wiz-one-fact");
+      wrap.appendChild(el("h2","wiz-q", f.q));
+      wrap.appendChild(el("p","wiz-sub","Still needed — Claude couldn't settle this one from your charts."));
+      var ans = el("div","fact-a");
+      f.a.forEach(function(a){
+        var b = el("button", null, a); b.type = "button";
+        b.setAttribute("aria-pressed", day().facts[f.id] === a ? "true" : "false");
+        b.onclick = function(){
+          day().facts[f.id] = a; save();
+          setTimeout(wizNext, 150);   /* answer advances — one decision, done */
+        };
+        ans.appendChild(b);
+      });
+      wrap.appendChild(ans);
+      var skip = el("button","wiz-skip","Not sure — skip it");
+      skip.type = "button";
+      skip.onclick = function(){ wizNext(); };
+      wrap.appendChild(skip);
+      box.appendChild(wrap);
+    },
+    ready: function(){ return true; },
+    need: ""
+  };
+}
+
+function wizStepLevels(){
+  return {
+    say: "Levels. Fill in any key prices Claude didn't pick up.",
+    render: function(box){
+      box.appendChild(el("h2","wiz-q","Key levels"));
+      box.appendChild(el("p","wiz-sub","Anything Claude read is already here. Zones, not lines — two points either side."));
+      var grid = el("div","levels-grid");
+      LEVELS.forEach(function(l){
+        var b2 = el("div");
+        var lab = el("label", null, l.name);
+        var inp = el("input"); inp.type = "text"; inp.className = "price"; inp.placeholder = "0000.00";
+        inp.value = day().levels[l.id] || "";
+        inp.oninput = function(){ day().levels[l.id] = inp.value; save(); };
+        b2.appendChild(lab); b2.appendChild(inp); grid.appendChild(b2);
+      });
+      box.appendChild(grid);
+      var lab = el("label", null, "Other levels in play");
+      lab.style.marginTop = "12px";
+      var ta = el("textarea");
+      ta.value = day().extraLevels || "";
+      ta.oninput = function(){ day().extraLevels = ta.value; save(); };
+      box.appendChild(lab); box.appendChild(ta);
+    },
+    ready: function(){ return true; },
+    need: ""
+  };
+}
+
+function wizStepAnalysis(){
+  return {
+    say: "Last one. Your read of the day, in a few lines.",
+    render: function(box){
+      box.appendChild(el("h2","wiz-q","Your read of the day"));
+      box.appendChild(el("p","wiz-sub","Now you interpret. A few lines — what kind of day is this shaping up to be?"));
+      var ta = el("textarea");
+      ta.style.minHeight = "120px";
+      ta.value = day().analysis || "";
+      ta.oninput = function(){ day().analysis = ta.value; save(); };
+      box.appendChild(ta);
+    },
+    ready: function(){ return !!day().analysis; },
+    need: "A line or two — then the board opens"
+  };
+}
+
+function wizStepBoard(){
+  return {
+    say: "",
+    render: function(box){
+      box.appendChild(el("h2","wiz-q","Today's board"));
+      renderBoard();
+      var clone = $("boardOut").cloneNode(true);
+      clone.querySelectorAll("button").forEach(function(b){ b.remove(); });
+      box.appendChild(clone);
+      var say = el("button","btn wide"); say.type = "button";
+      say.textContent = "Read the board aloud"; say.style.marginTop = "6px";
+      say.onclick = function(){
+        var v = verdicts();
+        speak("Today's board. " + EDGES.map(function(e){
+          var r = v[e.id];
+          return e.name + " is " + (r.status === "on" ? "on" : r.status === "caution" ? "on caution" : "off") + ".";
+        }).join(" "));
+      };
+      box.appendChild(say);
+    },
+    ready: function(){ return true; },
+    need: ""
+  };
+}
+
+function buildWiz(){
+  var steps = [ wizStepFocus(), wizStepNews() ];
+  VIEWS.forEach(function(v){ steps.push(wizStepView(v)); });
+  /* only the facts nothing else has answered — think about what's needed now */
+  FACTS.forEach(function(f){
+    if(!day().facts[f.id]) steps.push(wizStepFact(f));
+  });
+  steps.push(wizStepLevels());
+  steps.push(wizStepAnalysis());
+  steps.push(wizStepBoard());
+  return steps;
+}
+
+function openWiz(){
+  WIZ.steps = buildWiz();
+  WIZ.i = 0;
+  $("wiz").classList.add("on");
+  document.body.style.overflow = "hidden";
+  wizRender();
+}
+function closeWiz(){
+  $("wiz").classList.remove("on");
+  document.body.style.overflow = "";
+  speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel();
+  renderAll();
+}
+function wizRender(){
+  var s = WIZ.steps[WIZ.i];
+  $("wizWhere").textContent = "STEP " + (WIZ.i + 1) + " OF " + WIZ.steps.length;
+  $("wizProg").style.width = Math.round((WIZ.i) / (WIZ.steps.length - 1) * 100) + "%";
+  var body = $("wizBody"); body.innerHTML = "";
+  s.render(body);
+  body.scrollTop = 0;
+  $("wizBack").style.visibility = WIZ.i === 0 ? "hidden" : "visible";
+  $("wizNext").textContent = WIZ.i === WIZ.steps.length - 1 ? "Done" : "Next";
+}
+function wizRerender(){
+  var keep = $("wizBody").scrollTop;
+  var s = WIZ.steps[WIZ.i];
+  var body = $("wizBody"); body.innerHTML = "";
+  s.render(body);
+  body.scrollTop = keep;
+}
+function wizNext(){
+  var s = WIZ.steps[WIZ.i];
+  if(!s.ready()){ toast(s.need); return; }
+  if(WIZ.i >= WIZ.steps.length - 1){ closeWiz(); return; }
+  /* facts answered along the way drop out of what's left */
+  if(WIZ.i + 1 < WIZ.steps.length){
+    WIZ.steps = WIZ.steps.slice(0, WIZ.i + 1).concat(
+      rebuildRemaining(WIZ.i + 1)
+    );
+  }
+  WIZ.i++;
+  wizRender();
+}
+function rebuildRemaining(from){
+  /* keep future view/one-off steps, but re-filter fact steps against
+     what's now answered so Claude's reads shrink the questionnaire */
+  var rest = WIZ.steps.slice(from);
+  return rest.filter(function(st){
+    return !(st._factId && day().facts[st._factId]);
+  });
+}
+function wizBack(){
+  if(WIZ.i > 0){ WIZ.i--; wizRender(); }
+}
+
+$("startWiz").onclick = openWiz;
+$("wizClose").onclick = closeWiz;
+$("wizNext").onclick = wizNext;
+$("wizBack").onclick = wizBack;
+$("wizSay").onclick = function(){
+  var s = WIZ.steps[WIZ.i];
+  if(s && s.say) speak(s.say);
+};
+
+
+/* =====================================================================
+   Coach. Claude, in the app, briefed on the method and on today.
+   History lives with the day, capped so context stays small and cheap.
+===================================================================== */
+var METHOD_BRIEF =
+  "You are the coach inside Ripley's Trading Assistant app for micro E-mini S&P (mES) futures. " +
+  "His method is Korbs' Profile Method: Auction Market Theory, volume profile, VWAP and value areas. " +
+  "Six edges only: " +
+  "Go With The Flow (higher-timeframe VWAP bias, enter at daily value-area extreme on a pullback, first target VWAP then opposite extreme); " +
+  "Line in the Sand (composite LVN as a binary decision line, enter on rejection, target next HVN, exit fast on acceptance through); " +
+  "Naked Tractor Beam (balanced prior day, untagged prior POC, inside-value open, price pushes away then rejects back toward the naked POC; dead once tagged); " +
+  "Playing with DDs (second distribution separated by a clear LVN, enter at new extreme toward developing POC, minimum 1:1); " +
+  "Afternoon Delight (confirmed trend day only, afternoon only, deep pullback to session midpoint, rejoin the trend); " +
+  "MC Flow (micro composite from overlapping value areas sets bias, trade developing extremes with it). " +
+  "Universal rule: acceptance through the decision level kills the premise — exit fast. " +
+  "The three questions before any trade: what is the trade idea, where is the stop, where is the entry — all three or no trade. " +
+  "The app's board marks each edge ON, CAUTION (setup exists, context poor — minimum size plus a typed reason) or OFF (setup structurally impossible today, no override). " +
+  "Risk principles: stop distance set by structure then size derived from it, minimum 1:1, any single trade is 50/50, the edge lives in the sample, no revenge trading, small consistent wins over big days. " +
+  "Voice: direct, mechanical, no fluff, British English, short answers a trader can absorb between glances at a chart. " +
+  "Push back in the method's own terms when he reaches for a trade the day does not support. " +
+  "You are not connected to live market data — never state current prices; work only from what he tells you and today's prep. " +
+  "Nothing you say is financial advice and he makes his own decisions — do not repeat this; it is context, not a disclaimer to recite.";
+
+function dayContext(){
+  var d = day(), out = [];
+  out.push("Date: " + (S.currentDay || todayKey()));
+  if(d.focus || d.focusFree) out.push("Focus: " + (d.focus || d.focusFree));
+  var tags = VIEWS.map(function(v){
+    var t = (d.views[v.id] || {}).tag;
+    return t ? v.name + "=" + t : null;
+  }).filter(Boolean);
+  if(tags.length) out.push("Context tags: " + tags.join(", "));
+  VIEWS.forEach(function(v){
+    var n = (d.views[v.id] || {}).note;
+    if(n) out.push(v.name + " note: " + n);
+  });
+  var facts = FACTS.map(function(f){
+    return d.facts[f.id] ? f.q + " " + d.facts[f.id] : null;
+  }).filter(Boolean);
+  if(facts.length) out.push("Facts: " + facts.join(" | "));
+  var lv = LEVELS.map(function(l){
+    return d.levels[l.id] ? l.name + " " + d.levels[l.id] : null;
+  }).filter(Boolean);
+  if(lv.length) out.push("Levels: " + lv.join(", "));
+  if(d.extraLevels) out.push("Other levels: " + d.extraLevels);
+  if(d.analysis) out.push("His read of the day: " + d.analysis);
+  if(prepComplete()){
+    var v = verdicts();
+    out.push("Board: " + EDGES.map(function(e){
+      return e.short + "=" + v[e.id].status.toUpperCase();
+    }).join(", "));
+    EDGES.forEach(function(e){
+      out.push(e.short + " because: " + v[e.id].why.join("; "));
+    });
+  } else {
+    out.push("Prep is not complete yet, so the board is locked.");
+  }
+  if((d.news || []).length){
+    out.push("News: " + d.news.map(function(n){ return n.time + " " + n.what; }).join("; "));
+  }
+  if((d.ideas || []).length){
+    out.push("Ideas: " + d.ideas.map(function(i){
+      return i.edge + " " + i.dir + " entry " + i.entry + " stop " + i.stop + (i.caution ? " (caution)" : "");
+    }).join("; "));
+  }
+  return out.join("\n");
+}
+
+function renderCoach(){
+  var out = $("chatOut"); out.innerHTML = "";
+  var chat = day().coach || [];
+  if(!chat.length){
+    var e = el("div","empty");
+    e.appendChild(el("strong", null, "Ask the coach"));
+    e.appendChild(el("span", null,
+      "It knows the six edges, the board rules, and everything in today's prep. It can't see live prices — tell it where price is if that matters to the question."));
+    out.appendChild(e);
+    return;
+  }
+  chat.forEach(function(m){
+    var b = el("div","msg " + (m.role === "user" ? "me" : "ai"), m.text);
+    if(m.role === "assistant"){
+      var s = el("button","speak","Read aloud"); s.type = "button";
+      s.onclick = function(){ speak(m.text); };
+      b.appendChild(document.createElement("br"));
+      b.appendChild(s);
+    }
+    out.appendChild(b);
+  });
+  out.lastChild && out.lastChild.scrollIntoView({ block:"end" });
+}
+
+async function sendCoach(){
+  var box = $("chatIn"), q = box.value.trim();
+  if(!q) return;
+  var d = day();
+  d.coach = d.coach || [];
+  d.coach.push({ role:"user", text:q });
+  save(); box.value = ""; renderCoach();
+
+  var out = $("chatOut");
+  var think = el("div","msg think","…thinking");
+  out.appendChild(think);
+
+  /* last 16 turns only — enough memory, small bill */
+  var msgs = d.coach.slice(-16).map(function(m){
+    return { role: m.role === "user" ? "user" : "assistant", content: m.text };
+  });
+  msgs[msgs.length - 1] = {
+    role: "user",
+    content: "Today's prep and board:\n" + dayContext() + "\n\nQuestion: " + q
+  };
+
+  try{
+    var text = await callClaudeRaw(msgs, METHOD_BRIEF);
+    d.coach.push({ role:"assistant", text: text.trim() });
+    save();
+  }catch(e){
+    d.coach.push({ role:"assistant", text:
+      e.message === "no-key" ? "No API key saved — add it in Settings and I'm here." :
+      e.message === "bad-key" ? "The API key was rejected — check it in Settings." :
+      "Couldn't reach Claude just now: " + e.message.slice(0,80) });
+    save();
+  }
+  renderCoach();
+}
+$("chatSend").onclick = sendCoach;
+$("chatIn").addEventListener("keydown", function(ev){
+  if(ev.key === "Enter" && !ev.shiftKey && window.innerWidth > 700){
+    ev.preventDefault(); sendCoach();
+  }
+});
+
+function renderAll(){
+  day();
+  applyTheme(); dstCheck(); renderHeader();
+  renderFocus(); renderNews(); renderViews(); renderFacts();
+  renderLevels(); renderSteps(); renderSettings();
+  renderBoard(); renderIdeaEdges(); renderIdeas();
+}
+
+window.matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", function(){ if(S.mode === "auto") applyTheme(); });
+
+renderAll();
+
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js").catch(function(){});
 }
 </script>
 </body>
