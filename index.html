@@ -122,7 +122,7 @@ hr{height:1px;background:var(--line);border:0;margin:18px 0}
 </head>
 <body>
 <header>
-  <div class="eyebrow">12 Week Year</div>
+  <div class="eyebrow" id="eyebrow">12 Week Year</div>
   <h1 id="title">Week 1</h1>
   <p class="sub" id="sub"></p>
   <span class="save" id="status"></span>
@@ -133,6 +133,7 @@ hr{height:1px;background:var(--line);border:0;margin:18px 0}
 
 <script>
 /* ------------------------------------------------------------------ model */
+var APP_VERSION='8';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -622,7 +623,9 @@ function renderScore(){
   out+='<h2>Your data</h2><div class="card"><div class="note" style="margin:0 0 12px">'+
     'Everything is stored on this device only. Export a copy before clearing your browser data or changing phone.</div>'+
     '<button class="btn" data-act="export">Export backup</button> '+
-    '<button class="btn" data-act="import">Import backup</button></div>'+
+    '<button class="btn" data-act="import">Import backup</button>'+
+    '<div class="note" style="margin-top:14px">Version '+APP_VERSION+'. Updates arrive on their own; this forces the check.</div>'+
+    '<button class="btn ghost" data-act="update">Check for updates now</button></div>'+
     '<hr><button class="btn" data-act="reset">Start a new 12 weeks</button>';
   return out;
 }
@@ -639,6 +642,7 @@ function render(){
     score:'Execution is the score that predicts the result.',
     vision:'Where this is all pointing.'
   }[view];
+  document.getElementById('eyebrow').textContent='12 Week Year · v'+APP_VERSION;
   document.getElementById('title').textContent=t;
   document.getElementById('sub').textContent=sub;
   try{
@@ -728,6 +732,16 @@ document.addEventListener('click',function(e){
   }
   else if(a==='theme'){theme.preset=el.getAttribute('data-v'); saveTheme(); applyTheme(); render(); return}
   else if(a==='mode'){theme.mode=el.getAttribute('data-v'); saveTheme(); applyTheme(); render(); return}
+  else if(a==='update'){
+    var step=window.caches?caches.keys().then(function(k){return Promise.all(k.map(function(x){return caches.delete(x)}))}):Promise.resolve();
+    step.then(function(){
+      return (navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)?navigator.serviceWorker.getRegistrations():[];
+    }).then(function(rs){
+      return Promise.all((rs||[]).map(function(r){return r.unregister()}));
+    })['catch'](function(){})
+    .then(function(){location.reload()});
+    return;
+  }
   else if(a==='export'){exportData();return}
   else if(a==='import'){document.getElementById('importer').click();return}
   else if(a==='reset'){
