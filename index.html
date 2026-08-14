@@ -37,7 +37,7 @@ h1{font:800 27px/1.02 var(--display);letter-spacing:-.035em;text-transform:upper
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:14px;margin:12px 0}
 .lbl{display:block;font:600 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-input[type=text],input[type=date],textarea{
+input[type=text],input[type=date],input[type=number],textarea{
   width:100%;font:400 15px/1.45 var(--display);color:var(--ink);background:transparent;
   border:0;border-bottom:1px solid var(--line);padding:6px 0;border-radius:0;-webkit-appearance:none;font-family:var(--display);
 }
@@ -83,6 +83,23 @@ input:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:2px}
 
 .empty{font:400 14px/1.5 var(--display);color:var(--muted);padding:18px 0;text-align:center}
 .note{font:400 12px/1.4 var(--display);color:var(--muted);margin-top:8px}
+.tips{margin:0;padding:0 0 0 18px}
+.tips li{font:400 13px/1.5 var(--display);color:var(--muted);margin-bottom:7px}
+.mset{padding:14px 0;border-bottom:1px solid var(--line)}
+.mset:last-of-type{border-bottom:0}
+.mgrid{display:flex;gap:10px;margin-top:12px}
+.mgrid>div{flex:1;min-width:0}
+.mrow{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
+.mrow:last-child{border-bottom:0}
+.chart{display:block;width:100%;height:70px;margin:12px 0 8px}
+.gauge{display:block;width:100%;max-width:280px;margin:6px auto 0}
+.rings{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.ringbox{width:78px;text-align:center}
+.ring{display:block;width:70px;height:70px;margin:0 auto}
+.ringlab{font:500 9px/1.25 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .breakdown{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
 .brow{display:flex;align-items:center;gap:10px;font:500 11px/1 var(--mono);color:var(--muted);margin-top:9px}
 .brow b{font:700 11px/1 var(--mono);color:var(--ink);width:38px;text-align:right}
@@ -142,6 +159,10 @@ var THEMES={
 var THEME_ORDER=['graphite','clay','pine','indigo','ember'];
 var MODES=[['light','Light'],['dark','Dark'],['auto','Auto']];
 var theme={preset:'graphite',mode:'auto'};
+var PREFS_KEY='twy:prefs:v1';
+var prefs={tips:true};
+function savePrefs(){try{localStorage.setItem(PREFS_KEY,JSON.stringify(prefs))}catch(e){}}
+function loadPrefs(){try{var r=localStorage.getItem(PREFS_KEY); if(r)prefs=Object.assign(prefs,JSON.parse(r))}catch(e){}}
 
 function darkNow(){
   if(theme.mode==='dark')return true;
@@ -168,7 +189,8 @@ var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){
 var sameDays=function(a,b){a=a||[];b=b||[];return a.length===b.length&&a.every(function(d){return b.indexOf(d)>-1})};
 
 function blankTactic(){return{id:uid(),text:'',weeks:[],days:[]}}
-function blankGoal(){return{id:uid(),title:'',start:'',tactics:[blankTactic()]}}
+function blankGoal(){return{id:uid(),title:'',start:'',tactics:[blankTactic()],measures:[]}}
+function blankMeasure(){return{id:uid(),name:'',start:0,target:0,unit:'',mode:'weekly'}}
 function blankResult(){return{thisWeek:'',toDate:'',onPace:''}}
 function blankState(){return{vision:{longTerm:'',threeYear:'',age:''},goals:[blankGoal(),blankGoal()],weeks:{}}}
 
@@ -176,10 +198,10 @@ var state=blankState(), view='week', week=1;
 
 function ensureWeek(w){
   var wk=state.weeks[w]=state.weeks[w]||{done:{},days:{},results:{}};
-  wk.done=wk.done||{}; wk.days=wk.days||{}; wk.results=wk.results||{};
+  wk.done=wk.done||{}; wk.days=wk.days||{}; wk.results=wk.results||{}; wk.measures=wk.measures||{};
   return wk;
 }
-function weekOf(w){return state.weeks[w]||{done:{},days:{},results:{}}}
+function weekOf(w){return state.weeks[w]||{done:{},days:{},results:{},measures:{}}}
 function resultOf(w,gid){return (weekOf(w).results||{})[gid]||blankResult()}
 function lastResult(w,gid){
   for(var i=w-1;i>=1;i--){var r=resultOf(i,gid);
@@ -214,6 +236,104 @@ function scoreWeek(w){
   var pct=pool.length?pool.reduce(function(a,b){return a+b},0)/pool.length:null;
   return{pct:pct,goals:goals,dueGoals:active.length,dueTotal:pool.length};
 }
+/* A measurement is the lag indicator: the number the work is meant to move.
+   mode 'weekly' = enter what you did that week, the app accumulates.
+   mode 'total'  = enter where the number stands now, carried forward. */
+function measureSeries(m){
+  var st=Number(m.start)||0, tg=Number(m.target)||0;
+  var cum=[], entered=[], run=st, lastWeek=0;
+  for(var w=1;w<=12;w++){
+    var raw=(weekOf(w).measures||{})[m.id];
+    var v=(raw===undefined||raw===null||raw==='')?null:Number(raw);
+    entered.push(v);
+    if(v!==null){lastWeek=w; run = m.mode==='total' ? v : run+v;}
+    else if(m.mode==='weekly'){/* nothing added */}
+    cum.push(run);
+  }
+  var expected=function(w){return st+(tg-st)*(w/12)};
+  var current=lastWeek?cum[lastWeek-1]:st;
+  var falling=tg<st;
+  var due=expected(lastWeek||0);
+  return{start:st,target:tg,cum:cum,entered:entered,lastWeek:lastWeek,current:current,
+    expected:expected,falling:falling,
+    onPace:lastWeek?(falling?current<=due:current>=due):null,
+    gap:current-due,
+    pctOfTarget:(tg-st)===0?null:Math.max(0,Math.min(100,(current-st)/(tg-st)*100))};
+}
+function tidy(n){return (Math.round(n*100)/100).toString()}
+
+/* Rev-counter gauge: 0-100% execution, 85 marked as the line that matters. */
+function gauge(pct){
+  var cx=100, cy=100, r=78, W=200, H=118;
+  var pt=function(v,rad){var th=Math.PI*(1-Math.max(0,Math.min(100,v))/100);
+    return [(cx+rad*Math.cos(th)).toFixed(2),(cy-rad*Math.sin(th)).toFixed(2)]};
+  var arc=function(v1,v2,rad,col,w,op){
+    var a=pt(v1,rad), b=pt(v2,rad);
+    return '<path d="M'+a[0]+' '+a[1]+' A'+rad+' '+rad+' 0 '+((v2-v1)>50?1:0)+' 1 '+b[0]+' '+b[1]+
+      '" fill="none" stroke="'+col+'" stroke-width="'+w+'" stroke-linecap="butt" opacity="'+op+'"/>';
+  };
+  var out='<svg class="gauge" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">';
+  out+=arc(0,60,r,'var(--off)',13,0.85);
+  out+=arc(60,85,r,'var(--off)',13,0.45);
+  out+=arc(85,100,r,'var(--on)',13,0.95);
+  var t=pt(85,r+9), t2=pt(85,r-9);
+  out+='<line x1="'+t[0]+'" y1="'+t[1]+'" x2="'+t2[0]+'" y2="'+t2[1]+'" stroke="var(--ink)" stroke-width="1.5"/>';
+  var lab=pt(85,r+18);
+  out+='<text x="'+lab[0]+'" y="'+lab[1]+'" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="'+
+    'ui-monospace,Menlo,monospace">85</text>';
+  var v=pct===null?0:pct;
+  var n=pt(v,r-16), tail=pt(v,-9);
+  out+='<line x1="'+tail[0]+'" y1="'+tail[1]+'" x2="'+n[0]+'" y2="'+n[1]+
+    '" stroke="'+(pct===null?'var(--dim)':'var(--ink)')+'" stroke-width="3.5" stroke-linecap="round"/>';
+  out+='<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>';
+  out+='<text x="'+(cx-r)+'" y="'+(cy+14)+'" text-anchor="middle" font-size="9" fill="var(--dim)" font-family="ui-monospace,Menlo,monospace">0</text>';
+  out+='<text x="'+(cx+r)+'" y="'+(cy+14)+'" text-anchor="middle" font-size="9" fill="var(--dim)" font-family="ui-monospace,Menlo,monospace">100</text>';
+  return out+'</svg>';
+}
+
+/* Ring per goal — share of that goal's weekly execution achieved so far. */
+function ring(pct,label){
+  var r=26, c=2*Math.PI*r, done=pct===null?0:Math.max(0,Math.min(100,pct));
+  var col=pct===null?'var(--dim)':(pct>=85?'var(--on)':'var(--off)');
+  return '<div class="ringbox"><svg class="ring" viewBox="0 0 70 70" aria-hidden="true">'+
+    '<circle cx="35" cy="35" r="'+r+'" fill="none" stroke="var(--track)" stroke-width="7"/>'+
+    '<circle cx="35" cy="35" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="7" stroke-linecap="round"'+
+    ' stroke-dasharray="'+(c*done/100).toFixed(2)+' '+c.toFixed(2)+'" transform="rotate(-90 35 35)"/>'+
+    '<text x="35" y="39" text-anchor="middle" font-size="15" font-family="ui-monospace,Menlo,monospace"'+
+    ' fill="var(--ink)">'+(pct===null?'—':Math.round(pct))+'</text></svg>'+
+    '<div class="ringlab">'+label+'</div></div>';
+}
+
+function goalAverages(){
+  var sums=state.goals.map(function(){return{t:0,n:0}});
+  WEEKS.forEach(function(w){
+    var sc=scoreWeek(w);
+    sc.goals.forEach(function(g,gi){ if(g){sums[gi].t+=g.pct; sums[gi].n++;} });
+  });
+  return sums.map(function(x){return x.n?x.t/x.n:null});
+}
+
+function measureChart(m,s){
+  var vals=s.cum.concat([s.start,s.target]);
+  var lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals);
+  if(hi===lo)hi=lo+1;
+  var W=240,H=70;
+  var X=function(w){return w/12*W}, Y=function(v){return H-(v-lo)/(hi-lo)*H};
+  var bars='';
+  for(var w=1;w<=s.lastWeek;w++){
+    var good=s.falling?s.cum[w-1]<=s.expected(w):s.cum[w-1]>=s.expected(w);
+    var yv=Y(s.cum[w-1]);
+    bars+='<rect x="'+(X(w-1)+1.5).toFixed(1)+'" y="'+Math.min(yv,H-1).toFixed(1)+
+      '" width="'+(W/12-3).toFixed(1)+'" height="'+Math.max(1,H-yv).toFixed(1)+
+      '" fill="var(--'+(good?'on':'off')+')" opacity="0.9"/>';
+  }
+  return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true">'+
+    bars+
+    '<line x1="0" y1="'+Y(s.start).toFixed(1)+'" x2="'+W+'" y2="'+Y(s.target).toFixed(1)+
+    '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/>'+
+    '</svg>';
+}
+
 function weekDates(start,w){
   if(!start)return null;
   var d=new Date(start+'T00:00:00'); if(isNaN(d))return null;
@@ -255,6 +375,7 @@ function load(){
       }
     });
     s.goals.forEach(function(g,gi){
+      g.measures=g.measures||[];
       g.tactics=(g.tactics&&g.tactics.length?g.tactics:[blankTactic()]).map(function(t){
         t.weeks=t.weeks||[];t.days=t.days||[];return t});
       if(g.results&&(g.results.thisWeek||g.results.toDate||g.results.onPace)){
@@ -287,7 +408,16 @@ function renderVision(){
 }
 
 function renderPlan(){
-  return state.goals.map(function(g,gi){
+  var tips = prefs.tips===false ? '' :
+    '<div class="card"><label class="lbl">Writing a plan that holds up</label>'+
+    '<ul class="tips">'+
+    '<li>Fewer goals beat more. Three is plenty; one is not too few.</li>'+
+    '<li>Tactics are actions you control, not outcomes you hope for. "Publish three outlines" — not "get more traction".</li>'+
+    '<li>If a tactic can\'t be answered yes or no at the end of a day, it is still too vague.</li>'+
+    '<li>Set the days deliberately. Three chosen days beat a vague "most days".</li>'+
+    '<li>Add a measurement for the number the work is meant to move. Tactics tell you whether you did the work; the measurement tells you whether it worked.</li>'+
+    '</ul><button class="btn ghost" data-act="hidetips">Hide these</button></div>';
+  return tips+state.goals.map(function(g,gi){
     var tac=g.tactics.map(function(t,ti){
       var wchips=WEEKS.map(function(w){
         return chip(w,t.weeks.indexOf(w)>-1,'data-act="tw" data-g="'+gi+'" data-t="'+ti+'" data-w="'+w+'"');
@@ -313,6 +443,27 @@ function renderPlan(){
       '<div class="card"><label class="lbl">Tactics</label>'+tac+'<hr>'+
       '<button class="btn" data-act="addt" data-g="'+gi+'"'+(g.tactics.length>=12?' disabled':'')+'>Add tactic</button>'+
       (state.goals.length>1?'<button class="btn ghost" style="display:block;margin-top:10px" data-act="rmg" data-g="'+gi+'">Delete goal '+(gi+1)+'</button>':'')+
+      '</div>'+
+      '<div class="card"><label class="lbl">Measurements</label>'+
+      '<div class="note" style="margin-top:0">The number this goal is meant to move. Charted weekly against the pace needed to hit your target.</div>'+
+      g.measures.map(function(m,mi){
+        return '<div class="mset">'+
+          '<input type="text" data-bind="goals.'+gi+'.measures.'+mi+'.name" value="'+esc(m.name)+'" placeholder="What are you measuring?">'+
+          '<div class="mgrid">'+
+            '<div><label class="lbl">Start</label><input type="number" inputmode="decimal" data-num="goals.'+gi+'.measures.'+mi+'.start" value="'+esc(m.start)+'"></div>'+
+            '<div><label class="lbl">Target</label><input type="number" inputmode="decimal" data-num="goals.'+gi+'.measures.'+mi+'.target" value="'+esc(m.target)+'"></div>'+
+            '<div><label class="lbl">Unit</label><input type="text" data-bind="goals.'+gi+'.measures.'+mi+'.unit" value="'+esc(m.unit)+'" placeholder="projects"></div>'+
+          '</div>'+
+          '<label class="lbl" style="margin-top:12px">Each week I enter</label>'+
+          chips(chip('What I did that week',m.mode==='weekly','data-act="mmode" data-g="'+gi+'" data-m="'+mi+'" data-v="weekly"')+
+                chip('Where the total stands',m.mode==='total','data-act="mmode" data-g="'+gi+'" data-m="'+mi+'" data-v="total"'))+
+          '<div class="note">'+(m.mode==='weekly'
+            ? 'Weekly amounts add up, so a light week can be caught up by a heavy one.'
+            : 'A running figure — weight, balance, total to date. Carried forward if you skip a week.')+'</div>'+
+          '<button class="btn ghost" data-act="rmm" data-g="'+gi+'" data-m="'+mi+'">Remove measurement</button>'+
+          '</div>';
+      }).join('')+
+      '<button class="btn" data-act="addm" data-g="'+gi+'" style="margin-top:'+(g.measures.length?14:4)+'px">Add measurement</button>'+
       '</div>';
   }).join('')+
   '<hr><button class="btn" data-act="addg">Add another goal</button>'+
@@ -361,6 +512,26 @@ function renderWeek(){
   });
   out+='</div>';
 
+  var ms=[];
+  state.goals.forEach(function(g,gi){(g.measures||[]).forEach(function(m){
+    if(m.name.trim())ms.push({m:m,gi:gi});
+  })});
+  if(ms.length){
+    out+='<h2>Measurements</h2><div class="card">';
+    ms.forEach(function(x){
+      var m=x.m, se=measureSeries(m), raw=(wk.measures||{})[m.id];
+      var need=se.expected(week);
+      out+='<div class="mrow"><div class="grow">'+
+        '<label class="lbl">'+esc(m.name)+(m.unit?' ('+esc(m.unit)+')':'')+'</label>'+
+        '<input type="number" inputmode="decimal" data-num="weeks.'+week+'.measures.'+m.id+'" value="'+
+          (raw===undefined||raw===null?'':esc(raw))+'" placeholder="'+(m.mode==='weekly'?'This week':'Total now')+'">'+
+        '<div class="tacmeta">Goal '+(x.gi+1)+' · '+tidy(se.cum[week-1])+' of '+tidy(m.target)+
+          ' · pace needs '+tidy(need)+' by week '+week+'</div>'+
+        '</div></div>';
+    });
+    out+='</div>';
+  }
+
   out+='<h2>Weekly progress</h2>';
   state.goals.forEach(function(g,gi){
     var r=resultOf(week,g.id), p=lastResult(week,g.id);
@@ -384,16 +555,26 @@ function renderScore(){
   var scored=scores.filter(function(s){return s.pct!==null});
   var avg=scored.length?Math.round(scored.reduce(function(a,b){return a+b.pct},0)/scored.length):null;
   var hit=scored.filter(function(s){return s.pct>=85}).length;
-  var out='<div class="card"><label class="lbl">Weekly execution — tap a week</label><div class="strip"><div class="target"><span>85%</span></div>';
+  var out='<div class="card"><label class="lbl">Average execution</label>'+gauge(avg)+
+    '<div style="text-align:center;margin-top:-6px">'+
+    '<div class="statv" style="font-size:34px;color:'+(avg===null?'var(--dim)':(avg>=85?'var(--on)':'var(--off)'))+'">'+
+      (avg===null?'—':avg+'%')+'</div>'+
+    '<div class="statl">'+(avg===null?'No weeks scored yet':(scored.length+' week'+(scored.length>1?'s':'')+' scored · '+hit+' at 85%+'))+'</div></div>';
+  var ga=goalAverages();
+  if(ga.some(function(x){return x!==null})){
+    out+='<div class="rings">'+state.goals.map(function(g,gi){
+      return ring(ga[gi], esc(g.title||('Goal '+(gi+1))));
+    }).join('')+'</div>';
+  }
+  out+='</div>';
+
+  out+='<div class="card"><label class="lbl">Weekly execution — tap a week</label><div class="strip"><div class="target"><span>85%</span></div>';
   scores.forEach(function(s,i){
     out+='<button class="cell" aria-current="'+(i+1===week)+'" data-act="gow" data-w="'+(i+1)+'" aria-label="Week '+(i+1)+(s.pct===null?', not scored':', '+Math.round(s.pct)+' percent')+'">'+
       (s.pct!==null&&s.pct>0?'<span class="fill'+(s.pct<85?' low':'')+'" style="height:'+s.pct+'%"></span>':'')+
       '<span class="cellnum">'+(i+1)+'</span></button>';
   });
-  out+='</div><div class="stats">'+
-    '<div class="stat"><div class="statv">'+(avg===null?'—':avg+'%')+'</div><div class="statl">Average execution</div></div>'+
-    '<div class="stat"><div class="statv">'+hit+'<span style="color:var(--dim)">/12</span></div><div class="statl">Weeks at 85%+</div></div>'+
-    '</div></div>';
+  out+='</div></div>';
 
   out+='<h2>Goals</h2>';
   state.goals.forEach(function(g,gi){
@@ -402,6 +583,32 @@ function renderScore(){
       '<div class="tacmeta">'+g.tactics.filter(function(t){return t.text.trim()}).length+' tactics'+
       (p?' · on pace at week '+p.week+': '+p.value.toLowerCase():'')+'</div></div>';
   });
+
+  var anyM=false;
+  state.goals.forEach(function(g){(g.measures||[]).forEach(function(m){if(m.name.trim())anyM=true})});
+  if(anyM){
+    out+='<h2>Results</h2>';
+    state.goals.forEach(function(g,gi){
+      (g.measures||[]).forEach(function(m){
+        if(!m.name.trim())return;
+        var se=measureSeries(m);
+        var col=se.onPace===null?'var(--dim)':(se.onPace?'var(--on)':'var(--off)');
+        out+='<div class="card">'+
+          '<div style="display:flex;align-items:baseline;justify-content:space-between">'+
+          '<span class="lbl" style="margin-bottom:0">'+esc(m.name)+'</span>'+
+          '<span class="statv" style="color:'+col+'">'+tidy(se.current)+'</span></div>'+
+          '<div class="statl" style="margin-top:6px">of '+tidy(se.target)+(m.unit?' '+esc(m.unit):'')+
+            ' · goal '+(gi+1)+
+            (se.lastWeek?' · '+(se.gap===0?'exactly on pace':(se.onPace?'ahead by ':'behind by ')+tidy(Math.abs(se.gap))):' · no entries yet')+
+          '</div>'+
+          '<div class="bbar" style="margin-top:12px"><i style="width:'+(se.pctOfTarget===null?0:se.pctOfTarget.toFixed(1))+
+            '%;background:'+col+'"></i></div>'+
+          measureChart(m,se)+
+          '<div class="statl">Dashed line is the pace needed to reach your target by week 12.</div>'+
+          '</div>';
+      });
+    });
+  }
 
   out+='<h2>Appearance</h2><div class="card">'+
     '<label class="lbl">Colour</label>'+chips(THEME_ORDER.map(function(k){
@@ -451,6 +658,7 @@ function render(){
 function setPath(path,value){
   var parts=path.split('.'), o=state;
   if(parts[0]==='weeks')ensureWeek(parseInt(parts[1],10));
+  if(parts[0]==='weeks'&&parts[2]==='measures')ensureWeek(parseInt(parts[1],10)).measures=ensureWeek(parseInt(parts[1],10)).measures||{};
   for(var i=0;i<parts.length-1;i++){
     var k=parts[i];
     if(o[k]==null)o[k]={};
@@ -463,6 +671,13 @@ document.addEventListener('input',function(e){
   if(!p)return;
   setPath(p,e.target.value);
   save();
+});
+document.addEventListener('change',function(e){
+  var p=e.target.getAttribute&&e.target.getAttribute('data-num');
+  if(!p)return;
+  var v=e.target.value;
+  setPath(p, v===''?null:Number(v));
+  save(); render();
 });
 document.addEventListener('click',function(e){
   var el=e.target.closest('[data-act]'); if(!el)return;
@@ -482,6 +697,13 @@ document.addEventListener('click',function(e){
   else if(a==='addt'){state.goals[gi].tactics.push(blankTactic())}
   else if(a==='rmt'){state.goals[gi].tactics.splice(ti,1)}
   else if(a==='addg'){state.goals.push(blankGoal())}
+  else if(a==='addm'){state.goals[gi].measures.push(blankMeasure())}
+  else if(a==='rmm'){
+    if(!confirm('Remove this measurement and its weekly figures?'))return;
+    state.goals[gi].measures.splice(parseInt(el.getAttribute('data-m'),10),1);
+  }
+  else if(a==='mmode'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].mode=el.getAttribute('data-v')}
+  else if(a==='hidetips'){prefs.tips=false; savePrefs()}
   else if(a==='rmg'){
     if(!confirm('Delete goal '+(gi+1)+' and its tactics? Your weekly ticks for it will be discarded.'))return;
     state.goals.splice(gi,1);
@@ -545,6 +767,7 @@ document.getElementById('importer').addEventListener('change',function(e){
 
 /* --------------------------------------------------------------- start up */
 loadTheme();
+loadPrefs();
 applyTheme();
 if(window.matchMedia){
   var mq=window.matchMedia('(prefers-color-scheme: dark)');
