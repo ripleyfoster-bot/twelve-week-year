@@ -89,6 +89,9 @@ input:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:2px}
 .mset:last-of-type{border-bottom:0}
 .mgrid{display:flex;gap:10px;margin-top:12px}
 .mgrid>div{flex:1;min-width:0}
+.mentry{margin-top:12px}
+.mentry.inline{margin-top:14px;padding:11px 12px;border-left:2px solid var(--line);background:var(--cell);border-radius:0 3px 3px 0}
+.mentry .tacmeta{margin-top:6px}
 .mrow{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
 .mrow:last-child{border-bottom:0}
 .chart{display:block;width:100%;height:70px;margin:12px 0 8px}
@@ -133,7 +136,7 @@ hr{height:1px;background:var(--line);border:0;margin:18px 0}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='8';
+var APP_VERSION='10';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -191,7 +194,7 @@ var sameDays=function(a,b){a=a||[];b=b||[];return a.length===b.length&&a.every(f
 
 function blankTactic(){return{id:uid(),text:'',weeks:[],days:[]}}
 function blankGoal(){return{id:uid(),title:'',start:'',tactics:[blankTactic()],measures:[]}}
-function blankMeasure(){return{id:uid(),name:'',start:0,target:0,unit:'',mode:'weekly'}}
+function blankMeasure(){return{id:uid(),name:'',start:0,target:0,unit:'',mode:'weekly',tacticId:''}}
 function blankResult(){return{thisWeek:'',toDate:'',onPace:''}}
 function blankState(){return{vision:{longTerm:'',threeYear:'',age:''},goals:[blankGoal(),blankGoal()],weeks:{}}}
 
@@ -270,7 +273,7 @@ function gauge(pct){
     return [(cx+rad*Math.cos(th)).toFixed(2),(cy-rad*Math.sin(th)).toFixed(2)]};
   var arc=function(v1,v2,rad,col,w,op){
     var a=pt(v1,rad), b=pt(v2,rad);
-    return '<path d="M'+a[0]+' '+a[1]+' A'+rad+' '+rad+' 0 '+((v2-v1)>50?1:0)+' 1 '+b[0]+' '+b[1]+
+    return '<path d="M'+a[0]+' '+a[1]+' A'+rad+' '+rad+' 0 0 1 '+b[0]+' '+b[1]+
       '" fill="none" stroke="'+col+'" stroke-width="'+w+'" stroke-linecap="butt" opacity="'+op+'"/>';
   };
   var out='<svg class="gauge" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">';
@@ -283,7 +286,7 @@ function gauge(pct){
   out+='<text x="'+lab[0]+'" y="'+lab[1]+'" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="'+
     'ui-monospace,Menlo,monospace">85</text>';
   var v=pct===null?0:pct;
-  var n=pt(v,r-16), tail=pt(v,-9);
+  var n=pt(v,r-14), tail=pt(v,-10);
   out+='<line x1="'+tail[0]+'" y1="'+tail[1]+'" x2="'+n[0]+'" y2="'+n[1]+
     '" stroke="'+(pct===null?'var(--dim)':'var(--ink)')+'" stroke-width="3.5" stroke-linecap="round"/>';
   out+='<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>';
@@ -305,9 +308,34 @@ function ring(pct,label){
     '<div class="ringlab">'+label+'</div></div>';
 }
 
+/* Which week the plan is actually on — from the start date if set,
+   otherwise the last week with anything recorded. Weeks beyond it are
+   not yet scored and must not drag the average down. */
+function programmeWeek(){
+  var st=state.goals[0]&&state.goals[0].start;
+  if(st){
+    var d=new Date(st+'T00:00:00');
+    if(!isNaN(d.getTime())){
+      var n=Math.floor((Date.now()-d.getTime())/(7*24*3600*1000))+1;
+      return Math.max(1,Math.min(12,n));
+    }
+  }
+  var last=1;
+  WEEKS.forEach(function(w){
+    var wk=state.weeks[w]; if(!wk)return;
+    var any=['done','days','measures','results'].some(function(k){
+      return wk[k]&&Object.keys(wk[k]).length;
+    });
+    if(any)last=w;
+  });
+  return last;
+}
+
 function goalAverages(){
   var sums=state.goals.map(function(){return{t:0,n:0}});
+  var cw=programmeWeek();
   WEEKS.forEach(function(w){
+    if(w>cw)return;
     var sc=scoreWeek(w);
     sc.goals.forEach(function(g,gi){ if(g){sums[gi].t+=g.pct; sums[gi].n++;} });
   });
@@ -333,6 +361,19 @@ function measureChart(m,s){
     '<line x1="0" y1="'+Y(s.start).toFixed(1)+'" x2="'+W+'" y2="'+Y(s.target).toFixed(1)+
     '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/>'+
     '</svg>';
+}
+
+function measureInput(m,w,gi,inline){
+  var se=measureSeries(m), raw=(weekOf(w).measures||{})[m.id];
+  var need=se.expected(w), col=se.lastWeek?(se.onPace?'var(--on)':'var(--off)'):'var(--muted)';
+  return '<div class="mentry'+(inline?' inline':'')+'">'+
+    '<label class="lbl">'+(inline?'':esc(m.name)+' ')+
+      (m.mode==='weekly'?'This week':'Total now')+(m.unit?' — '+esc(m.unit):'')+'</label>'+
+    '<input type="number" inputmode="decimal" data-num="weeks.'+w+'.measures.'+m.id+'" value="'+
+      (raw===undefined||raw===null?'':esc(raw))+'" placeholder="'+(m.mode==='weekly'?'0':tidy(se.current))+'">'+
+    '<div class="tacmeta" style="color:'+col+'">'+esc(m.name)+' · '+tidy(se.cum[w-1])+' of '+tidy(m.target)+
+      ' · pace needs '+tidy(need)+' by week '+w+'</div>'+
+    '</div>';
 }
 
 function weekDates(start,w){
@@ -461,6 +502,15 @@ function renderPlan(){
           '<div class="note">'+(m.mode==='weekly'
             ? 'Weekly amounts add up, so a light week can be caught up by a heavy one.'
             : 'A running figure — weight, balance, total to date. Carried forward if you skip a week.')+'</div>'+
+          '<label class="lbl" style="margin-top:14px">Show it with</label>'+
+          chips(chip('This goal',!m.tacticId,'data-act="mtac" data-g="'+gi+'" data-m="'+mi+'" data-v=""')+
+            g.tactics.filter(function(t){return t.text.trim()}).map(function(t,ti){
+              return chip(esc(t.text.length>26?t.text.slice(0,26)+'…':t.text),m.tacticId===t.id,
+                'data-act="mtac" data-g="'+gi+'" data-m="'+mi+'" data-v="'+t.id+'"');
+            }).join(''))+
+          '<div class="note">'+(m.tacticId
+            ? 'The number is entered underneath that tactic on the Week tab.'
+            : 'The number is entered on its own, under Measurements on the Week tab.')+'</div>'+
           '<button class="btn ghost" data-act="rmm" data-g="'+gi+'" data-m="'+mi+'">Remove measurement</button>'+
           '</div>';
       }).join('')+
@@ -509,26 +559,22 @@ function renderWeek(){
         return chip(DAYS[i],hit.indexOf(i)>-1,'data-act="td" data-id="'+t.id+'" data-d="'+i+'" aria-label="'+DAY_NAMES[i]+'"','day');
       }).join(''));
     }
+    (state.goals[d.gi].measures||[]).forEach(function(m){
+      if(m.tacticId===t.id&&m.name.trim())out+=measureInput(m,week,d.gi,true);
+    });
     out+='</div></div>';
   });
   out+='</div>';
 
   var ms=[];
   state.goals.forEach(function(g,gi){(g.measures||[]).forEach(function(m){
-    if(m.name.trim())ms.push({m:m,gi:gi});
+    if(m.name.trim()&&!m.tacticId)ms.push({m:m,gi:gi});
   })});
   if(ms.length){
     out+='<h2>Measurements</h2><div class="card">';
-    ms.forEach(function(x){
-      var m=x.m, se=measureSeries(m), raw=(wk.measures||{})[m.id];
-      var need=se.expected(week);
-      out+='<div class="mrow"><div class="grow">'+
-        '<label class="lbl">'+esc(m.name)+(m.unit?' ('+esc(m.unit)+')':'')+'</label>'+
-        '<input type="number" inputmode="decimal" data-num="weeks.'+week+'.measures.'+m.id+'" value="'+
-          (raw===undefined||raw===null?'':esc(raw))+'" placeholder="'+(m.mode==='weekly'?'This week':'Total now')+'">'+
-        '<div class="tacmeta">Goal '+(x.gi+1)+' · '+tidy(se.cum[week-1])+' of '+tidy(m.target)+
-          ' · pace needs '+tidy(need)+' by week '+week+'</div>'+
-        '</div></div>';
+    ms.forEach(function(x,i){
+      out+='<div class="mrow"'+(i?'':' style="padding-top:0"')+'><div class="grow">'+
+        measureInput(x.m,week,x.gi,false)+'</div></div>';
     });
     out+='</div>';
   }
@@ -553,14 +599,16 @@ function renderWeek(){
 
 function renderScore(){
   var scores=WEEKS.map(scoreWeek);
-  var scored=scores.filter(function(s){return s.pct!==null});
+  var cw=programmeWeek();
+  var scored=scores.filter(function(s,i){return i<cw&&s.pct!==null});
   var avg=scored.length?Math.round(scored.reduce(function(a,b){return a+b.pct},0)/scored.length):null;
   var hit=scored.filter(function(s){return s.pct>=85}).length;
   var out='<div class="card"><label class="lbl">Average execution</label>'+gauge(avg)+
     '<div style="text-align:center;margin-top:-6px">'+
     '<div class="statv" style="font-size:34px;color:'+(avg===null?'var(--dim)':(avg>=85?'var(--on)':'var(--off)'))+'">'+
       (avg===null?'—':avg+'%')+'</div>'+
-    '<div class="statl">'+(avg===null?'No weeks scored yet':(scored.length+' week'+(scored.length>1?'s':'')+' scored · '+hit+' at 85%+'))+'</div></div>';
+    '<div class="statl">'+(avg===null?'No weeks scored yet':
+      ('weeks 1–'+cw+' · '+scored.length+' scored · '+hit+' at 85%+'))+'</div></div>';
   var ga=goalAverages();
   if(ga.some(function(x){return x!==null})){
     out+='<div class="rings">'+state.goals.map(function(g,gi){
@@ -706,6 +754,7 @@ document.addEventListener('click',function(e){
     if(!confirm('Remove this measurement and its weekly figures?'))return;
     state.goals[gi].measures.splice(parseInt(el.getAttribute('data-m'),10),1);
   }
+  else if(a==='mtac'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].tacticId=el.getAttribute('data-v')}
   else if(a==='mmode'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].mode=el.getAttribute('data-v')}
   else if(a==='hidetips'){prefs.tips=false; savePrefs()}
   else if(a==='rmg'){
