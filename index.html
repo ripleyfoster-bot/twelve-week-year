@@ -218,7 +218,7 @@ input[type=text].price{font-family:var(--f-data)}
 /* tab bar */
 nav{
   position:fixed;left:0;right:0;bottom:0;z-index:40;
-  display:grid;grid-template-columns:repeat(5,1fr);
+  display:grid;grid-template-columns:repeat(4,1fr);
   background:var(--card);border-top:1px solid var(--line);
   padding-bottom:env(safe-area-inset-bottom);
 }
@@ -324,18 +324,6 @@ nav .ico{font-size:17px;line-height:1}
 .wiz-one-fact .fact-a{display:flex;gap:8px;margin-top:16px}
 .wiz-one-fact .fact-a button{flex:1;padding:13px 8px;font-size:14px;border-radius:var(--radius-sm)}
 .wiz-skip{background:none;border:0;color:var(--ink-3);font-size:13px;cursor:pointer;text-decoration:underline;margin-top:14px}
-
-
-/* ---- coach chat ---- */
-.chat{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
-.msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.45;white-space:pre-wrap}
-.msg.me{align-self:flex-end;background:var(--acc);color:var(--acc-ink);border-bottom-right-radius:5px}
-.msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:5px}
-.msg.ai .speak{margin-top:7px;display:inline-block}
-.chat-input{display:flex;gap:8px;position:sticky;bottom:calc(64px + env(safe-area-inset-bottom))}
-.chat-input textarea{flex:1;min-height:46px;max-height:120px}
-.chat-input .btn{align-self:flex-end}
-.msg.think{align-self:flex-start;color:var(--ink-3);font-size:13px;background:none;border:0}
 
 details summary{cursor:pointer;font-size:13.5px;color:var(--ink-2);padding:4px 0}
 </style>
@@ -480,17 +468,6 @@ details summary{cursor:pointer;font-size:13.5px;color:var(--ink-2);padding:4px 0
   <div id="ideasOut"></div>
 </section>
 
-<!-- ============================ COACH ============================ -->
-<section class="view" id="v-coach">
-  <h2>Coach</h2>
-  <p class="sub">Ask about the method, the board, or today's read. It knows your prep.</p>
-  <div class="chat" id="chatOut"></div>
-  <div class="chat-input">
-    <textarea id="chatIn" placeholder="Ask anything — why is an edge off, what does acceptance mean, is this a Sand day…"></textarea>
-    <button class="btn" id="chatSend">Send</button>
-  </div>
-</section>
-
 <!-- ============================ SETTINGS ============================ -->
 <section class="view" id="v-set">
   <h2>Settings</h2>
@@ -526,16 +503,6 @@ details summary{cursor:pointer;font-size:13.5px;color:var(--ink-2);padding:4px 0
   </div>
 
   <div class="card">
-    <h3>Your data</h3>
-    <p class="hint">Everything lives on this device. Export a file to back it up or move it to another device; import it there. Your API key is never included in the export.</p>
-    <div class="row-2">
-      <button class="btn ghost" id="expData">Export data</button>
-      <label class="btn ghost" style="text-align:center">Import data<input type="file" id="impData" accept=".json,application/json" style="display:none"></label>
-    </div>
-    <div id="dataOut" style="margin-top:9px;font-size:13px;color:var(--ink-2)"></div>
-  </div>
-
-  <div class="card">
     <h3>Day</h3>
     <p class="hint">Prep is stored per day. Starting a new day keeps yesterday's focus.</p>
     <button class="btn ghost wide" id="newDay">Start a new trading day</button>
@@ -562,7 +529,6 @@ details summary{cursor:pointer;font-size:13.5px;color:var(--ink-2);padding:4px 0
   <button data-go="prep" aria-current="page"><span class="ico">◷</span>Prep<span class="dot"></span></button>
   <button data-go="board"><span class="ico">▤</span>Board<span class="dot"></span></button>
   <button data-go="plan"><span class="ico">◎</span>Ideas<span class="dot"></span></button>
-  <button data-go="coach"><span class="ico">✳</span>Coach<span class="dot"></span></button>
   <button data-go="set"><span class="ico">⚙</span>Settings<span class="dot"></span></button>
 </nav>
 
@@ -1474,7 +1440,7 @@ async function pullNews(){
    Wiring
 ===================================================================== */
 function go(name){
-  ["prep","board","plan","coach","set"].forEach(function(v){
+  ["prep","board","plan","set"].forEach(function(v){
     $("v-" + v).classList.toggle("on", v === name);
   });
   document.querySelectorAll("nav button").forEach(function(b){
@@ -1483,7 +1449,6 @@ function go(name){
   });
   if(name === "board") renderBoard();
   if(name === "plan"){ renderIdeaEdges(); renderIdeas(); }
-  if(name === "coach") renderCoach();
   window.scrollTo(0,0);
 }
 
@@ -1579,44 +1544,6 @@ $("testKey").onclick = async function(){
       : e.message === "bad-key" ? "Key rejected. Check it and save again."
       : "Couldn't reach Claude: " + e.message;
   }
-};
-
-$("expData").onclick = function(){
-  var copy = JSON.parse(JSON.stringify(S));
-  delete copy.apiKey;                       /* keys never leave the device */
-  copy._app = "trading-assistant"; copy._ver = 1;
-  var blob = new Blob([JSON.stringify(copy, null, 1)], { type:"application/json" });
-  var a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "trading-assistant-" + todayKey() + ".json";
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
-  $("dataOut").textContent = "Exported " + Object.keys(S.days).length + " day(s). Keep the file with your other backups.";
-};
-
-$("impData").onchange = function(){
-  var f = this.files && this.files[0]; this.value = "";
-  if(!f) return;
-  var r = new FileReader();
-  r.onload = function(){
-    var inc;
-    try{ inc = JSON.parse(r.result); }
-    catch(e){ $("dataOut").textContent = "That file isn't readable as a backup."; return; }
-    if(inc._app !== "trading-assistant" || !inc.days){
-      $("dataOut").textContent = "That doesn't look like a Trading Assistant export.";
-      return;
-    }
-    var mine = Object.keys(S.days).length, theirs = Object.keys(inc.days).length;
-    var merge = confirm(
-      "Import " + theirs + " day(s)?\n\nOK = merge into this device (the file wins where the same day exists on both).\nCancel = stop, import nothing."
-    );
-    if(!merge) return;
-    Object.keys(inc.days).forEach(function(k){ S.days[k] = inc.days[k]; });
-    ["mode","accent","pmStart","openTime"].forEach(function(k){ if(inc[k]) S[k] = inc[k]; });
-    save(); renderAll();
-    $("dataOut").textContent = "Imported. This device now holds " + Object.keys(S.days).length + " day(s). Your API key was untouched.";
-  };
-  r.readAsText(f);
 };
 
 $("newDay").onclick = function(){
@@ -1952,140 +1879,6 @@ $("wizSay").onclick = function(){
   var s = WIZ.steps[WIZ.i];
   if(s && s.say) speak(s.say);
 };
-
-
-/* =====================================================================
-   Coach. Claude, in the app, briefed on the method and on today.
-   History lives with the day, capped so context stays small and cheap.
-===================================================================== */
-var METHOD_BRIEF =
-  "You are the coach inside Ripley's Trading Assistant app for micro E-mini S&P (mES) futures. " +
-  "His method is Korbs' Profile Method: Auction Market Theory, volume profile, VWAP and value areas. " +
-  "Six edges only: " +
-  "Go With The Flow (higher-timeframe VWAP bias, enter at daily value-area extreme on a pullback, first target VWAP then opposite extreme); " +
-  "Line in the Sand (composite LVN as a binary decision line, enter on rejection, target next HVN, exit fast on acceptance through); " +
-  "Naked Tractor Beam (balanced prior day, untagged prior POC, inside-value open, price pushes away then rejects back toward the naked POC; dead once tagged); " +
-  "Playing with DDs (second distribution separated by a clear LVN, enter at new extreme toward developing POC, minimum 1:1); " +
-  "Afternoon Delight (confirmed trend day only, afternoon only, deep pullback to session midpoint, rejoin the trend); " +
-  "MC Flow (micro composite from overlapping value areas sets bias, trade developing extremes with it). " +
-  "Universal rule: acceptance through the decision level kills the premise — exit fast. " +
-  "The three questions before any trade: what is the trade idea, where is the stop, where is the entry — all three or no trade. " +
-  "The app's board marks each edge ON, CAUTION (setup exists, context poor — minimum size plus a typed reason) or OFF (setup structurally impossible today, no override). " +
-  "Risk principles: stop distance set by structure then size derived from it, minimum 1:1, any single trade is 50/50, the edge lives in the sample, no revenge trading, small consistent wins over big days. " +
-  "Voice: direct, mechanical, no fluff, British English, short answers a trader can absorb between glances at a chart. " +
-  "Push back in the method's own terms when he reaches for a trade the day does not support. " +
-  "You are not connected to live market data — never state current prices; work only from what he tells you and today's prep. " +
-  "Nothing you say is financial advice and he makes his own decisions — do not repeat this; it is context, not a disclaimer to recite.";
-
-function dayContext(){
-  var d = day(), out = [];
-  out.push("Date: " + (S.currentDay || todayKey()));
-  if(d.focus || d.focusFree) out.push("Focus: " + (d.focus || d.focusFree));
-  var tags = VIEWS.map(function(v){
-    var t = (d.views[v.id] || {}).tag;
-    return t ? v.name + "=" + t : null;
-  }).filter(Boolean);
-  if(tags.length) out.push("Context tags: " + tags.join(", "));
-  VIEWS.forEach(function(v){
-    var n = (d.views[v.id] || {}).note;
-    if(n) out.push(v.name + " note: " + n);
-  });
-  var facts = FACTS.map(function(f){
-    return d.facts[f.id] ? f.q + " " + d.facts[f.id] : null;
-  }).filter(Boolean);
-  if(facts.length) out.push("Facts: " + facts.join(" | "));
-  var lv = LEVELS.map(function(l){
-    return d.levels[l.id] ? l.name + " " + d.levels[l.id] : null;
-  }).filter(Boolean);
-  if(lv.length) out.push("Levels: " + lv.join(", "));
-  if(d.extraLevels) out.push("Other levels: " + d.extraLevels);
-  if(d.analysis) out.push("His read of the day: " + d.analysis);
-  if(prepComplete()){
-    var v = verdicts();
-    out.push("Board: " + EDGES.map(function(e){
-      return e.short + "=" + v[e.id].status.toUpperCase();
-    }).join(", "));
-    EDGES.forEach(function(e){
-      out.push(e.short + " because: " + v[e.id].why.join("; "));
-    });
-  } else {
-    out.push("Prep is not complete yet, so the board is locked.");
-  }
-  if((d.news || []).length){
-    out.push("News: " + d.news.map(function(n){ return n.time + " " + n.what; }).join("; "));
-  }
-  if((d.ideas || []).length){
-    out.push("Ideas: " + d.ideas.map(function(i){
-      return i.edge + " " + i.dir + " entry " + i.entry + " stop " + i.stop + (i.caution ? " (caution)" : "");
-    }).join("; "));
-  }
-  return out.join("\n");
-}
-
-function renderCoach(){
-  var out = $("chatOut"); out.innerHTML = "";
-  var chat = day().coach || [];
-  if(!chat.length){
-    var e = el("div","empty");
-    e.appendChild(el("strong", null, "Ask the coach"));
-    e.appendChild(el("span", null,
-      "It knows the six edges, the board rules, and everything in today's prep. It can't see live prices — tell it where price is if that matters to the question."));
-    out.appendChild(e);
-    return;
-  }
-  chat.forEach(function(m){
-    var b = el("div","msg " + (m.role === "user" ? "me" : "ai"), m.text);
-    if(m.role === "assistant"){
-      var s = el("button","speak","Read aloud"); s.type = "button";
-      s.onclick = function(){ speak(m.text); };
-      b.appendChild(document.createElement("br"));
-      b.appendChild(s);
-    }
-    out.appendChild(b);
-  });
-  out.lastChild && out.lastChild.scrollIntoView({ block:"end" });
-}
-
-async function sendCoach(){
-  var box = $("chatIn"), q = box.value.trim();
-  if(!q) return;
-  var d = day();
-  d.coach = d.coach || [];
-  d.coach.push({ role:"user", text:q });
-  save(); box.value = ""; renderCoach();
-
-  var out = $("chatOut");
-  var think = el("div","msg think","…thinking");
-  out.appendChild(think);
-
-  /* last 16 turns only — enough memory, small bill */
-  var msgs = d.coach.slice(-16).map(function(m){
-    return { role: m.role === "user" ? "user" : "assistant", content: m.text };
-  });
-  msgs[msgs.length - 1] = {
-    role: "user",
-    content: "Today's prep and board:\n" + dayContext() + "\n\nQuestion: " + q
-  };
-
-  try{
-    var text = await callClaudeRaw(msgs, METHOD_BRIEF);
-    d.coach.push({ role:"assistant", text: text.trim() });
-    save();
-  }catch(e){
-    d.coach.push({ role:"assistant", text:
-      e.message === "no-key" ? "No API key saved — add it in Settings and I'm here." :
-      e.message === "bad-key" ? "The API key was rejected — check it in Settings." :
-      "Couldn't reach Claude just now: " + e.message.slice(0,80) });
-    save();
-  }
-  renderCoach();
-}
-$("chatSend").onclick = sendCoach;
-$("chatIn").addEventListener("keydown", function(ev){
-  if(ev.key === "Enter" && !ev.shiftKey && window.innerWidth > 700){
-    ev.preventDefault(); sendCoach();
-  }
-});
 
 function renderAll(){
   day();
