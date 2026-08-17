@@ -1,4 +1,4 @@
-const CACHE = 'twy-v11';
+const CACHE = 'twy-v12';
 const SHELL = ['./', './index.html'];
 
 self.addEventListener('install', (e) => {

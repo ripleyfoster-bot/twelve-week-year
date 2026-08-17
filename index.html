@@ -24,7 +24,12 @@
 html{height:100%}
 html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--display);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;padding-top:env(safe-area-inset-top)}
-main{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 16px 28px;width:100%;max-width:720px;margin:0 auto}
+.shell{flex:1 1 auto;min-height:0;display:flex}
+.side{display:none}
+.work{flex:1 1 auto;min-width:0;min-height:0;display:flex;flex-direction:column}
+.split{flex:1 1 auto;min-height:0;display:flex}
+main{flex:1 1 auto;min-width:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 16px 28px;width:100%;max-width:720px;margin:0 auto}
+.coachpane{display:none;flex-direction:column;min-height:0;min-width:0}
 header{
   flex:none;position:relative;padding:22px 16px 16px;width:100%;max-width:720px;margin:0 auto;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
@@ -155,22 +160,84 @@ nav button{flex:1;padding:12px 4px 13px;border:0;background:transparent;cursor:p
 nav button[aria-current="true"]{color:var(--ink);border-top-color:var(--ink)}
 h2{font:800 15px/1 var(--display);letter-spacing:-.02em;text-transform:uppercase;margin:22px 0 2px}
 hr{height:1px;background:var(--line);border:0;margin:18px 0}
+
+/* ---------------- coach ---------------- */
+.coachhead{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  padding:16px 16px 12px;border-bottom:1px solid var(--line)}
+.coachtitle{font:800 15px/1 var(--display);letter-spacing:-.02em;text-transform:uppercase}
+.coachlog{flex:1 1 auto;overflow-y:auto;padding:14px 16px}
+.msg{margin-bottom:14px;font:400 14px/1.5 var(--display)}
+.msg .who{display:block;font:600 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.msg.me .bubble{background:var(--cell);border:1px solid var(--line);border-radius:8px;padding:9px 11px;white-space:pre-wrap}
+.msg.ai .bubble{white-space:pre-wrap}
+.coachform{flex:none;padding:12px 16px 16px;border-top:1px solid var(--line)}
+.coachform textarea{min-height:66px;font:400 14px/1.45 var(--display)}
+.coachrow{display:flex;gap:8px;margin-top:9px}
+.prompts{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+
+/* ---------------- desktop shell ---------------- */
+@media (min-width:960px){
+  body{padding-top:0}
+  main{max-width:none;margin:0;padding:0 28px 32px}
+  header{max-width:none;margin:0;padding:20px 28px 16px}
+  #nav{display:none}
+  .side{display:flex;flex-direction:column;flex:none;width:184px;border-right:1px solid var(--line);
+    background:var(--card);padding:22px 0 16px}
+  .brand{font:800 19px/1.05 var(--display);letter-spacing:-.03em;text-transform:uppercase;padding:0 18px 20px}
+  .modes{display:flex;flex-direction:column;gap:2px;padding:0 8px}
+  .modes button{display:block;width:100%;text-align:left;padding:11px 12px;border:0;background:transparent;
+    border-radius:5px;cursor:pointer;color:var(--muted);
+    font:600 11px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase}
+  .modes button:hover{background:var(--cell);color:var(--ink)}
+  .modes button[aria-current="true"]{background:var(--ink);color:var(--inv)}
+  .modes .spacer{flex:1 1 auto;min-height:18px}
+  .laybox{margin-top:auto;padding:16px 14px 0;border-top:1px solid var(--line)}
+  .radio{display:flex;align-items:center;gap:9px;width:100%;padding:7px 4px;border:0;background:transparent;
+    cursor:pointer;color:var(--muted);font:600 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+  .radio i{flex:none;width:13px;height:13px;border-radius:7px;border:1.5px solid var(--line);position:relative}
+  .radio[aria-checked="true"]{color:var(--ink)}
+  .radio[aria-checked="true"] i{border-color:var(--ink)}
+  .radio[aria-checked="true"] i::after{content:"";position:absolute;inset:2.5px;border-radius:4px;background:var(--ink)}
+  .coachpane{display:flex;flex:0 0 40%;border-left:1px solid var(--line);background:var(--card)}
+  body.lay-full .coachpane{display:none}
+  body.lay-coach main{display:none}
+  body.lay-coach .coachpane{flex:1 1 auto;border-left:0}
+  body.side-left .split{flex-direction:row-reverse}
+  body.side-left .coachpane{border-left:0;border-right:1px solid var(--line)}
+}
+@media (max-width:959px){
+  body.mob-coach main{display:none}
+  body.mob-coach .coachpane{display:flex;flex:1 1 auto}
+  body.mob-coach header{display:none}
+}
 </style>
 </head>
 <body>
-<header>
-  <div class="eyebrow" id="eyebrow">12 Week Year</div>
-  <h1 id="title">Week 1</h1>
-  <p class="sub" id="sub"></p>
-  <span class="save" id="status"></span>
-</header>
-<main id="app"></main>
+<div class="shell">
+  <aside class="side">
+    <div class="brand">12 Week<br>Year</div>
+    <nav class="modes" id="modes"></nav>
+    <div class="laybox" id="laybox"></div>
+  </aside>
+  <div class="work">
+    <header>
+      <div class="eyebrow" id="eyebrow">12 Week Year</div>
+      <h1 id="title">Week 1</h1>
+      <p class="sub" id="sub"></p>
+      <span class="save" id="status"></span>
+    </header>
+    <div class="split" id="split">
+      <main id="app"></main>
+      <section class="coachpane" id="coach"></section>
+    </div>
+  </div>
+</div>
 <nav id="nav"></nav>
 <input type="file" id="importer" accept="application/json" hidden>
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='11';
+var APP_VERSION='12';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -199,7 +266,11 @@ var MODES=[['light','Light'],['dark','Dark'],['auto','Auto']];
 var theme={preset:'graphite',mode:'auto'};
 var openGoal=null;
 var PREFS_KEY='twy:prefs:v1';
-var prefs={tips:true};
+var CHAT_KEY='twy:chat:v1';
+var prefs={tips:true,layout:'split',coachSide:'right',apiKey:'',model:'claude-sonnet-5'};
+var chat=[], coachDraft='', coachBusy=false, coachError='';
+function saveChat(){try{localStorage.setItem(CHAT_KEY,JSON.stringify(chat.slice(-16)))}catch(e){}}
+function loadChat(){try{var r=localStorage.getItem(CHAT_KEY); if(r)chat=JSON.parse(r)||[]}catch(e){chat=[]}}
 function savePrefs(){try{localStorage.setItem(PREFS_KEY,JSON.stringify(prefs))}catch(e){}}
 function loadPrefs(){try{var r=localStorage.getItem(PREFS_KEY); if(r)prefs=Object.assign(prefs,JSON.parse(r))}catch(e){}}
 
@@ -466,6 +537,134 @@ function load(){
   }catch(e){setStatus('New plan')}
 }
 
+/* ------------------------------------------------------------------ coach */
+function planBrief(){
+  var cw=programmeWeek(), L=[];
+  L.push('CURRENT STATE: the user is on week '+week+' of 12. By the calendar they are on week '+cw+'.');
+  var scNow=scoreWeek(week);
+  L.push('Week '+week+' execution: '+(scNow.pct===null?'nothing due':
+    Math.round(scNow.pct)+'% across '+scNow.dueTotal+' tactic'+(scNow.dueTotal===1?'':'s')+' due')+'. Target is 85%.');
+  var scores=WEEKS.map(scoreWeek).filter(function(x,i){return i<cw&&x.pct!==null});
+  if(scores.length)L.push('Average execution across weeks 1-'+cw+': '+
+    Math.round(scores.reduce(function(a,b){return a+b.pct},0)/scores.length)+'%.');
+  if(state.vision.longTerm)L.push('LONG-TERM VISION: '+state.vision.longTerm);
+  if(state.vision.threeYear)L.push('36-MONTH VISION: '+state.vision.threeYear);
+  state.goals.forEach(function(g,gi){
+    if(!g.title.trim()&&!g.tactics.some(function(t){return t.text.trim()}))return;
+    L.push('');
+    L.push('GOAL '+(gi+1)+': '+(g.title||'(untitled)')+(g.start?' (starts '+g.start+')':''));
+    g.tactics.forEach(function(t){
+      if(!t.text.trim())return;
+      var ts=tacticScore(week,t), dueNow=t.weeks.indexOf(week)>-1;
+      L.push('  - tactic: '+t.text+' | weeks due: '+(t.weeks.length===12?'every week':t.weeks.join(',')||'none')+
+        ' | days: '+((t.days||[]).length?t.days.map(function(i){return DAY_NAMES[i]}).join('/'):'one-off')+
+        (dueNow?' | THIS WEEK: '+(ts.scheduled?ts.done+' of '+ts.total+' days done':(ts.pct===100?'done':'not done')):' | not due this week'));
+    });
+    (g.measures||[]).forEach(function(m){
+      if(!m.name.trim())return;
+      var se=measureSeries(m);
+      L.push('  - measurement: '+m.name+' | at '+tidy(se.current)+' of '+tidy(m.target)+' '+(m.unit||'')+
+        ' | last entry was week '+(se.lastWeek||'none')+
+        (se.lastWeek?', where the pace line wanted '+tidy(se.expected(se.lastWeek))+
+          ' — '+(se.onPace?'ON pace':'BEHIND pace')+' by '+tidy(Math.abs(se.gap)):'')+
+        ' | needs '+tidy(se.expected(cw))+' by the end of week '+cw+' and '+tidy(m.target)+' by week 12'+
+        ' | entered as '+(m.mode==='weekly'?'weekly amounts that accumulate':'a running total'));
+    });
+    var r=resultOf(week,g.id);
+    if(r.thisWeek||r.toDate||r.onPace)L.push('  - notes wk'+week+': this week "'+r.thisWeek+'", to date "'+r.toDate+'", on pace: '+(r.onPace||'not said'));
+  });
+  return L.join('\n');
+}
+
+function coachSystem(){
+  var where={week:'the Week tab, where they tick tactics and enter this week\'s numbers',
+    plan:'the Plan tab, where they write goals, tactics, weeks due, day patterns and measurements',
+    score:'the Score tab, showing the execution gauge, per-goal rings, the 12-week strip and measurement pace charts',
+    vision:'the Vision tab, for the long-term and 36-month vision',
+    coach:'the Coach panel'}[view]||'the app';
+  return [
+    'You are the coach inside a 12 Week Year execution tracker that this person built for themselves. Be direct, brief and practical. British English.',
+    'You are looking at the same data they are. They are currently on '+where+' — bias your help toward what they can do there.',
+    'HOW THIS APP SCORES: execution = every tactic due this week counted once, pooled across all goals. A tactic with days set scores days-done over days-scheduled. A one-off scores done or not done. 85% is the target.',
+    'Measurements are the lag indicator and deliberately do NOT feed the execution score. Execution is what they control; the measurement is the result they are betting follows.',
+    'THE METHOD: tactics must be actions they control, answerable yes/no. Fewer goals beat more. A missed week is recoverable; a missed system is not. Do not let a good result excuse a week where the work did not happen, and do not let a bad result panic them out of a plan that is being executed well.',
+    'Never invent numbers. Everything you know about their plan is below. If something is not there, ask.',
+    'Keep answers to a few short paragraphs unless they ask for depth. No preamble.',
+    '',
+    '--- THEIR PLAN AND CURRENT POSITION ---',
+    planBrief()
+  ].join('\n');
+}
+
+function sendCoach(){
+  var text=(coachDraft||'').trim();
+  if(!text||coachBusy)return;
+  if(!prefs.apiKey){coachError='Add your API key first.';render();return}
+  chat.push({role:'user',content:text});
+  coachDraft=''; coachBusy=true; coachError=''; saveChat(); render();
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'content-type':'application/json','x-api-key':prefs.apiKey,
+      'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:prefs.model||'claude-sonnet-5',max_tokens:1200,
+      system:coachSystem(),
+      messages:chat.slice(-16).map(function(m){return{role:m.role,content:m.content}})})
+  }).then(function(r){
+    return r.json().then(function(j){
+      if(!r.ok)throw new Error((j&&j.error&&j.error.message)||('HTTP '+r.status));
+      return j;
+    });
+  }).then(function(j){
+    var txt=(j.content||[]).map(function(c){return c.type==='text'?c.text:''}).filter(Boolean).join('\n');
+    chat.push({role:'assistant',content:txt||'(no reply)'});
+  })['catch'](function(e){
+    coachError=e.message||'Could not reach the API.';
+  }).then(function(){
+    coachBusy=false; saveChat(); render();
+    var log=document.getElementById('coachlog'); if(log)log.scrollTop=log.scrollHeight;
+  });
+}
+
+var COACH_PROMPTS={
+  week:['Am I on track this week?','What should I do first today?','I am behind — what do I drop?'],
+  plan:['Are these tactics actually actions?','Is this plan too much for 12 weeks?','Suggest a measurement for goal 1'],
+  score:['What does my execution pattern tell me?','Which goal is slipping and why?','Am I on pace to hit my targets?'],
+  vision:['Help me sharpen my 36-month vision','Do my goals serve my vision?','What is missing from this vision?'],
+  coach:['Review my whole plan','Where am I fooling myself?','What is the one thing to fix this week?']
+};
+
+function renderCoach(){
+  var out='<div class="coachhead"><span class="coachtitle">Coach</span>'+
+    (chat.length?'<button class="btn ghost" data-act="coachclear">Clear</button>':'')+'</div>';
+  out+='<div class="coachlog" id="coachlog">';
+  if(!prefs.apiKey){
+    out+='<div class="msg ai"><span class="who">Setup</span><div class="bubble">'+
+      'The coach talks to Claude directly from this device. Paste an API key from the Anthropic console below — it is stored on this device only and never leaves it except in calls to the API.</div></div>'+
+      '<label class="lbl">API key</label><input type="text" data-bind="__key" value="'+esc(prefs.apiKey)+'" placeholder="sk-ant-...">'+
+      '<label class="lbl" style="margin-top:14px">Model</label><input type="text" data-bind="__model" value="'+esc(prefs.model)+'">';
+  } else if(!chat.length){
+    out+='<div class="msg ai"><span class="who">Coach</span><div class="bubble">'+
+      'I can see your goals, tactics, this week\'s ticks and your measurements. Ask me anything about the plan or the week.</div></div>';
+  }
+  chat.forEach(function(m){
+    out+='<div class="msg '+(m.role==='user'?'me':'ai')+'"><span class="who">'+(m.role==='user'?'You':'Coach')+
+      '</span><div class="bubble">'+esc(m.content)+'</div></div>';
+  });
+  if(coachBusy)out+='<div class="msg ai"><span class="who">Coach</span><div class="bubble" style="color:var(--muted)">Thinking…</div></div>';
+  if(coachError)out+='<div class="msg ai"><span class="who">Problem</span><div class="bubble" style="color:var(--off)">'+esc(coachError)+'</div></div>';
+  out+='</div>';
+  out+='<div class="coachform">';
+  if(prefs.apiKey&&!chat.length){
+    out+='<div class="prompts">'+(COACH_PROMPTS[view]||COACH_PROMPTS.coach).map(function(q){
+      return '<button class="chip" data-act="coachask" data-v="'+esc(q)+'">'+esc(q)+'</button>';
+    }).join('')+'</div>';
+  }
+  out+='<textarea id="coachin" placeholder="Ask the coach…">'+esc(coachDraft)+'</textarea>'+
+    '<div class="coachrow"><button class="btn solid" data-act="coachsend"'+(coachBusy?' disabled':'')+'>Send</button>'+
+    '<span class="note" style="margin:0;align-self:center">Sees your plan and this week</span></div></div>';
+  return out;
+}
+
 /* ----------------------------------------------------------------- render */
 function chips(html){return '<div class="chips">'+html+'</div>'}
 function chip(label,pressed,attrs,cls){
@@ -715,6 +914,10 @@ function renderScore(){
     'Everything is stored on this device only. Export a copy before clearing your browser data or changing phone.</div>'+
     '<button class="btn" data-act="export">Export backup</button> '+
     '<button class="btn" data-act="import">Import backup</button>'+
+    '<div class="note" style="margin-top:14px">Coach API key — stored on this device only.</div>'+
+    '<input type="text" data-bind="__key" value="'+esc(prefs.apiKey)+'" placeholder="sk-ant-...">'+
+    '<label class="lbl" style="margin-top:12px">Model</label>'+
+    '<input type="text" data-bind="__model" value="'+esc(prefs.model)+'">'+
     '<div class="note" style="margin-top:14px">Version '+APP_VERSION+'. Updates arrive on their own; this forces the check.</div>'+
     '<button class="btn ghost" data-act="update">Check for updates now</button></div>'+
     '<hr><button class="btn" data-act="reset">Start a new 12 weeks</button>';
@@ -722,16 +925,18 @@ function renderScore(){
 }
 
 var TABS=[['week','Week'],['plan','Plan'],['score','Score'],['vision','Vision']];
+var LAYOUTS=[['split','Split'],['coach','Coach only'],['full','Full screen']];
 function render(){
   var main=document.getElementById('app');
   var y=main.scrollTop;
-  var t={week:'Week '+week,plan:'The plan',score:'Execution',vision:'My vision'}[view];
+  var t={week:'Week '+week,plan:'The plan',score:'Execution',vision:'My vision',coach:'Coach'}[view];
   var start=state.goals[0].start;
   var sub={
     week:weekDates(start,week)||'Tick tactics as you finish them.',
     plan:'Goals, their tactics, the weeks they fall due and the days in each week.',
     score:'Execution is the score that predicts the result.',
-    vision:'Where this is all pointing.'
+    vision:'Where this is all pointing.',
+    coach:'Ask about the plan or the week.'
   }[view];
   if(view==='week'&&openGoal===null){
     var scq=scoreWeek(week), pick='';
@@ -746,14 +951,33 @@ function render(){
   document.getElementById('sub').textContent=sub;
   try{
     main.innerHTML=
-      view==='week'?renderWeek():view==='plan'?renderPlan():view==='score'?renderScore():renderVision();
+      view==='week'?renderWeek():view==='plan'?renderPlan():view==='score'?renderScore():
+      view==='coach'?'':renderVision();
   }catch(err){
     main.innerHTML='<div class="card"><label class="lbl">Something went wrong</label>'+
       '<div class="note">'+esc(err&&err.message||err)+'</div></div>';
   }
-  document.getElementById('nav').innerHTML=TABS.map(function(x){
+  document.getElementById('nav').innerHTML=TABS.concat([['coach','Coach']]).map(function(x){
     return '<button data-act="tab" data-v="'+x[0]+'" aria-current="'+(view===x[0])+'">'+x[1]+'</button>';
   }).join('');
+
+  document.getElementById('modes').innerHTML=
+    TABS.map(function(x){
+      return '<button data-act="tab" data-v="'+x[0]+'" aria-current="'+(view===x[0])+'">'+x[1]+'</button>';
+    }).join('')+'<span class="spacer"></span>'+
+    '<button data-act="lay" data-v="coach" aria-current="'+(prefs.layout==='coach')+'">Coach</button>';
+
+  document.getElementById('laybox').innerHTML=
+    '<span class="lbl">Layout</span>'+
+    LAYOUTS.map(function(l){
+      return '<button class="radio" role="radio" aria-checked="'+(prefs.layout===l[0])+'" data-act="lay" data-v="'+l[0]+'"><i></i>'+l[1]+'</button>';
+    }).join('')+
+    '<button class="btn ghost" style="margin-top:8px" data-act="side">Switch sides</button>'+
+    '<div class="note" style="margin-top:10px">v'+APP_VERSION+'</div>';
+
+  var b=document.body;
+  b.className=('lay-'+prefs.layout)+(prefs.coachSide==='left'?' side-left':'')+(view==='coach'?' mob-coach':'');
+  document.getElementById('coach').innerHTML=renderCoach();
   main.scrollTop=y;
 }
 
@@ -770,10 +994,16 @@ function setPath(path,value){
   o[parts[parts.length-1]]=value;
 }
 document.addEventListener('input',function(e){
+  if(e.target.id==='coachin'){coachDraft=e.target.value;return}
   var p=e.target.getAttribute&&e.target.getAttribute('data-bind');
   if(!p)return;
+  if(p==='__key'){prefs.apiKey=e.target.value.trim(); savePrefs(); return}
+  if(p==='__model'){prefs.model=e.target.value.trim(); savePrefs(); return}
   setPath(p,e.target.value);
   save();
+});
+document.addEventListener('keydown',function(e){
+  if(e.target.id==='coachin'&&e.key==='Enter'&&(e.metaKey||e.ctrlKey)){e.preventDefault();sendCoach()}
 });
 document.addEventListener('change',function(e){
   var p=e.target.getAttribute&&e.target.getAttribute('data-num');
@@ -809,6 +1039,11 @@ document.addEventListener('click',function(e){
   else if(a==='mtac'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].tacticId=el.getAttribute('data-v')}
   else if(a==='mmode'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].mode=el.getAttribute('data-v')}
   else if(a==='hidetips'){prefs.tips=false; savePrefs()}
+  else if(a==='lay'){prefs.layout=el.getAttribute('data-v'); savePrefs()}
+  else if(a==='side'){prefs.coachSide=prefs.coachSide==='left'?'right':'left'; savePrefs()}
+  else if(a==='coachsend'){sendCoach(); return}
+  else if(a==='coachask'){coachDraft=el.getAttribute('data-v'); sendCoach(); return}
+  else if(a==='coachclear'){chat=[]; coachError=''; saveChat()}
   else if(a==='rmg'){
     if(!confirm('Delete goal '+(gi+1)+' and its tactics? Your weekly ticks for it will be discarded.'))return;
     state.goals.splice(gi,1);
@@ -883,6 +1118,7 @@ document.getElementById('importer').addEventListener('change',function(e){
 /* --------------------------------------------------------------- start up */
 loadTheme();
 loadPrefs();
+loadChat();
 applyTheme();
 if(window.matchMedia){
   var mq=window.matchMedia('(prefers-color-scheme: dark)');
