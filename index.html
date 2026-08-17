@@ -158,9 +158,26 @@ input:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:2px}
 .mgbox{text-align:center}
 .mglab{font:600 9px/1.25 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-top:2px}
 .mgsub{font:500 9px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:4px}
-.mgrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:16px;
+.mgrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:16px;
   margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
-.mgrow.wide{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.mgrow.wide{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.dial{display:block;width:100%;margin:0 auto}
+.dial.big{max-width:250px}
+.dial.mid{max-width:132px}
+.dial.sm{max-width:96px}
+.dialbox{text-align:center;min-width:0}
+.dlab{font:600 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.dsub{font:500 9px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:6px;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tacrow{display:flex;align-items:stretch;gap:14px;padding:14px}
+.gnumbox{flex:none;width:56px;border-radius:5px;background:var(--ink);color:var(--inv);
+  display:flex;align-items:center;justify-content:center;font:700 26px/1 var(--mono)}
+.tacdials{flex:1;min-width:0;display:grid;grid-template-columns:repeat(auto-fill,112px);
+  justify-content:start;gap:14px 18px;align-content:center}
+@media (max-width:520px){
+  .gnumbox{width:40px;font-size:20px}
+  .tacdials{grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px}
+}
 .dashgrid{display:block}
 .dashside{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;margin-top:16px}
 @media (min-width:1000px){
@@ -369,7 +386,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='18';
+var APP_VERSION='19';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -606,6 +623,113 @@ function miniGauge(m,se,cw){
     '<div class="mglab">'+esc(m.name)+'</div>'+
     '<div class="mgsub">'+tidy(se.current)+' of '+tidy(m.target)+(m.unit?' '+esc(m.unit):'')+' · '+
       (se.lastWeek?(behind?'behind':'on pace'):'no entries')+'</div></div>';
+}
+
+/* ---- dials: vintage instrument for key holders, flat for everyone else ----
+   Sweep runs 0 to 100 percent over 240 degrees, amber below 60, green from 85. */
+function arcPath(a1,a2,r,cx,cy){
+  var at=function(a){var t=a*Math.PI/180;
+    return [(cx+r*Math.sin(t)).toFixed(2),(cy-r*Math.cos(t)).toFixed(2)]};
+  var p1=at(a1),p2=at(a2);
+  return 'M'+p1[0]+' '+p1[1]+' A'+r+' '+r+' 0 '+((a2-a1)>180?1:0)+' 1 '+p2[0]+' '+p2[1];
+}
+function dialVintage(p,size,uid){
+  var v=p===null?0:Math.max(0,Math.min(100,p));
+  var cx=100,cy=100,R=84,W=200,H=200;
+  var A=function(x){return -120+x*2.4};
+  var at=function(a,r){var t=a*Math.PI/180;
+    return [(cx+r*Math.sin(t)).toFixed(2),(cy-r*Math.cos(t)).toFixed(2)]};
+  var showNums=size!=='sm', showLegend=size==='big';
+  var ticks='',nums='';
+  for(var x=0;x<=100;x+=5){
+    var big=x%20===0, a=A(x);
+    var q1=at(a,R-4), q2=at(a,R-(big?15:9));
+    ticks+='<line x1="'+q1[0]+'" y1="'+q1[1]+'" x2="'+q2[0]+'" y2="'+q2[1]+
+      '" stroke="'+(big?'#f4efe6':'#a49c8e')+'" stroke-width="'+(big?3:1.5)+'" stroke-linecap="round"/>';
+    if(big&&showNums&&!(size==='mid'&&(x===0||x===100))){
+      var n=at(a,R-27);
+      nums+='<text x="'+n[0]+'" y="'+(parseFloat(n[1])+5.5).toFixed(2)+'" text-anchor="middle" font-size="15" '+
+        'font-family="Helvetica,Arial,sans-serif" font-weight="600" fill="#efe8db">'+x+'</text>';
+    }
+  }
+  var t85a=at(A(85),R-4), t85b=at(A(85),R-20);
+  var needleA=A(v);
+  var lo=p===null;
+  return '<svg class="dial '+size+'" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">'+
+    '<defs>'+
+      '<linearGradient id="bz'+uid+'" x1="0.15" y1="0" x2="0.85" y2="1">'+
+        '<stop offset="0" stop-color="#f7f9fa"/><stop offset="0.22" stop-color="#b9c0c6"/>'+
+        '<stop offset="0.5" stop-color="#7c848b"/><stop offset="0.78" stop-color="#cfd5da"/>'+
+        '<stop offset="1" stop-color="#6d757c"/></linearGradient>'+
+      '<radialGradient id="fc'+uid+'" cx="0.5" cy="0.36" r="0.78">'+
+        '<stop offset="0" stop-color="#3a3a3e"/><stop offset="0.55" stop-color="#1e1f22"/>'+
+        '<stop offset="1" stop-color="#0a0a0c"/></radialGradient>'+
+      '<linearGradient id="gl'+uid+'" x1="0.1" y1="0" x2="0.7" y2="0.9">'+
+        '<stop offset="0" stop-color="#ffffff" stop-opacity="0.20"/>'+
+        '<stop offset="0.42" stop-color="#ffffff" stop-opacity="0.03"/>'+
+        '<stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>'+
+      '<radialGradient id="hb'+uid+'" cx="0.4" cy="0.32" r="0.7">'+
+        '<stop offset="0" stop-color="#fdfdfd"/><stop offset="0.6" stop-color="#aab1b7"/>'+
+        '<stop offset="1" stop-color="#5e666d"/></radialGradient>'+
+    '</defs>'+
+    '<circle cx="100" cy="100" r="98" fill="url(#bz'+uid+')"/>'+
+    '<circle cx="100" cy="100" r="90" fill="#15161a"/>'+
+    '<circle cx="100" cy="100" r="87" fill="url(#fc'+uid+')"/>'+
+    '<path d="'+arcPath(A(0),A(60),R-6,cx,cy)+'" fill="none" stroke="var(--off)" stroke-width="5" opacity="0.9"/>'+
+    '<path d="'+arcPath(A(85),A(100),R-6,cx,cy)+'" fill="none" stroke="var(--on)" stroke-width="5" opacity="0.95"/>'+
+    ticks+nums+
+    '<line x1="'+t85a[0]+'" y1="'+t85a[1]+'" x2="'+t85b[0]+'" y2="'+t85b[1]+
+      '" stroke="var(--on)" stroke-width="3.4" stroke-linecap="round"/>'+
+    '<text x="100" y="'+(size==='sm'?154:158)+'" text-anchor="middle" font-size="'+(size==='sm'?46:34)+'" '+
+      'font-family="ui-monospace,Menlo,monospace" font-weight="700" '+
+      'fill="'+(lo?'#6f7278':'#f4efe6')+'">'+(lo?'—':Math.round(v))+'</text>'+
+    (showLegend?'<text x="100" y="174" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" '+
+      'letter-spacing="2.4" fill="#9a9284">PER CENT</text>':'')+
+    '<g class="dneedle" transform="rotate('+needleA.toFixed(1)+' 100 100)">'+
+      '<polygon points="96,102 100,'+(cy-(R-14))+' 104,102" fill="'+(lo?'#6f7278':'#e8563a')+'"/>'+
+      '<polygon points="97,100 103,100 100,118" fill="#c9cdd2"/>'+
+    '</g>'+
+    '<circle cx="100" cy="100" r="11" fill="url(#hb'+uid+')"/>'+
+    '<circle cx="100" cy="100" r="4" fill="#3a4046"/>'+
+    '<circle cx="100" cy="100" r="87" fill="url(#gl'+uid+')"/>'+
+    '<circle cx="100" cy="100" r="88.5" fill="none" stroke="#000" stroke-opacity="0.55" stroke-width="3"/>'+
+    '</svg>';
+}
+function dialFlat(p,size){
+  var v=p===null?0:Math.max(0,Math.min(100,p));
+  var cx=100,cy=100,r=78,W=200,H=140;
+  var at=function(x,rad){var th=Math.PI*(1-Math.max(0,Math.min(100,x))/100);
+    return [(cx+rad*Math.cos(th)).toFixed(2),(cy-rad*Math.sin(th)).toFixed(2)]};
+  var band=function(a,b,col,op){
+    var p1=at(a,r),p2=at(b,r);
+    return '<path d="M'+p1[0]+' '+p1[1]+' A'+r+' '+r+' 0 0 1 '+p2[0]+' '+p2[1]+
+      '" fill="none" stroke="'+col+'" stroke-width="11" opacity="'+op+'"/>';
+  };
+  var t1=at(85,r+8),t2=at(85,r-8),n=at(v,r-14),tail=at(v,-9);
+  return '<svg class="dial flat '+size+'" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">'+
+    band(0,60,'var(--off)',0.85)+band(60,85,'var(--off)',0.45)+band(85,100,'var(--on)',0.95)+
+    '<line x1="'+t1[0]+'" y1="'+t1[1]+'" x2="'+t2[0]+'" y2="'+t2[1]+'" stroke="var(--ink)" stroke-width="1.6"/>'+
+    '<line x1="'+tail[0]+'" y1="'+tail[1]+'" x2="'+n[0]+'" y2="'+n[1]+'" stroke="'+
+      (p===null?'var(--dim)':'var(--ink)')+'" stroke-width="3" stroke-linecap="round"/>'+
+    '<circle cx="100" cy="100" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>'+
+    '<text x="100" y="132" text-anchor="middle" font-size="26" font-family="ui-monospace,Menlo,monospace" '+
+      'fill="'+(p===null?'var(--dim)':(v>=85?'var(--on)':'var(--off)'))+'">'+(p===null?'—':Math.round(v))+'</text>'+
+    '</svg>';
+}
+var dialSeq=0;
+function dial(p,size){
+  dialSeq++;
+  return coachReady()?dialVintage(p,size,'d'+dialSeq):dialFlat(p,size);
+}
+
+/* average execution of one tactic across the weeks it has fallen due so far */
+function tacticAverage(t){
+  var cw=programmeWeek(), tot=0, n=0;
+  for(var w=1;w<=cw;w++){
+    if(t.weeks.indexOf(w)<0)continue;
+    tot+=tacticScore(w,t).pct; n++;
+  }
+  return n?tot/n:null;
 }
 
 /* Ring per goal — share of that goal's weekly execution achieved so far. */
@@ -1672,31 +1796,40 @@ function renderScore(){
   var scored=scores.filter(function(s,i){return i<cw&&s.pct!==null});
   var avg=scored.length?Math.round(scored.reduce(function(a,b){return a+b.pct},0)/scored.length):null;
   var hit=scored.filter(function(s){return s.pct>=85}).length;
-  var cwx=programmeWeek(), ms=[];
-  state.goals.forEach(function(g){(g.measures||[]).forEach(function(m){
-    if(m.name.trim())ms.push({m:m,se:measureSeries(m)});
-  })});
-  var flank=ms.length>0&&ms.length<=6&&ms.length%2===0;
-  var half=flank?ms.length/2:0;
-  var mg=function(a,b){return ms.slice(a,b).map(function(x){return miniGauge(x.m,x.se,cwx)}).join('')};
+  var cwx=programmeWeek();
+  var ga=goalAverages();
+  var gd=state.goals.map(function(g,gi){return{g:g,gi:gi,pct:ga[gi]}});
+  var flank=gd.length>0&&gd.length<=6&&gd.length%2===0;
+  var half=flank?gd.length/2:0;
+  var gdials=function(a,b){return gd.slice(a,b).map(function(x){
+    return '<div class="dialbox"><div class="dlab">Goal '+(x.gi+1)+'</div>'+dial(x.pct,'mid')+
+      '<div class="dsub">'+esc(x.g.title||'not set yet')+'</div></div>';
+  }).join('')};
 
   var out='<div class="card"><label class="lbl">Average execution</label>'+
-    (flank?'<div class="dashgrid"><div class="dashside">'+mg(0,half)+'</div><div class="dashmid">':'')+
-    gauge(avg)+
-    '<div style="text-align:center;margin-top:-6px">'+
-    '<div class="statv" style="font-size:34px;color:'+(avg===null?'var(--dim)':(avg>=85?'var(--on)':'var(--off)'))+'">'+
-      (avg===null?'—':avg+'%')+'</div>'+
+    (flank?'<div class="dashgrid"><div class="dashside">'+gdials(0,half)+'</div><div class="dashmid">':'')+
+    dial(avg,'big')+
+    '<div style="text-align:center;margin-top:2px">'+
     '<div class="statl">'+(avg===null?'No weeks scored yet':
       ('weeks 1–'+cw+' · '+scored.length+' scored · '+hit+' at 85%+'))+'</div></div>';
-  if(flank)out+='</div><div class="dashside">'+mg(half,ms.length)+'</div></div>';
-  if(!flank&&ms.length)out+='<div class="mgrow'+(ms.length<=3?' wide':'')+'">'+mg(0,ms.length)+'</div>';
-  var ga=goalAverages();
-  if(ga.some(function(x){return x!==null})){
-    out+='<div class="rings">'+state.goals.map(function(g,gi){
-      return ring(ga[gi], esc(g.title||('Goal '+(gi+1))));
-    }).join('')+'</div>';
-  }
+  if(flank)out+='</div><div class="dashside">'+gdials(half,gd.length)+'</div></div>';
+  if(!flank)out+='<div class="mgrow'+(gd.length<=3?' wide':'')+'">'+gdials(0,gd.length)+'</div>';
   out+='</div>';
+
+  /* one row of tactic dials per goal, with the goal number blocked off at the left */
+  var anyTac=state.goals.some(function(g){return g.tactics.some(function(t){return t.text.trim()})});
+  if(anyTac){
+    out+='<h2>Tactics</h2>';
+    state.goals.forEach(function(g,gi){
+      var ts=g.tactics.filter(function(t){return t.text.trim()});
+      if(!ts.length)return;
+      out+='<div class="card tacrow"><div class="gnumbox" title="'+esc(g.title||('Goal '+(gi+1)))+'">'+(gi+1)+'</div>'+
+        '<div class="tacdials">'+ts.map(function(t){
+          var ta=tacticAverage(t);
+          return '<div class="dialbox">'+dial(ta,'sm')+'<div class="dsub">'+esc(t.text)+'</div></div>';
+        }).join('')+'</div></div>';
+    });
+  }
 
   out+='<div class="card"><label class="lbl">Weekly execution — tap a week</label><div class="strip"><div class="target"><span>85%</span></div>';
   scores.forEach(function(s,i){
@@ -1731,6 +1864,7 @@ function renderScore(){
             ' · goal '+(gi+1)+
             (se.lastWeek?' · '+(se.gap===0?'exactly on pace':(se.onPace?'ahead by ':'behind by ')+tidy(Math.abs(se.gap))):' · no entries yet')+
           '</div>'+
+          miniGauge(m,se,programmeWeek())+
           '<div class="bbar" style="margin-top:12px"><i style="width:'+(se.pctOfTarget===null?0:se.pctOfTarget.toFixed(1))+
             '%;background:'+col+'"></i></div>'+
           measureChart(m,se)+
