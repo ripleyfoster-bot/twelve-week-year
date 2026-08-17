@@ -44,6 +44,21 @@ h1{font:800 27px/1.02 var(--display);letter-spacing:-.035em;text-transform:upper
   font:600 10px/1 var(--mono);letter-spacing:.11em;text-transform:uppercase}
 .speak .ic{width:15px;height:15px}
 .speak[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--inv)}
+.deck{display:flex;align-items:center;gap:6px;padding:7px 11px;border:1px solid var(--line);
+  background:var(--card);border-radius:24px;width:max-content;max-width:100%}
+.deck button{display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;
+  border:0;background:transparent;color:var(--muted);cursor:pointer;border-radius:16px}
+.deck button:hover{background:var(--cell);color:var(--ink)}
+.deck button.big{width:38px;height:38px;background:var(--ink);color:var(--inv)}
+.deck .dic{width:15px;height:15px}
+.deck button.big .dic{width:17px;height:17px}
+.deckpos{font:600 9px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+  padding-left:4px;min-width:40px}
+.vu{display:flex;align-items:flex-end;gap:2px;height:26px;width:30px;flex:none}
+.vu i{flex:1;background:var(--dim);border-radius:1px;height:5%;transition:height .09s linear}
+.deck.live .vu i{background:var(--on)}
+.deck.live .vu i:nth-child(6){background:var(--off)}
+.deck.live .vu i:nth-child(7){background:var(--off)}
 .minispk{margin-left:9px;border:0;background:transparent;color:var(--muted);cursor:pointer;
   font:600 9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;text-decoration:underline}
 .save{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);position:absolute;top:24px;right:16px}
@@ -110,6 +125,21 @@ input:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:2px}
 .mrow:last-child{border-bottom:0}
 .chart{display:block;width:100%;height:70px;margin:12px 0 8px}
 .gauge{display:block;width:100%;max-width:280px;margin:6px auto 0}
+.mgauge{display:block;width:100%;margin:0 auto}
+.mgbox{text-align:center}
+.mglab{font:600 9px/1.25 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-top:2px}
+.mgsub{font:500 9px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.mgrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:16px;
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.mgrow.wide{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.dashgrid{display:block}
+.dashside{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;margin-top:16px}
+@media (min-width:1000px){
+  .dashgrid{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:20px;align-items:center}
+  .dashside{display:block;margin-top:0}
+  .dashside .mgbox+.mgbox{margin-top:14px}
+  .dashmid{min-width:0}
+}
 .rings{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .ringbox{width:78px;text-align:center}
 .ring{display:block;width:70px;height:70px;margin:0 auto}
@@ -261,6 +291,15 @@ body.guiding #nav,body.guiding header{display:none}
   .radio.locked em{font:600 8px/1 var(--mono);letter-spacing:.1em;font-style:normal;border:1px solid var(--line);
     border-radius:3px;padding:2px 4px;margin-left:auto}
   .modes button.locked{opacity:.5}
+  .swatches{display:flex;gap:5px;margin-top:2px}
+  .sw{display:flex;width:19px;height:19px;padding:0;border:1px solid var(--line);border-radius:11px;
+    overflow:hidden;cursor:pointer;background:transparent}
+  .sw span{flex:1}
+  .sw[aria-pressed="true"]{outline:1.5px solid var(--ink);outline-offset:1.5px;border-color:transparent}
+  .modeswitch{display:flex;gap:4px;margin-top:9px}
+  .modeswitch button{flex:1;padding:6px 0;border:1px solid var(--line);background:transparent;border-radius:4px;
+    cursor:pointer;color:var(--muted);font:600 8px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+  .modeswitch button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--inv)}
   .coachpane{display:flex;flex:0 0 40%;border-left:1px solid var(--line);background:var(--card)}
   body.lay-full .coachpane{display:none}
   body.lay-coach main{display:none}
@@ -301,7 +340,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='16';
+var APP_VERSION='17';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -505,6 +544,39 @@ function gauge(pct){
   out+='<text x="'+(cx-r)+'" y="'+(cy+14)+'" text-anchor="middle" font-size="9" fill="var(--dim)" font-family="ui-monospace,Menlo,monospace">0</text>';
   out+='<text x="'+(cx+r)+'" y="'+(cy+14)+'" text-anchor="middle" font-size="9" fill="var(--dim)" font-family="ui-monospace,Menlo,monospace">100</text>';
   return out+'</svg>';
+}
+
+/* A measurement as its own rev counter. Needle is how far toward target;
+   the tick is where the pace line says you should be by now. */
+function miniGauge(m,se,cw){
+  var span=(se.target-se.start)||1;
+  var val=Math.max(0,Math.min(100,(se.current-se.start)/span*100));
+  var need=Math.max(0,Math.min(100,(se.expected(cw)-se.start)/span*100));
+  var cx=100,cy=100,r=74,W=200,H=126;
+  var pt=function(v,rad){var th=Math.PI*(1-Math.max(0,Math.min(100,v))/100);
+    return [(cx+rad*Math.cos(th)).toFixed(2),(cy-rad*Math.sin(th)).toFixed(2)]};
+  var arc=function(v1,v2,col,op){
+    if(v2<=v1)return '';
+    var a=pt(v1,r),b=pt(v2,r);
+    return '<path d="M'+a[0]+' '+a[1]+' A'+r+' '+r+' 0 0 1 '+b[0]+' '+b[1]+
+      '" fill="none" stroke="'+col+'" stroke-width="11" opacity="'+op+'"/>';
+  };
+  var behind=val<need-0.001;
+  var out='<svg class="mgauge" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">';
+  out+=arc(0,need,'var(--off)',0.7)+arc(need,100,'var(--on)',0.85);
+  var t1=pt(need,r+8),t2=pt(need,r-8);
+  out+='<line x1="'+t1[0]+'" y1="'+t1[1]+'" x2="'+t2[0]+'" y2="'+t2[1]+'" stroke="var(--ink)" stroke-width="1.5"/>';
+  var n=pt(val,r-14),tail=pt(val,-9);
+  out+='<line x1="'+tail[0]+'" y1="'+tail[1]+'" x2="'+n[0]+'" y2="'+n[1]+
+    '" stroke="'+(se.lastWeek?'var(--ink)':'var(--dim)')+'" stroke-width="3" stroke-linecap="round"/>';
+  out+='<circle cx="'+cx+'" cy="'+cy+'" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>';
+  out+='<text x="'+cx+'" y="'+(cy+22)+'" text-anchor="middle" font-size="21" font-family="ui-monospace,Menlo,monospace" '+
+    'fill="'+(se.lastWeek?(behind?'var(--off)':'var(--on)'):'var(--dim)')+'">'+tidy(se.current)+'</text>';
+  out+='</svg>';
+  return '<div class="mgbox">'+out+
+    '<div class="mglab">'+esc(m.name)+'</div>'+
+    '<div class="mgsub">'+tidy(se.current)+' of '+tidy(m.target)+(m.unit?' '+esc(m.unit):'')+' · '+
+      (se.lastWeek?(behind?'behind':'on pace'):'no entries')+'</div></div>';
 }
 
 /* Ring per goal — share of that goal's weekly execution achieved so far. */
@@ -791,7 +863,8 @@ var COACH_PROMPTS={
 
 function renderCoach(){
   var out='<div class="coachhead"><span class="coachtitle">Coach</span>'+
-    (chat.length?'<button class="btn ghost" data-act="coachclear">Clear</button>':'')+'</div>';
+    (guide?'<button class="btn ghost" data-act="gresume">\u2039 Back to the guide</button>':
+      (chat.length?'<button class="btn ghost" data-act="coachclear">Clear</button>':''))+'</div>';
   out+='<div class="coachlog" id="coachlog">';
   if(!coachReady()){
     out+='<div class="msg ai"><span class="who">Setup</span><div class="bubble">'+
@@ -805,7 +878,7 @@ function renderCoach(){
   chat.forEach(function(m,i){
     out+='<div class="msg '+(m.role==='user'?'me':'ai')+'"><span class="who">'+(m.role==='user'?'You':'Coach')+
       (m.role==='assistant'&&speechOn()?'<button class="minispk" data-act="sayone" data-i="'+i+'">'+
-        (speaking?'stop':'listen')+'</button>':'')+
+        (isSaying()?'stop':'listen')+'</button>':'')+
       '</span><div class="bubble">'+esc(m.content)+'</div></div>';
   });
   if(coachBusy)out+='<div class="msg ai"><span class="who">Coach</span><div class="bubble" style="color:var(--muted)">Thinking…</div></div>';
@@ -1041,38 +1114,126 @@ function renderGuide(){
     '<div class="gnav">'+
       (guide.i>0?'<button class="btn" data-act="gback">Back</button>':'<span></span>')+
       '<button class="btn ghost" data-act="gcoach">Ask the coach</button>'+
-      (speechOn()?'<button class="btn ghost" data-act="say">'+(speaking?'Stop':'Listen')+'</button>':'')+
+      (speechOn()?'<button class="btn ghost" data-act="say">'+(isSaying()?'Stop':'Listen')+'</button>':'')+
       (st.finish?'<button class="btn solid" data-act="gexit">Finish</button>'
                :'<button class="btn solid" data-act="gnext">Next</button>')+
     '</div></div>';
 }
 
 /* ------------------------------------------------------------------ speech */
-var speaking=false;
+var spk={segs:[],i:0,playing:false,paused:false,token:0};
+var vuTimer=null;
+function IC2(d){return '<svg class="dic" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" '+
+  'stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">'+d+'</svg>'}
+function DECKIC(k){return{
+  prev:IC2('<path d="M18 5v14L8 12z"/><path d="M6 5v14"/>'),
+  next:IC2('<path d="M6 5v14l10-7z"/><path d="M18 5v14"/>'),
+  play:IC2('<path d="M7 4v16l13-8z"/>'),
+  pause:IC2('<path d="M8 5v14M16 5v14"/>'),
+  stop:IC2('<rect x="6.5" y="6.5" width="11" height="11" rx="1"/>')
+}[k]}
 /* built lazily — IC is defined further down the file */
 function SPK(){return IC('<path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M16 8.5a4 4 0 0 1 0 7"/><path d="M18.5 6a7 7 0 0 1 0 12"/>')}
 function STOPIC(){return IC('<rect x="6" y="6" width="12" height="12" rx="1.5"/>')}
 
 function speechOn(){return !!(window.speechSynthesis&&window.SpeechSynthesisUtterance)}
+/* split into sentences so the deck can step through them */
+function segment(text){
+  var t=String(text||'').replace(/\s+/g,' ').trim(), out=[], buf='';
+  for(var i=0;i<t.length;i++){
+    buf+=t.charAt(i);
+    if('.!?'.indexOf(t.charAt(i))>-1&&(t.charAt(i+1)===' '||i===t.length-1)){
+      if(buf.trim().length>1)out.push(buf.trim());
+      buf='';
+    }
+  }
+  if(buf.trim())out.push(buf.trim());
+  return out.length?out:[t];
+}
+function startVU(){
+  if(vuTimer||!document.querySelectorAll)return;
+  vuTimer=setInterval(function(){
+    var bars=document.querySelectorAll('.vu i');
+    for(var i=0;i<bars.length;i++){
+      var h=(spk.playing&&!spk.paused)?(12+Math.random()*Math.random()*95):5;
+      bars[i].style.height=Math.min(100,h).toFixed(0)+'%';
+    }
+  },110);
+}
+function stopVU(){
+  if(vuTimer){clearInterval(vuTimer);vuTimer=null}
+  if(!document.querySelectorAll)return;
+  var bars=document.querySelectorAll('.vu i');
+  for(var i=0;i<bars.length;i++)bars[i].style.height='5%';
+}
+function isSaying(){return spk.playing&&!spk.paused}
 function stopSpeech(){
   if(!speechOn())return;
-  window.speechSynthesis.cancel(); speaking=false;
+  spk.token++; window.speechSynthesis.cancel();
+  spk.playing=false; spk.paused=false; spk.i=0; spk.segs=[];
+  stopVU();
+}
+function playFrom(i){
+  if(!speechOn()||!spk.segs.length)return;
+  spk.token++;
+  var tok=spk.token;
+  window.speechSynthesis.cancel();
+  spk.i=Math.max(0,Math.min(i,spk.segs.length-1));
+  var u=new window.SpeechSynthesisUtterance(spk.segs[spk.i]);
+  u.lang='en-GB'; u.rate=1; u.pitch=1;
+  var vs=window.speechSynthesis.getVoices()||[];
+  for(var v=0;v<vs.length;v++){ if(/en[-_]GB/i.test(vs[v].lang)){u.voice=vs[v];break} }
+  u.onend=function(){
+    if(tok!==spk.token)return;
+    if(spk.i<spk.segs.length-1){playFrom(spk.i+1)}
+    else {spk.playing=false; stopVU(); render()}
+  };
+  u.onerror=function(){ if(tok!==spk.token)return; spk.playing=false; stopVU(); render() };
+  spk.playing=true; spk.paused=false;
+  window.speechSynthesis.speak(u);
+  startVU(); render();
 }
 function speak(text){
   if(!speechOn()||!text)return;
-  window.speechSynthesis.cancel();
-  var u=new window.SpeechSynthesisUtterance(String(text).replace(/\s+/g,' ').trim());
-  u.lang='en-GB'; u.rate=1; u.pitch=1;
-  var vs=window.speechSynthesis.getVoices()||[];
-  for(var i=0;i<vs.length;i++){ if(/en[-_]GB/i.test(vs[i].lang)){u.voice=vs[i];break} }
-  u.onend=function(){speaking=false; render()};
-  u.onerror=function(){speaking=false; render()};
-  speaking=true; window.speechSynthesis.speak(u); render();
+  spk.segs=segment(text); playFrom(0);
+}
+function togglePlay(){
+  if(!speechOn())return;
+  if(!spk.segs.length){speakCurrent();return}
+  if(isSaying()){
+    try{window.speechSynthesis.pause()}catch(e){}
+    spk.paused=true; stopVU(); render(); return;
+  }
+  if(spk.paused){
+    var resumed=false;
+    try{window.speechSynthesis.resume(); resumed=true}catch(e){}
+    if(resumed&&window.speechSynthesis.speaking){spk.paused=false; startVU(); render()}
+    else {playFrom(spk.i)}
+    return;
+  }
+  playFrom(spk.i);
+}
+function vuBank(){
+  var b=''; for(var i=0;i<7;i++)b+='<i style="height:5%"></i>';
+  return '<span class="vu">'+b+'</span>';
+}
+function transport(label){
+  if(!speechOn())return '';
+  if(!coachReady())return sayBtn(label);
+  var pos=spk.segs.length?(spk.i+1)+' / '+spk.segs.length:'Read';
+  return '<div class="deck'+(isSaying()?' live':'')+'">'+
+    vuBank()+
+    '<button data-act="spkprev" aria-label="Back one" title="Back one">'+DECKIC('prev')+'</button>'+
+    '<button data-act="spktoggle" class="big" aria-label="Play or pause">'+
+      DECKIC(isSaying()?'pause':'play')+'</button>'+
+    '<button data-act="spkstop" aria-label="Stop">'+DECKIC('stop')+'</button>'+
+    '<button data-act="spknext" aria-label="Forward one" title="Forward one">'+DECKIC('next')+'</button>'+
+    vuBank()+'<span class="deckpos">'+pos+'</span></div>';
 }
 function sayBtn(label){
   if(!speechOn())return '';
-  return '<button class="speak" data-act="say" aria-pressed="'+speaking+'">'+
-    (speaking?STOPIC()+'<span>Stop</span>':SPK()+'<span>'+(label||'Listen')+'</span>')+'</button>';
+  return '<button class="speak" data-act="say" aria-pressed="'+isSaying()+'">'+
+    (isSaying()?STOPIC()+'<span>Stop</span>':SPK()+'<span>'+(label||'Listen')+'</span>')+'</button>';
 }
 function pct(n){return n===null||n===undefined?'not scored':Math.round(n)+' percent'}
 
@@ -1162,7 +1323,7 @@ function spokenGuide(){
   return (st.label?st.label+'. ':'')+st.q+' '+(st.hint||'');
 }
 function speakCurrent(){
-  if(speaking){stopSpeech();render();return}
+  if(isSaying()){stopSpeech();render();return}
   if(splash)return speak(spokenSplash());
   if(guide)return speak(spokenGuide());
   if(prefs.layout==='coach'){
@@ -1245,7 +1406,7 @@ function renderVision(){
 }
 
 function renderPlan(){
-  var tips = prefs.tips===false ? '' :
+  var tips = prefs.tips===false ? '<button class="btn ghost" data-act="showtips">Show the planning tips</button>' :
     '<div class="card"><label class="lbl">Writing a plan that holds up</label>'+
     '<ul class="tips">'+
     '<li>Fewer goals beat more. Three is plenty; one is not too few.</li>'+
@@ -1405,12 +1566,24 @@ function renderScore(){
   var scored=scores.filter(function(s,i){return i<cw&&s.pct!==null});
   var avg=scored.length?Math.round(scored.reduce(function(a,b){return a+b.pct},0)/scored.length):null;
   var hit=scored.filter(function(s){return s.pct>=85}).length;
-  var out='<div class="card"><label class="lbl">Average execution</label>'+gauge(avg)+
+  var cwx=programmeWeek(), ms=[];
+  state.goals.forEach(function(g){(g.measures||[]).forEach(function(m){
+    if(m.name.trim())ms.push({m:m,se:measureSeries(m)});
+  })});
+  var flank=ms.length>0&&ms.length<=6&&ms.length%2===0;
+  var half=flank?ms.length/2:0;
+  var mg=function(a,b){return ms.slice(a,b).map(function(x){return miniGauge(x.m,x.se,cwx)}).join('')};
+
+  var out='<div class="card"><label class="lbl">Average execution</label>'+
+    (flank?'<div class="dashgrid"><div class="dashside">'+mg(0,half)+'</div><div class="dashmid">':'')+
+    gauge(avg)+
     '<div style="text-align:center;margin-top:-6px">'+
     '<div class="statv" style="font-size:34px;color:'+(avg===null?'var(--dim)':(avg>=85?'var(--on)':'var(--off)'))+'">'+
       (avg===null?'—':avg+'%')+'</div>'+
     '<div class="statl">'+(avg===null?'No weeks scored yet':
       ('weeks 1–'+cw+' · '+scored.length+' scored · '+hit+' at 85%+'))+'</div></div>';
+  if(flank)out+='</div><div class="dashside">'+mg(half,ms.length)+'</div></div>';
+  if(!flank&&ms.length)out+='<div class="mgrow'+(ms.length<=3?' wide':'')+'">'+mg(0,ms.length)+'</div>';
   var ga=goalAverages();
   if(ga.some(function(x){return x!==null})){
     out+='<div class="rings">'+state.goals.map(function(g,gi){
@@ -1523,7 +1696,7 @@ function render(){
   document.getElementById('eyebrow').textContent='12 Week Year · v'+APP_VERSION;
   document.getElementById('title').textContent=t;
   document.getElementById('sub').textContent=sub;
-  document.getElementById('hact').innerHTML=sayBtn('Read this page');
+  document.getElementById('hact').innerHTML=transport('Read this page');
   try{
     main.innerHTML= splash ? renderSplash() : guide ? renderGuide() :
       view==='week'?renderWeek():view==='plan'?renderPlan():view==='score'?renderScore():renderVision();
@@ -1557,11 +1730,21 @@ function render(){
     }).join('')+
     (lock?'<button class="btn ghost" style="margin-top:6px" data-act="splash">Why coach?</button>'
         :'<button class="btn ghost" style="margin-top:8px" data-act="side">Switch sides</button>')+
+    '<span class="lbl" style="margin-top:14px;display:block">Colour</span>'+
+    '<div class="swatches">'+THEME_ORDER.map(function(k){
+      var pal=THEMES[k][darkNow()?'dark':'light'];
+      return '<button class="sw" data-act="theme" data-v="'+k+'" aria-pressed="'+(theme.preset===k)+
+        '" title="'+THEMES[k].name+'"><span style="background:'+pal.ink+'"></span>'+
+        '<span style="background:'+pal.on+'"></span></button>';
+    }).join('')+'</div>'+
+    '<div class="modeswitch">'+MODES.map(function(m){
+      return '<button data-act="mode" data-v="'+m[0]+'" aria-pressed="'+(theme.mode===m[0])+'">'+m[1]+'</button>';
+    }).join('')+'</div>'+
     '<div class="note" style="margin-top:10px">v'+APP_VERSION+'</div>';
 
   var b=document.body;
   b.className=('lay-'+prefs.layout)+(prefs.coachSide==='left'?' side-left':'')+
-    (prefs.layout==='coach'?' mob-coach':'')+((guide||splash)?' guiding':'');
+    (onCoach?' mob-coach':'')+(((guide||splash)&&!onCoach)?' guiding':'');
   document.getElementById('coach').innerHTML=renderCoach();
   main.scrollTop=y;
 }
@@ -1638,6 +1821,7 @@ document.addEventListener('click',function(e){
   else if(a==='mtac'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].tacticId=el.getAttribute('data-v')}
   else if(a==='mmode'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].mode=el.getAttribute('data-v')}
   else if(a==='hidetips'){prefs.tips=false; savePrefs()}
+  else if(a==='showtips'){prefs.tips=true; savePrefs()}
   else if(a==='lay'){
     var lv=el.getAttribute('data-v');
     if(lv==='coach'){
@@ -1653,8 +1837,12 @@ document.addEventListener('click',function(e){
   else if(a==='coachask'){coachDraft=el.getAttribute('data-v'); sendCoach(); return}
   else if(a==='coachclear'){chat=[]; coachError=''; saveChat()}
   else if(a==='say'){speakCurrent(); return}
+  else if(a==='spktoggle'){togglePlay(); return}
+  else if(a==='spkstop'){stopSpeech(); render(); return}
+  else if(a==='spkprev'){if(spk.segs.length)playFrom(spk.i-1); else speakCurrent(); return}
+  else if(a==='spknext'){if(spk.segs.length)playFrom(spk.i+1); else speakCurrent(); return}
   else if(a==='sayone'){
-    if(speaking){stopSpeech(); render(); return}
+    if(isSaying()){stopSpeech(); render(); return}
     var mi2=parseInt(el.getAttribute('data-i'),10);
     if(chat[mi2])speak(chat[mi2].content);
     return;
@@ -1683,6 +1871,7 @@ document.addEventListener('click',function(e){
     var wku=ensureWeek(week), tu=findTactic(id);
     if((tu.days||[]).length)wku.days[id]=[]; else wku.done[id]=false;
   }
+  else if(a==='gresume'){prefs.layout=prefs.prevLayout||'split'; savePrefs()}
   else if(a==='gcoach'){
     if(prefs.layout!=='coach')prefs.prevLayout=prefs.layout;
     prefs.layout='coach'; savePrefs();
