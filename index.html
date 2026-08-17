@@ -156,10 +156,54 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .munit{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
 nav{flex:none;display:flex;background:var(--navbg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;padding:12px 4px 13px;border:0;background:transparent;cursor:pointer;font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-top:2px solid transparent;margin-top:-1px}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 2px 11px;border:0;
+  background:transparent;cursor:pointer;font:600 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);border-top:2px solid transparent;margin-top:-1px}
+nav .ic{width:19px;height:19px}
 nav button[aria-current="true"]{color:var(--ink);border-top-color:var(--ink)}
 h2{font:800 15px/1 var(--display);letter-spacing:-.02em;text-transform:uppercase;margin:22px 0 2px}
 hr{height:1px;background:var(--line);border:0;margin:18px 0}
+
+/* ---------------- guided flow ---------------- */
+.gostart{display:flex;align-items:center;gap:9px;width:100%;justify-content:center;margin:14px 0 4px;padding:14px}
+.gostart .ic{width:16px;height:16px}
+.gwrap{max-width:660px;margin:0 auto;padding:8px 0 40px}
+.gtop{display:flex;align-items:center;justify-content:space-between}
+.gcount{font:600 10px/1 var(--mono);letter-spacing:.14em;color:var(--muted)}
+.gprog{height:3px;background:var(--track);border-radius:2px;margin:8px 0 26px;overflow:hidden}
+.gprog i{display:block;height:100%;background:var(--ink);transition:width .3s ease}
+.glabel{font:600 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.gq{font:800 26px/1.15 var(--display);letter-spacing:-.03em;margin:10px 0 0}
+.ghint{font:400 14px/1.5 var(--display);color:var(--muted);margin:12px 0 0}
+.gbody{margin:26px 0 34px}
+.garea{min-height:190px;font:400 16px/1.5 var(--display)}
+.gbig{font:400 22px/1.3 var(--display)!important;padding:10px 0!important}
+.gchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.gchip{font:500 14px/1 var(--display);padding:0 16px;height:44px;border-radius:22px;border:1px solid var(--line);
+  background:transparent;color:var(--ink);cursor:pointer}
+.gchip.sm{min-width:44px;padding:0 12px;font-family:var(--mono);font-size:13px}
+.gchip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--inv)}
+.gchip.day[aria-pressed="true"]{background:var(--on);border-color:var(--on)}
+.grecall{margin-top:18px;padding:12px 13px;background:var(--cell);border-left:2px solid var(--line);
+  border-radius:0 4px 4px 0;font:400 14px/1.5 var(--display);color:var(--muted)}
+.gnav{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
+.gscore{font:700 62px/1 var(--mono);letter-spacing:-.04em}
+.sp .card{margin:14px 0}
+.sp .tips li{margin-bottom:11px}
+.sp .tips b{font-weight:600;color:var(--ink)}
+.sp a{color:var(--ink)}
+.promo{border-left:2px solid var(--on)}
+.keybanner{margin-top:18px;padding:12px 13px;border-left:2px solid var(--off);background:var(--cell);
+  border-radius:0 4px 4px 0;font:400 14px/1.5 var(--display);color:var(--ink)}
+.keyres{margin-top:12px}
+.keyres.good{color:var(--on)}
+.keyres.bad{color:var(--off)}
+nav button.locked{opacity:.5}
+body.guiding #nav,body.guiding header{display:none}
+@media (min-width:960px){
+  body.guiding .side,body.guiding .coachpane{display:none}
+  body.guiding main{padding-top:26px}
+}
 
 /* ---------------- coach ---------------- */
 .coachhead{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;
@@ -185,9 +229,10 @@ hr{height:1px;background:var(--line);border:0;margin:18px 0}
     background:var(--card);padding:22px 0 16px}
   .brand{font:800 19px/1.05 var(--display);letter-spacing:-.03em;text-transform:uppercase;padding:0 18px 20px}
   .modes{display:flex;flex-direction:column;gap:2px;padding:0 8px}
-  .modes button{display:block;width:100%;text-align:left;padding:11px 12px;border:0;background:transparent;
-    border-radius:5px;cursor:pointer;color:var(--muted);
+  .modes button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 12px;border:0;
+    background:transparent;border-radius:5px;cursor:pointer;color:var(--muted);
     font:600 11px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase}
+  .modes .ic{width:17px;height:17px;flex:none}
   .modes button:hover{background:var(--cell);color:var(--ink)}
   .modes button[aria-current="true"]{background:var(--ink);color:var(--inv)}
   .modes .spacer{flex:1 1 auto;min-height:18px}
@@ -198,6 +243,11 @@ hr{height:1px;background:var(--line);border:0;margin:18px 0}
   .radio[aria-checked="true"]{color:var(--ink)}
   .radio[aria-checked="true"] i{border-color:var(--ink)}
   .radio[aria-checked="true"] i::after{content:"";position:absolute;inset:2.5px;border-radius:4px;background:var(--ink)}
+  .radio.locked{opacity:.45}
+  .radio.locked i{border-style:dashed}
+  .radio.locked em{font:600 8px/1 var(--mono);letter-spacing:.1em;font-style:normal;border:1px solid var(--line);
+    border-radius:3px;padding:2px 4px;margin-left:auto}
+  .modes button.locked{opacity:.5}
   .coachpane{display:flex;flex:0 0 40%;border-left:1px solid var(--line);background:var(--card)}
   body.lay-full .coachpane{display:none}
   body.lay-coach main{display:none}
@@ -237,7 +287,7 @@ hr{height:1px;background:var(--line);border:0;margin:18px 0}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='12';
+var APP_VERSION='15';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -267,7 +317,49 @@ var theme={preset:'graphite',mode:'auto'};
 var openGoal=null;
 var PREFS_KEY='twy:prefs:v1';
 var CHAT_KEY='twy:chat:v1';
-var prefs={tips:true,layout:'split',coachSide:'right',apiKey:'',model:'claude-sonnet-5'};
+var prefs={tips:true,layout:'split',prevLayout:'split',coachSide:'right',apiKey:'',model:'claude-sonnet-5',keyOk:null};
+var guide=null;
+var splash=false;
+var COACH_MAIL='Ripley.foster+anthropickey@gmail.com';
+function hasKey(){return !!(prefs.apiKey&&prefs.apiKey.trim())}
+/* a key that is present AND has not been rejected */
+function coachReady(){return hasKey()&&prefs.keyOk!==false}
+var keyTest={busy:false,msg:'',ok:null};
+
+/* One-token call purely to see whether the key authenticates. */
+function testKey(thenEnable){
+  if(!hasKey()||keyTest.busy)return;
+  keyTest={busy:true,msg:'',ok:null}; render();
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'content-type':'application/json','x-api-key':prefs.apiKey,
+      'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:prefs.model||'claude-sonnet-5',max_tokens:1,
+      messages:[{role:'user',content:'ping'}]})
+  }).then(function(r){
+    return r.json()['catch'](function(){return{}}).then(function(j){return{status:r.status,ok:r.ok,j:j}});
+  }).then(function(res){
+    var msg=(res.j&&res.j.error&&res.j.error.message)||'';
+    if(res.status===401){
+      prefs.keyOk=false; keyTest={busy:false,ok:false,
+        msg:'That key was rejected. It has expired, been revoked, or was mistyped. Create a fresh one at console.anthropic.com and paste it in.'};
+    } else if(res.status===400&&/model/i.test(msg)){
+      prefs.keyOk=true; keyTest={busy:false,ok:true,
+        msg:'The key works, but the model name was refused: '+msg+' — check the model field.'};
+    } else if(res.ok||res.status===429||res.status===529){
+      prefs.keyOk=true; keyTest={busy:false,ok:true,
+        msg:res.ok?'Key accepted. The coach is live.':'Key accepted (the API is busy right now, which is fine).'};
+    } else {
+      keyTest={busy:false,ok:null,msg:'Could not check the key: '+(msg||('HTTP '+res.status))+'. Try again.'};
+    }
+    savePrefs();
+    if(thenEnable&&prefs.keyOk===true){prefs.layout='split'; prefs.prevLayout='split'; savePrefs(); splash=false}
+    render();
+  })['catch'](function(e){
+    keyTest={busy:false,ok:null,msg:'Could not reach the API to check the key — '+(e.message||'network error')+'.'};
+    render();
+  });
+}
 var chat=[], coachDraft='', coachBusy=false, coachError='';
 function saveChat(){try{localStorage.setItem(CHAT_KEY,JSON.stringify(chat.slice(-16)))}catch(e){}}
 function loadChat(){try{var r=localStorage.getItem(CHAT_KEY); if(r)chat=JSON.parse(r)||[]}catch(e){chat=[]}}
@@ -576,30 +668,69 @@ function planBrief(){
   return L.join('\n');
 }
 
+var STANCE={
+  vision:[
+    'THEY ARE ON THE VISION TAB. This is the hardest part and where most people stall, so your job here is discovery, not tidying prose.',
+    'Work one question at a time. Ask, wait, then go deeper. Never fire a list of questions at once.',
+    'If they have written nothing, do not ask them to describe their vision — that question paralyses people. Start smaller and more concrete: which part of life is this for (work, money, health, relationships, learning, craft, something else)? What is already nagging at them? What would they regret not having attempted?',
+    'Then ladder on why. Take what they say and ask why that matters, two or three levels down, until you reach something that sounds like a real desire rather than a respectable answer. "More money" is not a vision; what the money buys, protects or proves might be.',
+    'Challenge kindly and specifically. If an answer is vague, borrowed, or sounds like something they think they ought to want, say so gently and ask what the honest version is. Praise nothing that is not yet real.',
+    'Push for the concrete: a vision they cannot picture cannot be aimed at. Ask what it looks like on an ordinary Tuesday when it is true.',
+    'THE LINK MATTERS MOST: the 36-month vision must be a waypoint on the road to the long-term vision — the same direction, just nearer. Check this explicitly. If the two point different ways, say which one is doing the drifting and help them reconcile it. Remind them the 36-month vision exists to make the long-term one reachable.'
+  ],
+  plan:[
+    'THEY ARE ON THE PLAN TAB. Their vision is the yardstick — judge every goal against it and say plainly when a goal does not serve it.',
+    'Fewer goals achieved beat more goals neglected. If they are drifting past three, push back and ask which one they would keep if they could only keep one.',
+    'A good 12-week goal is specific, measurable, and finishes inside the twelve weeks — "hand over 16 projects by week 12", not "improve handovers".',
+    'Tactics must be actions they control and can answer yes or no to at the end of a day. Rewrite outcome-shaped tactics into action-shaped ones for them.',
+    'Ask what would have to be true each week for the goal to land, then work backwards into weekly tactics. Ask what has stopped them before.',
+    'Suggest a measurement for each goal — the number the work is meant to move — and ask what it should read by week 12.'
+  ],
+  week:[
+    'THEY ARE ON THE WEEK TAB, doing or reviewing this week.',
+    'Be practical and short. If they are behind, help them choose what to drop rather than pretending everything is still possible.',
+    'Protect the system over the week: a bad week executed honestly is worth more than a fudged score.'
+  ],
+  score:[
+    'THEY ARE ON THE SCORE TAB, looking at execution over the cycle.',
+    'Read the pattern, not the last number. Which goal is quietly slipping, and is it a plan problem or an effort problem?',
+    'Below 85% consistently usually means the plan was too heavy, not that they are lazy — test that first.'
+  ]
+};
+
 function coachSystem(){
   var where={week:'the Week tab, where they tick tactics and enter this week\'s numbers',
     plan:'the Plan tab, where they write goals, tactics, weeks due, day patterns and measurements',
     score:'the Score tab, showing the execution gauge, per-goal rings, the 12-week strip and measurement pace charts',
-    vision:'the Vision tab, for the long-term and 36-month vision',
-    coach:'the Coach panel'}[view]||'the app';
-  return [
-    'You are the coach inside a 12 Week Year execution tracker that this person built for themselves. Be direct, brief and practical. British English.',
-    'You are looking at the same data they are. They are currently on '+where+' — bias your help toward what they can do there.',
-    'HOW THIS APP SCORES: execution = every tactic due this week counted once, pooled across all goals. A tactic with days set scores days-done over days-scheduled. A one-off scores done or not done. 85% is the target.',
-    'Measurements are the lag indicator and deliberately do NOT feed the execution score. Execution is what they control; the measurement is the result they are betting follows.',
-    'THE METHOD: tactics must be actions they control, answerable yes/no. Fewer goals beat more. A missed week is recoverable; a missed system is not. Do not let a good result excuse a week where the work did not happen, and do not let a bad result panic them out of a plan that is being executed well.',
-    'Never invent numbers. Everything you know about their plan is below. If something is not there, ask.',
-    'Keep answers to a few short paragraphs unless they ask for depth. No preamble.',
+    vision:'the Vision tab, for the long-term and 36-month vision'}[view]||'the app';
+  var L=[
+    'You are the coach inside a 12 Week Year execution tracker that this person built for themselves. British English. Direct, warm, unsentimental. No preamble, no flattery.',
+    'You are looking at the same data they are, on '+where+'.',
     '',
-    '--- THEIR PLAN AND CURRENT POSITION ---',
-    planBrief()
-  ].join('\n');
+    'THE 12 WEEK YEAR, PROPERLY UNDERSTOOD:',
+    '- A twelve-week cycle is treated as a full year. Twelve weeks is long enough to achieve something real and short enough that every week counts. There is no "later" in a twelve-week year.',
+    '- The chain runs: long-term vision -> 36-month vision -> a small number of 12-week goals -> weekly tactics -> today. Each link must serve the one above it. A goal that serves no vision is just activity.',
+    '- Lead and lag: execution is the lead measure (what they control, scored weekly); results are the lag measure (what follows). Score the lead honestly and the lag tends to arrive.',
+    '- 85% execution is the standard. Not 100% — that invites lying to yourself. Not 60% — that is a plan nobody is running.',
+    '- Intentional imbalance is fine for twelve weeks. Something gets less attention on purpose; that is a choice, not a failure.',
+    '- Common failure is not laziness. It is a plan with too many goals, tactics written as hopes rather than actions, and no weekly accountability moment.',
+    '',
+    'HOW THIS APP SCORES: every tactic due this week counts once, pooled across all goals. A tactic with days set scores days-done over days-scheduled, so part credit is real. A one-off scores done or not done. Target 85%.',
+    'Measurements are the lag indicator and deliberately do NOT feed the execution score. Never suggest otherwise.',
+    'Never invent numbers. Everything you know about their plan is below; if something is missing, ask for it.',
+    'Ask ONE question per reply when you are drawing something out of them. Keep replies to a few short paragraphs unless depth is asked for.',
+    ''
+  ];
+  L=L.concat(STANCE[view]||[]);
+  if(guide)L.push('','THEY ARE IN THE GUIDED FLOW right now, on the step: "'+guide.flow+' / '+(guide.label||'')+'". Help them answer just that step. Do not race ahead.');
+  L.push('','--- THEIR PLAN AND CURRENT POSITION ---',planBrief());
+  return L.join('\n');
 }
 
 function sendCoach(){
   var text=(coachDraft||'').trim();
   if(!text||coachBusy)return;
-  if(!prefs.apiKey){coachError='Add your API key first.';render();return}
+  if(!coachReady()){coachError='The coach needs a working API key.';render();return}
   chat.push({role:'user',content:text});
   coachDraft=''; coachBusy=true; coachError=''; saveChat(); render();
   fetch('https://api.anthropic.com/v1/messages',{
@@ -611,14 +742,25 @@ function sendCoach(){
       messages:chat.slice(-16).map(function(m){return{role:m.role,content:m.content}})})
   }).then(function(r){
     return r.json().then(function(j){
-      if(!r.ok)throw new Error((j&&j.error&&j.error.message)||('HTTP '+r.status));
+      if(!r.ok){
+        var err=new Error((j&&j.error&&j.error.message)||('HTTP '+r.status));
+        if(r.status===401)err.authFail=true;
+        throw err;
+      }
       return j;
     });
   }).then(function(j){
     var txt=(j.content||[]).map(function(c){return c.type==='text'?c.text:''}).filter(Boolean).join('\n');
     chat.push({role:'assistant',content:txt||'(no reply)'});
   })['catch'](function(e){
-    coachError=e.message||'Could not reach the API.';
+    if(e.authFail){
+      prefs.keyOk=false; savePrefs();
+      keyTest={busy:false,ok:false,msg:'Your key stopped working mid-conversation — expired or revoked. The rest of the app carries on as normal.'};
+      prefs.layout='full'; prefs.prevLayout='full'; savePrefs(); splash=true;
+      coachError='';
+    } else {
+      coachError=e.message||'Could not reach the API.';
+    }
   }).then(function(){
     coachBusy=false; saveChat(); render();
     var log=document.getElementById('coachlog'); if(log)log.scrollTop=log.scrollHeight;
@@ -627,17 +769,17 @@ function sendCoach(){
 
 var COACH_PROMPTS={
   week:['Am I on track this week?','What should I do first today?','I am behind — what do I drop?'],
-  plan:['Are these tactics actually actions?','Is this plan too much for 12 weeks?','Suggest a measurement for goal 1'],
-  score:['What does my execution pattern tell me?','Which goal is slipping and why?','Am I on pace to hit my targets?'],
-  vision:['Help me sharpen my 36-month vision','Do my goals serve my vision?','What is missing from this vision?'],
-  coach:['Review my whole plan','Where am I fooling myself?','What is the one thing to fix this week?']
+  plan:['Are my goals worth twelve weeks?','Are these tactics really actions?','Is this plan too much?','Suggest a measurement'],
+  score:['What does my pattern tell me?','Which goal is slipping, and why?','Am I on pace?'],
+  vision:['I do not know where to start','Help me find what I actually want','Do my two visions point the same way?','Challenge my vision'],
+  coach:['Review my whole plan','Where am I fooling myself?','The one thing to fix this week']
 };
 
 function renderCoach(){
   var out='<div class="coachhead"><span class="coachtitle">Coach</span>'+
     (chat.length?'<button class="btn ghost" data-act="coachclear">Clear</button>':'')+'</div>';
   out+='<div class="coachlog" id="coachlog">';
-  if(!prefs.apiKey){
+  if(!coachReady()){
     out+='<div class="msg ai"><span class="who">Setup</span><div class="bubble">'+
       'The coach talks to Claude directly from this device. Paste an API key from the Anthropic console below — it is stored on this device only and never leaves it except in calls to the API.</div></div>'+
       '<label class="lbl">API key</label><input type="text" data-bind="__key" value="'+esc(prefs.apiKey)+'" placeholder="sk-ant-...">'+
@@ -654,7 +796,7 @@ function renderCoach(){
   if(coachError)out+='<div class="msg ai"><span class="who">Problem</span><div class="bubble" style="color:var(--off)">'+esc(coachError)+'</div></div>';
   out+='</div>';
   out+='<div class="coachform">';
-  if(prefs.apiKey&&!chat.length){
+  if(coachReady()&&!chat.length){
     out+='<div class="prompts">'+(COACH_PROMPTS[view]||COACH_PROMPTS.coach).map(function(q){
       return '<button class="chip" data-act="coachask" data-v="'+esc(q)+'">'+esc(q)+'</button>';
     }).join('')+'</div>';
@@ -663,6 +805,271 @@ function renderCoach(){
     '<div class="coachrow"><button class="btn solid" data-act="coachsend"'+(coachBusy?' disabled':'')+'>Send</button>'+
     '<span class="note" style="margin:0;align-self:center">Sees your plan and this week</span></div></div>';
   return out;
+}
+
+/* ------------------------------------------------------------------ guide */
+var FOCI=['Work','Money','Health','Relationships','Learning','Craft','Something else'];
+
+function guideSteps(flow){
+  var st=[];
+  if(flow==='vision'){
+    st.push({id:'focus',label:'What this is for',
+      q:'Which part of your life is this twelve weeks really about?',
+      hint:'Pick the one that matters most right now. Intentional imbalance is fine — the others are not being abandoned, just not the point of this cycle.',
+      chips:{path:'vision.focus',options:FOCI}});
+    st.push({id:'lt',label:'Long-term vision',
+      q:'Where do you want to be in five, ten, fifteen years?',
+      hint:'Write it as though it has already happened. If you are stuck, ask the coach — it will start you somewhere smaller than this question.',
+      area:{path:'vision.longTerm'}});
+    st.push({id:'age',label:'Your age in three years',
+      q:'How old will you be in three years?',
+      hint:'Naming the age makes the three-year vision a real moment rather than an abstraction.',
+      num:{path:'vision.age'}});
+    st.push({id:'m36',label:'36-month vision',
+      q:'Three years from now, what is true?',
+      hint:'This is a waypoint on the road to the long-term vision above, not a separate ambition. Same direction, nearer.',
+      area:{path:'vision.threeYear'},show:'lt'});
+    st.push({id:'link',label:'Do they line up?',
+      q:'Read both back. Does the three-year picture actually move you toward the long one?',
+      hint:'If they point different ways, one of them is drifting. The coach will tell you which if you ask it.',
+      review:true});
+  }
+  if(flow==='plan'){
+    st.push({id:'count',label:'How many goals',
+      q:'How many goals for these twelve weeks?',
+      hint:'Fewer achieved beats more neglected. Three is plenty. One is not too few.',
+      count:true});
+    state.goals.forEach(function(g,gi){
+      st.push({id:'g'+gi+'-title',label:'Goal '+(gi+1),gi:gi,
+        q:'What is goal '+(gi+1)+'?',
+        hint:'Specific, measurable, finished inside twelve weeks. "Hand over 16 projects by week 12" — not "improve handovers".',
+        input:{path:'goals.'+gi+'.title'}});
+      if(gi===0)st.push({id:'start',label:'Start date',gi:gi,
+        q:'Which Monday does week 1 begin?',
+        hint:'This drives the week counter and every pace calculation.',
+        date:{path:'goals.0.start'}});
+      g.tactics.forEach(function(t,ti){
+        st.push({id:'g'+gi+'t'+ti+'-text',label:'Tactic '+(ti+1)+', goal '+(gi+1),gi:gi,ti:ti,
+          q:'What action will move goal '+(gi+1)+'?',
+          hint:'An action you control, answerable yes or no at the end of a day.',
+          input:{path:'goals.'+gi+'.tactics.'+ti+'.text'}});
+        st.push({id:'g'+gi+'t'+ti+'-weeks',label:'Weeks due',gi:gi,ti:ti,
+          q:'Which weeks does it fall due?',
+          hint:'Tap All if it runs every week.',
+          weeks:{gi:gi,ti:ti}});
+        st.push({id:'g'+gi+'t'+ti+'-days',label:'Days each week',gi:gi,ti:ti,
+          q:'Which days, in each of those weeks?',
+          hint:'Choosing days gives you part credit — four of five days scores 80%. Once means done or not done.',
+          days:{gi:gi,ti:ti}});
+      });
+      st.push({id:'g'+gi+'-more',label:'Another tactic?',gi:gi,
+        q:'Another tactic for goal '+(gi+1)+'?',
+        hint:'Enough tactics that the goal would land if you did them all. No more than that.',
+        more:{gi:gi}});
+      (g.measures||[]).forEach(function(m,mi){
+        st.push({id:'g'+gi+'m'+mi,label:'Measurement',gi:gi,mi:mi,
+          q:'What number should this goal move?',
+          hint:'The result the work is meant to produce. It is tracked and charted, but never scored — execution stays the thing you control.',
+          measure:{gi:gi,mi:mi}});
+      });
+      if(!(g.measures||[]).length)st.push({id:'g'+gi+'-maskip',label:'Add a measurement?',gi:gi,
+        q:'Add a measurement to goal '+(gi+1)+'?',
+        hint:'Optional, but it is what turns "I did the work" into "and here is what it produced".',
+        addm:{gi:gi}});
+    });
+    st.push({id:'done',label:'Ready',q:'That is the plan.',hint:'You can change any of it later in the Plan tab.',finish:true});
+  }
+  if(flow==='week'){
+    var sc=scoreWeek(week);
+    state.goals.forEach(function(g,gi){
+      g.tactics.forEach(function(t,ti){
+        if(!t.text.trim()||t.weeks.indexOf(week)<0)return;
+        st.push({id:'w'+t.id,label:'Goal '+(gi+1),gi:gi,
+          q:t.text,
+          hint:(t.days||[]).length?'Tap the days you did it.':'Did you do it this week?',
+          tick:{gi:gi,tid:t.id}});
+      });
+      (g.measures||[]).filter(function(m){return m.name.trim()&&!m.tacticId}).forEach(function(m,k){
+        st.push({id:'wm'+m.id,label:'Goal '+(gi+1)+' measurement',gi:gi,
+          q:m.name,hint:m.mode==='weekly'?'What did you do this week?':'Where does the total stand now?',
+          mentry:{gi:gi,mid:m.id}});
+      });
+      var due=g.tactics.filter(function(t){return t.text.trim()&&t.weeks.indexOf(week)>-1});
+      if(due.length)st.push({id:'wn'+gi,label:'Goal '+(gi+1)+' notes',gi:gi,
+        q:'What actually happened on goal '+(gi+1)+' this week?',
+        hint:'One line is enough. This is what you will read back next week.',
+        notes:{gi:gi}});
+    });
+    st.push({id:'wdone',label:'Week scored',q:'Week '+week+' logged.',hint:'',finish:true,score:true});
+  }
+  return st;
+}
+
+function guideBody(st){
+  var out='';
+  if(st.chips){
+    out+='<div class="gchips">'+st.chips.options.map(function(o){
+      var cur=st.chips.path==='vision.focus'?state.vision.focus:'';
+      return '<button class="gchip" aria-pressed="'+(cur===o)+'" data-act="gfocus" data-v="'+esc(o)+'">'+o+'</button>';
+    }).join('')+'</div>';
+  }
+  if(st.area)out+='<textarea class="garea" data-bind="'+st.area.path+'" placeholder="Take your time.">'+
+    esc(st.area.path==='vision.longTerm'?state.vision.longTerm:state.vision.threeYear)+'</textarea>';
+  if(st.show==='lt'&&state.vision.longTerm)
+    out+='<div class="grecall"><span class="prevtag">Long term</span>'+esc(state.vision.longTerm)+'</div>';
+  if(st.num)out+='<input class="gbig" type="number" inputmode="numeric" data-bind="'+st.num.path+'" value="'+esc(state.vision.age)+'">';
+  if(st.input)out+='<input class="gbig" type="text" data-bind="'+st.input.path+'" value="'+
+    esc(st.input.path.indexOf('tactics')>-1
+      ? state.goals[st.gi].tactics[st.ti].text
+      : state.goals[st.gi].title)+'" placeholder="Write it here">';
+  if(st.date)out+='<input class="gbig" type="date" data-bind="goals.0.start" value="'+esc(state.goals[0].start)+'">';
+  if(st.review){
+    out+='<div class="grecall"><span class="prevtag">Long term</span>'+esc(state.vision.longTerm||'— nothing written —')+'</div>'+
+        '<div class="grecall"><span class="prevtag">36 months</span>'+esc(state.vision.threeYear||'— nothing written —')+'</div>';
+  }
+  if(st.count){
+    out+='<div class="gchips">'+[1,2,3,4,5].map(function(n){
+      return '<button class="gchip" aria-pressed="'+(state.goals.length===n)+'" data-act="gcount" data-v="'+n+'">'+n+'</button>';
+    }).join('')+'</div>'+
+    (state.goals.length>3?'<div class="note">'+state.goals.length+' goals. Every extra goal dilutes the weekly score and your attention.</div>':'');
+  }
+  if(st.weeks){
+    var t=state.goals[st.weeks.gi].tactics[st.weeks.ti];
+    out+='<div class="gchips">'+WEEKS.map(function(w){
+      return '<button class="gchip sm" aria-pressed="'+(t.weeks.indexOf(w)>-1)+'" data-act="tw" data-g="'+st.weeks.gi+'" data-t="'+st.weeks.ti+'" data-w="'+w+'">'+w+'</button>';
+    }).join('')+'<button class="gchip sm" aria-pressed="'+(t.weeks.length===12)+'" data-act="allw" data-g="'+st.weeks.gi+'" data-t="'+st.weeks.ti+'">All</button></div>';
+  }
+  if(st.days){
+    var t2=state.goals[st.days.gi].tactics[st.days.ti];
+    out+='<div class="gchips">'+PATTERNS.map(function(pt,pi){
+      return '<button class="gchip" aria-pressed="'+sameDays(t2.days,pt[1])+'" data-act="pat" data-g="'+st.days.gi+'" data-t="'+st.days.ti+'" data-p="'+pi+'">'+pt[0]+'</button>';
+    }).join('')+'</div><div class="gchips">'+DAYS.map(function(d,i){
+      return '<button class="gchip sm day" aria-pressed="'+((t2.days||[]).indexOf(i)>-1)+'" data-act="pd" data-g="'+st.days.gi+'" data-t="'+st.days.ti+'" data-d="'+i+'" aria-label="'+DAY_NAMES[i]+'">'+d+'</button>';
+    }).join('')+'</div>';
+  }
+  if(st.more){
+    out+='<div class="gchips"><button class="gchip" data-act="gaddt" data-g="'+st.more.gi+'">Add another tactic</button>'+
+      '<button class="gchip" data-act="gnext">No, that is enough</button></div>';
+  }
+  if(st.addm){
+    out+='<div class="gchips"><button class="gchip" data-act="gaddm" data-g="'+st.addm.gi+'">Add a measurement</button>'+
+      '<button class="gchip" data-act="gnext">Skip it</button></div>';
+  }
+  if(st.measure){
+    var m=state.goals[st.measure.gi].measures[st.measure.mi], pre='goals.'+st.measure.gi+'.measures.'+st.measure.mi;
+    out+='<input class="gbig" type="text" data-bind="'+pre+'.name" value="'+esc(m.name)+'" placeholder="What are you measuring?">'+
+      '<div class="mgrid" style="margin-top:16px">'+
+      '<div><label class="lbl">Start</label><input type="number" data-num="'+pre+'.start" value="'+esc(m.start)+'"></div>'+
+      '<div><label class="lbl">Target</label><input type="number" data-num="'+pre+'.target" value="'+esc(m.target)+'"></div>'+
+      '<div><label class="lbl">Unit</label><input type="text" data-bind="'+pre+'.unit" value="'+esc(m.unit)+'" placeholder="projects"></div></div>'+
+      '<div class="gchips" style="margin-top:16px">'+
+      chip('I enter what I did that week',m.mode==='weekly','data-act="mmode" data-g="'+st.measure.gi+'" data-m="'+st.measure.mi+'" data-v="weekly"')+
+      chip('I enter the running total',m.mode==='total','data-act="mmode" data-g="'+st.measure.gi+'" data-m="'+st.measure.mi+'" data-v="total"')+'</div>';
+  }
+  if(st.tick){
+    var g3=state.goals[st.tick.gi], t3=null;
+    g3.tactics.forEach(function(x){if(x.id===st.tick.tid)t3=x});
+    if(t3){
+      var ts=tacticScore(week,t3), hitd=weekOf(week).days[t3.id]||[];
+      if(ts.scheduled){
+        out+='<div class="gchips">'+t3.days.map(function(i){
+          return '<button class="gchip day" aria-pressed="'+(hitd.indexOf(i)>-1)+'" data-act="td" data-id="'+t3.id+'" data-d="'+i+'" aria-label="'+DAY_NAMES[i]+'">'+DAY_NAMES[i].slice(0,3)+'</button>';
+        }).join('')+'</div><div class="note">'+ts.done+' of '+ts.total+' days · '+Math.round(ts.pct)+'%</div>';
+      } else {
+        out+='<div class="gchips">'+
+          '<button class="gchip" aria-pressed="'+(ts.pct===100)+'" data-act="tick" data-id="'+t3.id+'">Yes, done</button>'+
+          '<button class="gchip" aria-pressed="'+(ts.pct===0)+'" data-act="untick" data-id="'+t3.id+'">Not this week</button></div>';
+      }
+      (g3.measures||[]).forEach(function(m){
+        if(m.tacticId===t3.id&&m.name.trim())out+=measureInput(m,week,st.tick.gi,true);
+      });
+    }
+  }
+  if(st.mentry){
+    var g4=state.goals[st.mentry.gi], mm=null;
+    (g4.measures||[]).forEach(function(x){if(x.id===st.mentry.mid)mm=x});
+    if(mm)out+=measureInput(mm,week,st.mentry.gi,false);
+  }
+  if(st.notes){
+    var g5=state.goals[st.notes.gi], r=resultOf(week,g5.id), pv=lastResult(week,g5.id);
+    out+=field('Results this week','weeks.'+week+'.results.'+g5.id+'.thisWeek',r.thisWeek)+
+      '<div style="margin-top:16px">'+field('Results to date','weeks.'+week+'.results.'+g5.id+'.toDate',r.toDate)+'</div>'+
+      '<div class="gchips" style="margin-top:16px">'+['Yes','No'].map(function(v){
+        return '<button class="gchip" aria-pressed="'+(r.onPace===v)+'" data-act="pace" data-gid="'+g5.id+'" data-v="'+v+'">On pace: '+v+'</button>';
+      }).join('')+'</div>';
+    if(pv)out+='<div class="grecall"><span class="prevtag">Week '+pv.week+'</span>'+esc(pv.toDate||pv.thisWeek||'—')+'</div>';
+  }
+  if(st.score){
+    var scf=scoreWeek(week);
+    out+='<div class="gscore" style="color:'+(scf.pct===null?'var(--dim)':(scf.pct>=85?'var(--on)':'var(--off)'))+'">'+
+      (scf.pct===null?'—':Math.round(scf.pct)+'%')+'</div><div class="statl">execution · target 85%</div>';
+  }
+  return out;
+}
+
+function renderGuide(){
+  var steps=guideSteps(guide.flow);
+  if(!steps.length){guide=null;return renderVision()}
+  if(guide.i>=steps.length)guide.i=steps.length-1;
+  var st=steps[guide.i];
+  guide.label=st.label;
+  var pc=Math.round((guide.i+1)/steps.length*100);
+  return '<div class="gwrap">'+
+    '<div class="gtop"><button class="btn ghost" data-act="gexit">Exit</button>'+
+      '<span class="gcount">'+(guide.i+1)+' / '+steps.length+'</span></div>'+
+    '<div class="gprog"><i style="width:'+pc+'%"></i></div>'+
+    '<div class="glabel">'+esc(st.label||'')+'</div>'+
+    '<h3 class="gq">'+esc(st.q)+'</h3>'+
+    (st.hint?'<p class="ghint">'+esc(st.hint)+'</p>':'')+
+    '<div class="gbody">'+guideBody(st)+'</div>'+
+    '<div class="gnav">'+
+      (guide.i>0?'<button class="btn" data-act="gback">Back</button>':'<span></span>')+
+      '<button class="btn ghost" data-act="gcoach">Ask the coach</button>'+
+      (st.finish?'<button class="btn solid" data-act="gexit">Finish</button>'
+               :'<button class="btn solid" data-act="gnext">Next</button>')+
+    '</div></div>';
+}
+
+/* ----------------------------------------------------------------- splash */
+function renderSplash(){
+  return '<div class="gwrap sp">'+
+    '<div class="gtop"><button class="btn ghost" data-act="spback">\u2039 Back</button>'+
+      '<span class="gcount">Coach</span></div>'+
+    '<div class="glabel">Optional add-on</div>'+
+    '<h3 class="gq">A coach that has read your plan</h3>'+
+    (prefs.keyOk===false?'<div class="keybanner">'+esc(keyTest.msg||
+      'The key on this device was rejected — expired, revoked or mistyped. Paste a fresh one below.')+'</div>':'')+
+    '<p class="ghint">Split and Coach-only need a key from your own Anthropic account. Everything else in this app works without one, forever, and always will.</p>'+
+
+    '<div class="card" style="margin-top:26px"><label class="lbl">What the coach is for</label>'+
+    '<ul class="tips">'+
+    '<li><b>Getting started at all.</b> The hardest part of a twelve-week year is the blank vision box. The coach will not ask you to describe your vision — it starts smaller, asks what is nagging at you, then keeps asking why until you reach something you actually want rather than something that sounds respectable.</li>'+
+    '<li><b>Linking the two visions.</b> Your 36-month picture is meant to be a waypoint toward the long-term one. The coach checks they point the same way and tells you which is drifting.</li>'+
+    '<li><b>Goals worth twelve weeks.</b> It judges every goal against the vision you wrote, and holds the line on fewer goals achieved over more neglected.</li>'+
+    '<li><b>Turning hopes into tactics.</b> It rewrites outcome-shaped tactics ("improve handovers") into action-shaped ones you can answer yes or no to at the end of a day.</li>'+
+    '<li><b>Weekly triage.</b> When you are behind it helps you choose what to drop, instead of pretending the whole week is still available.</li>'+
+    '<li><b>Honest pushback.</b> It reads your actual ticks, scores and measurements, so it can tell you when a good result is covering for a week where the work did not happen.</li>'+
+    '</ul></div>'+
+
+    '<div class="card"><label class="lbl">And what Split gives you</label>'+
+    '<div class="note" style="margin-top:0">On a desktop, Split keeps the coach beside the mode you are working in — write a goal on the left, argue about it on the right, without losing your place. Coach-only hands the whole screen over for a longer conversation. Switch sides puts the panel on whichever edge suits your monitor. On a phone, Coach is simply the fifth button.</div></div>'+
+
+    '<div class="card"><label class="lbl">The honest part</label>'+
+    '<div class="note" style="margin-top:0">The key is yours, from console.anthropic.com, billed to you at pennies per conversation rather than a subscription. It is stored on this device only — never uploaded anywhere, never shared, and left out of your backup file deliberately. Nothing about your plan leaves the device except the messages you choose to send.</div>'+
+    '<label class="lbl" style="margin-top:16px">Paste your key</label>'+
+    '<input type="text" data-bind="__key" value="'+esc(prefs.apiKey)+'" placeholder="sk-ant-...">'+
+    '<label class="lbl" style="margin-top:12px">Model</label>'+
+    '<input type="text" data-bind="__model" value="'+esc(prefs.model)+'">'+
+    (keyTest.msg?'<div class="note keyres'+(keyTest.ok===false?' bad':(keyTest.ok?' good':''))+'">'+esc(keyTest.msg)+'</div>':'')+
+    '<div class="gnav" style="margin-top:20px">'+
+      '<button class="btn" data-act="spback">Not now</button>'+
+      '<button class="btn solid" data-act="spenable"'+((hasKey()&&!keyTest.busy)?'':' disabled')+'>'+
+        (keyTest.busy?'Checking the key…':'Check the key and turn the coach on')+'</button>'+
+    '</div></div>'+
+
+    '<div class="card"><label class="lbl">Stuck getting a key?</label>'+
+    '<div class="note" style="margin-top:0">Ask for a hand — <a href="mailto:'+COACH_MAIL+'?subject=12%20Week%20Year%20coach%20key">'+COACH_MAIL+'</a></div></div>'+
+    '</div>';
 }
 
 /* ----------------------------------------------------------------- render */
@@ -674,9 +1081,17 @@ function field(label,path,value,type){
   return '<label class="lbl">'+label+'</label><input type="'+(type||'text')+'" data-bind="'+path+'" value="'+esc(value)+'">';
 }
 
+function guideBtn(flow,label){
+  return '<button class="btn solid gostart" data-act="gstart" data-v="'+flow+'">'+ICONS.guide+label+'</button>';
+}
+
 function renderVision(){
   var v=state.vision;
-  return '<h2>Long-term vision</h2>'+
+  return (coachReady()?'':'<div class="card promo"><label class="lbl">AI coach planning</label>'+
+    '<div class="note" style="margin-top:0">Struggling to start? A coach can talk you into your vision, ask why until it is honest, and check your three-year picture points at your long-term one.</div>'+
+    '<button class="btn" style="margin-top:12px" data-act="splash">See what it does</button></div>')+
+  guideBtn('vision','Guided — build my vision')+
+  '<h2>Long-term vision</h2>'+
   '<div class="card"><label class="lbl">Five, ten, fifteen years out</label>'+
   '<textarea data-bind="vision.longTerm" placeholder="Write it as if it has already happened.">'+esc(v.longTerm)+'</textarea></div>'+
   '<h2>36-month vision</h2>'+
@@ -695,7 +1110,7 @@ function renderPlan(){
     '<li>Set the days deliberately. Three chosen days beat a vague "most days".</li>'+
     '<li>Add a measurement for the number the work is meant to move. Tactics tell you whether you did the work; the measurement tells you whether it worked.</li>'+
     '</ul><button class="btn ghost" data-act="hidetips">Hide these</button></div>';
-  return tips+state.goals.map(function(g,gi){
+  return guideBtn('plan','Guided — build my plan')+tips+state.goals.map(function(g,gi){
     var tac=g.tactics.map(function(t,ti){
       var wchips=WEEKS.map(function(w){
         return chip(w,t.weeks.indexOf(w)>-1,'data-act="tw" data-g="'+gi+'" data-t="'+ti+'" data-w="'+w+'"');
@@ -760,6 +1175,7 @@ function renderPlan(){
 function renderWeek(){
   var sc=scoreWeek(week), wk=weekOf(week), out='';
 
+  out+=guideBtn('week','Guided — run this week');
   out+='<div class="weekbar">'+WEEKS.map(function(w){
     var s2=scoreWeek(w), cls='wk'+(s2.pct!==null&&s2.pct>=85?' hit':'');
     return '<button class="'+cls+'" aria-current="'+(w===week)+'" data-act="wk" data-w="'+w+'">'+w+'</button>';
@@ -914,10 +1330,15 @@ function renderScore(){
     'Everything is stored on this device only. Export a copy before clearing your browser data or changing phone.</div>'+
     '<button class="btn" data-act="export">Export backup</button> '+
     '<button class="btn" data-act="import">Import backup</button>'+
-    '<div class="note" style="margin-top:14px">Coach API key — stored on this device only.</div>'+
+    '<div class="note" style="margin-top:14px">Coach API key — stored on this device only. '+
+      (!hasKey()?'None set.':(prefs.keyOk===true?'Checked and working.':
+        prefs.keyOk===false?'Rejected — expired, revoked or mistyped.':'Not checked yet.'))+'</div>'+
     '<input type="text" data-bind="__key" value="'+esc(prefs.apiKey)+'" placeholder="sk-ant-...">'+
     '<label class="lbl" style="margin-top:12px">Model</label>'+
     '<input type="text" data-bind="__model" value="'+esc(prefs.model)+'">'+
+    '<button class="btn ghost" data-act="keytest"'+((hasKey()&&!keyTest.busy)?'':' disabled')+'>'+
+      (keyTest.busy?'Checking…':'Test the key')+'</button>'+
+    (keyTest.msg?'<div class="note keyres'+(keyTest.ok===false?' bad':(keyTest.ok?' good':''))+'">'+esc(keyTest.msg)+'</div>':'')+
     '<div class="note" style="margin-top:14px">Version '+APP_VERSION+'. Updates arrive on their own; this forces the check.</div>'+
     '<button class="btn ghost" data-act="update">Check for updates now</button></div>'+
     '<hr><button class="btn" data-act="reset">Start a new 12 weeks</button>';
@@ -926,17 +1347,26 @@ function renderScore(){
 
 var TABS=[['week','Week'],['plan','Plan'],['score','Score'],['vision','Vision']];
 var LAYOUTS=[['split','Split'],['coach','Coach only'],['full','Full screen']];
+var IC=function(d){return '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" '+
+  'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+d+'</svg>'};
+var ICONS={
+  week:IC('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/><path d="M9 15l2 2 4-4"/>'),
+  plan:IC('<path d="M4 6h10M4 12h16M4 18h7"/><circle cx="19" cy="6" r="2"/><circle cx="14" cy="18" r="2"/>'),
+  score:IC('<path d="M3 17a9 9 0 0 1 18 0"/><path d="M12 17l5-5"/><circle cx="12" cy="17" r="1.6"/>'),
+  vision:IC('<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/>'),
+  coach:IC('<path d="M21 12a8 8 0 0 1-8 8H8l-4 3v-5.5A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 15h3"/>'),
+  guide:IC('<path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M9 13h6M9 17h4"/>')
+};
 function render(){
   var main=document.getElementById('app');
   var y=main.scrollTop;
-  var t={week:'Week '+week,plan:'The plan',score:'Execution',vision:'My vision',coach:'Coach'}[view];
+  var t={week:'Week '+week,plan:'The plan',score:'Execution',vision:'My vision'}[view];
   var start=state.goals[0].start;
   var sub={
     week:weekDates(start,week)||'Tick tactics as you finish them.',
     plan:'Goals, their tactics, the weeks they fall due and the days in each week.',
     score:'Execution is the score that predicts the result.',
-    vision:'Where this is all pointing.',
-    coach:'Ask about the plan or the week.'
+    vision:'Where this is all pointing.'
   }[view];
   if(view==='week'&&openGoal===null){
     var scq=scoreWeek(week), pick='';
@@ -950,33 +1380,43 @@ function render(){
   document.getElementById('title').textContent=t;
   document.getElementById('sub').textContent=sub;
   try{
-    main.innerHTML=
-      view==='week'?renderWeek():view==='plan'?renderPlan():view==='score'?renderScore():
-      view==='coach'?'':renderVision();
+    main.innerHTML= splash ? renderSplash() : guide ? renderGuide() :
+      view==='week'?renderWeek():view==='plan'?renderPlan():view==='score'?renderScore():renderVision();
   }catch(err){
     main.innerHTML='<div class="card"><label class="lbl">Something went wrong</label>'+
       '<div class="note">'+esc(err&&err.message||err)+'</div></div>';
   }
-  document.getElementById('nav').innerHTML=TABS.concat([['coach','Coach']]).map(function(x){
-    return '<button data-act="tab" data-v="'+x[0]+'" aria-current="'+(view===x[0])+'">'+x[1]+'</button>';
-  }).join('');
+  var onCoach=prefs.layout==='coach';
+  var lock=!coachReady();
+  document.getElementById('nav').innerHTML=TABS.map(function(x){
+    return '<button data-act="tab" data-v="'+x[0]+'" aria-current="'+(!onCoach&&view===x[0])+'">'+
+      ICONS[x[0]]+'<span>'+x[1]+'</span></button>';
+  }).join('')+
+    '<button data-act="'+(lock?'splash':'lay')+'" data-v="coach" aria-current="'+onCoach+'"'+
+    (lock?' class="locked"':'')+'>'+ICONS.coach+'<span>Coach</span></button>';
 
   document.getElementById('modes').innerHTML=
     TABS.map(function(x){
-      return '<button data-act="tab" data-v="'+x[0]+'" aria-current="'+(view===x[0])+'">'+x[1]+'</button>';
+      return '<button data-act="tab" data-v="'+x[0]+'" aria-current="'+(!onCoach&&view===x[0])+'">'+
+        ICONS[x[0]]+'<span>'+x[1]+'</span></button>';
     }).join('')+'<span class="spacer"></span>'+
-    '<button data-act="lay" data-v="coach" aria-current="'+(prefs.layout==='coach')+'">Coach</button>';
+    '<button data-act="'+(lock?'splash':'lay')+'" data-v="coach" aria-current="'+onCoach+'"'+
+    (lock?' class="locked"':'')+'>'+ICONS.coach+'<span>Coach</span></button>';
 
   document.getElementById('laybox').innerHTML=
     '<span class="lbl">Layout</span>'+
     LAYOUTS.map(function(l){
-      return '<button class="radio" role="radio" aria-checked="'+(prefs.layout===l[0])+'" data-act="lay" data-v="'+l[0]+'"><i></i>'+l[1]+'</button>';
+      var needsKey=l[0]!=='full', off=needsKey&&lock;
+      return '<button class="radio'+(off?' locked':'')+'" role="radio" aria-checked="'+(prefs.layout===l[0])+
+        '" data-act="'+(off?'splash':'lay')+'" data-v="'+l[0]+'"><i></i>'+l[1]+(off?'<em>key</em>':'')+'</button>';
     }).join('')+
-    '<button class="btn ghost" style="margin-top:8px" data-act="side">Switch sides</button>'+
+    (lock?'<button class="btn ghost" style="margin-top:6px" data-act="splash">Why coach?</button>'
+        :'<button class="btn ghost" style="margin-top:8px" data-act="side">Switch sides</button>')+
     '<div class="note" style="margin-top:10px">v'+APP_VERSION+'</div>';
 
   var b=document.body;
-  b.className=('lay-'+prefs.layout)+(prefs.coachSide==='left'?' side-left':'')+(view==='coach'?' mob-coach':'');
+  b.className=('lay-'+prefs.layout)+(prefs.coachSide==='left'?' side-left':'')+
+    (prefs.layout==='coach'?' mob-coach':'')+((guide||splash)?' guiding':'');
   document.getElementById('coach').innerHTML=renderCoach();
   main.scrollTop=y;
 }
@@ -997,7 +1437,15 @@ document.addEventListener('input',function(e){
   if(e.target.id==='coachin'){coachDraft=e.target.value;return}
   var p=e.target.getAttribute&&e.target.getAttribute('data-bind');
   if(!p)return;
-  if(p==='__key'){prefs.apiKey=e.target.value.trim(); savePrefs(); return}
+  if(p==='__key'){
+    prefs.apiKey=e.target.value.trim();
+    prefs.keyOk=null; keyTest={busy:false,msg:'',ok:null};
+    savePrefs();
+    ['[data-act="spenable"]','[data-act="keytest"]'].forEach(function(sel){
+      var btn=document.querySelector(sel); if(btn)btn.disabled=!hasKey();
+    });
+    return;
+  }
   if(p==='__model'){prefs.model=e.target.value.trim(); savePrefs(); return}
   setPath(p,e.target.value);
   save();
@@ -1020,7 +1468,12 @@ document.addEventListener('click',function(e){
   var id=el.getAttribute('data-id'), gid=el.getAttribute('data-gid');
   var t=(!isNaN(gi)&&!isNaN(ti))?state.goals[gi].tactics[ti]:null;
 
-  if(a==='tab'){view=el.getAttribute('data-v')}
+  if(a==='tab'){
+    view=el.getAttribute('data-v');
+    splash=false;
+    if(prefs.layout==='coach'){prefs.layout=prefs.prevLayout||'split'; savePrefs()}
+    guide=null;
+  }
   else if(a==='wk'){week=w; openGoal=null}
   else if(a==='sec'){var id2=el.getAttribute('data-v'); openGoal=(openGoal===id2?'':id2)}
   else if(a==='gow'){week=w;view='week'}
@@ -1039,11 +1492,48 @@ document.addEventListener('click',function(e){
   else if(a==='mtac'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].tacticId=el.getAttribute('data-v')}
   else if(a==='mmode'){state.goals[gi].measures[parseInt(el.getAttribute('data-m'),10)].mode=el.getAttribute('data-v')}
   else if(a==='hidetips'){prefs.tips=false; savePrefs()}
-  else if(a==='lay'){prefs.layout=el.getAttribute('data-v'); savePrefs()}
+  else if(a==='lay'){
+    var lv=el.getAttribute('data-v');
+    if(lv==='coach'){
+      if(prefs.layout!=='coach')prefs.prevLayout=prefs.layout;
+      prefs.layout='coach'; guide=null;
+    } else {
+      prefs.layout=lv; prefs.prevLayout=lv;
+    }
+    savePrefs();
+  }
   else if(a==='side'){prefs.coachSide=prefs.coachSide==='left'?'right':'left'; savePrefs()}
   else if(a==='coachsend'){sendCoach(); return}
   else if(a==='coachask'){coachDraft=el.getAttribute('data-v'); sendCoach(); return}
   else if(a==='coachclear'){chat=[]; coachError=''; saveChat()}
+  else if(a==='splash'){splash=true; guide=null}
+  else if(a==='spback'){splash=false}
+  else if(a==='spenable'){testKey(true); return}
+  else if(a==='keytest'){testKey(false); return}
+  else if(a==='gstart'){guide={flow:el.getAttribute('data-v'),i:0}; splash=false}
+  else if(a==='gexit'){guide=null}
+  else if(a==='gnext'){guide.i=guide.i+1}
+  else if(a==='gback'){guide.i=Math.max(0,guide.i-1)}
+  else if(a==='gfocus'){state.vision.focus=el.getAttribute('data-v'); save()}
+  else if(a==='gcount'){
+    var n=parseInt(el.getAttribute('data-v'),10);
+    while(state.goals.length<n)state.goals.push(blankGoal());
+    while(state.goals.length>n){
+      var last=state.goals[state.goals.length-1];
+      if(last.title.trim()||last.tactics.some(function(t){return t.text.trim()}))break;
+      state.goals.pop();
+    }
+  }
+  else if(a==='gaddt'){state.goals[gi].tactics.push(blankTactic()); guide.i=guide.i+1}
+  else if(a==='gaddm'){state.goals[gi].measures.push(blankMeasure())}
+  else if(a==='untick'){
+    var wku=ensureWeek(week), tu=findTactic(id);
+    if((tu.days||[]).length)wku.days[id]=[]; else wku.done[id]=false;
+  }
+  else if(a==='gcoach'){
+    if(prefs.layout!=='coach')prefs.prevLayout=prefs.layout;
+    prefs.layout='coach'; savePrefs();
+  }
   else if(a==='rmg'){
     if(!confirm('Delete goal '+(gi+1)+' and its tactics? Your weekly ticks for it will be discarded.'))return;
     state.goals.splice(gi,1);
@@ -1119,6 +1609,7 @@ document.getElementById('importer').addEventListener('change',function(e){
 loadTheme();
 loadPrefs();
 loadChat();
+if(!coachReady()&&prefs.layout!=='full'){prefs.layout='full'; prefs.prevLayout='full'}
 applyTheme();
 if(window.matchMedia){
   var mq=window.matchMedia('(prefers-color-scheme: dark)');
