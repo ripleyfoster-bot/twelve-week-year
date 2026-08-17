@@ -418,7 +418,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='20';
+var APP_VERSION='21';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -1051,11 +1051,14 @@ function sendCoach(){
   if(!coachReady()){coachError='The coach needs a working API key.';render();return}
   chat.push({role:'user',content:text});
   coachDraft=''; coachBusy=true; coachError=''; saveChat(); render();
+  var ctrl=window.AbortController?new window.AbortController():null;
+  var bail=setTimeout(function(){ if(ctrl)ctrl.abort() },90000);
   fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
+    signal:ctrl?ctrl.signal:undefined,
     headers:{'content-type':'application/json','x-api-key':prefs.apiKey,
       'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:prefs.model||'claude-sonnet-5',max_tokens:1200,
+    body:JSON.stringify({model:prefs.model||'claude-sonnet-5',max_tokens:4000,
       system:coachSystem(),
       messages:chat.slice(-16).map(function(m){return{role:m.role,content:m.content}})})
   }).then(function(r){
@@ -1068,18 +1071,35 @@ function sendCoach(){
       return j;
     });
   }).then(function(j){
-    var txt=(j.content||[]).map(function(c){return c.type==='text'?c.text:''}).filter(Boolean).join('\n');
-    chat.push({role:'assistant',content:txt||'(no reply)'});
+    var blocks=j.content||[];
+    var txt=blocks.map(function(c){return (c&&c.type==='text')?(c.text||''):''})
+      .filter(Boolean).join('\n').trim();
+    if(!txt){
+      /* an empty reply is nearly always the token budget being eaten before any
+         text was emitted — say so rather than the useless "(no reply)" */
+      var kinds=blocks.map(function(c){return c&&c.type}).filter(Boolean).join(', ')||'nothing';
+      var why=j.stop_reason||'unknown';
+      txt=(why==='max_tokens'
+        ? 'That answer hit the token ceiling before any text came back. Ask something narrower, or send it again.'
+        : 'The API replied with no text.')+
+        '\n\n[stop reason: '+why+' · blocks returned: '+kinds+']';
+    } else if(j.stop_reason==='max_tokens'){
+      txt+='\n\n[cut off at the token limit]';
+    }
+    chat.push({role:'assistant',content:txt});
   })['catch'](function(e){
     if(e.authFail){
       prefs.keyOk=false; savePrefs();
       keyTest={busy:false,ok:false,msg:'Your key stopped working mid-conversation — expired or revoked. The rest of the app carries on as normal.'};
       prefs.layout='full'; prefs.prevLayout='full'; savePrefs(); splash=true;
       coachError='';
+    } else if(e&&(e.name==='AbortError'||/abort/i.test(e.message||''))){
+      coachError='No answer after 90 seconds, so I stopped waiting. Send it again.';
     } else {
       coachError=e.message||'Could not reach the API.';
     }
   }).then(function(){
+    clearTimeout(bail);
     coachBusy=false; saveChat(); render();
     var log=document.getElementById('coachlog'); if(log)log.scrollTop=log.scrollHeight;
   });
