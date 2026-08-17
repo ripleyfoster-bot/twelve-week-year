@@ -319,6 +319,10 @@ body.guiding #nav,body.guiding header{display:none}
 .msg .who{display:block;font:600 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
 .msg.me .bubble{background:var(--cell);border:1px solid var(--line);border-radius:8px;padding:9px 11px;white-space:pre-wrap}
 .msg.ai .bubble{white-space:pre-wrap}
+.msg.ai .bubble.live::after{content:"\258C";margin-left:2px;color:var(--on);animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.livedot{margin-left:9px;color:var(--on);font:600 9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+@media (prefers-reduced-motion:reduce){.msg.ai .bubble.live::after{animation:none}}
 .coachform{flex:none;padding:12px 16px 16px;border-top:1px solid var(--line)}
 .coachform textarea{min-height:66px;font:400 14px/1.45 var(--display)}
 .coachrow{display:flex;gap:8px;margin-top:9px}
@@ -418,7 +422,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='21';
+var APP_VERSION='22';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -1045,62 +1049,127 @@ function coachSystem(){
   return L.join('\n');
 }
 
+/* The reply streams in. Two failure rules, each with a visible action:
+   - nothing arrives for 30 seconds  -> stop waiting, say so, offer to resend
+   - the model runs out of tokens    -> mark the answer cut off, offer to continue */
+var coachTrunc=false, streamIdx=-1;
+
+function paintStream(){
+  var el=document.getElementById('streambubble');
+  if(el&&streamIdx>-1&&chat[streamIdx])el.textContent=chat[streamIdx].content||'';
+  var log=document.getElementById('coachlog');
+  if(log)log.scrollTop=log.scrollHeight;
+}
+
 function sendCoach(){
   var text=(coachDraft||'').trim();
   if(!text||coachBusy)return;
   if(!coachReady()){coachError='The coach needs a working API key.';render();return}
   chat.push({role:'user',content:text});
-  coachDraft=''; coachBusy=true; coachError=''; saveChat(); render();
+  coachDraft=''; coachBusy=true; coachError=''; coachTrunc=false;
+  streamIdx=chat.length;
+  chat.push({role:'assistant',content:'',streaming:true});
+  saveChat(); render();
+
   var ctrl=window.AbortController?new window.AbortController():null;
-  var bail=setTimeout(function(){ if(ctrl)ctrl.abort() },90000);
+  var stall=null, sseErr=null, stop='';
+  var arm=function(){
+    clearTimeout(stall);
+    stall=setTimeout(function(){ if(ctrl)ctrl.abort() },30000);
+  };
+  arm();
+
+  var feed=function(chunk,buf){
+    buf+=chunk;
+    var lines=buf.split('\n');
+    buf=lines.pop();
+    lines.forEach(function(ln){
+      ln=ln.replace(/\r$/,'');
+      if(ln.indexOf('data:')!==0)return;
+      var raw=ln.slice(5).trim();
+      if(!raw||raw==='[DONE]')return;
+      var ev; try{ev=JSON.parse(raw)}catch(e){return}
+      if(ev.type==='content_block_delta'&&ev.delta&&ev.delta.type==='text_delta'&&ev.delta.text){
+        chat[streamIdx].content+=ev.delta.text;
+        paintStream();
+      } else if(ev.type==='message_delta'&&ev.delta&&ev.delta.stop_reason){
+        stop=ev.delta.stop_reason;
+      } else if(ev.type==='message_start'&&ev.message&&ev.message.stop_reason){
+        stop=ev.message.stop_reason;
+      } else if(ev.type==='error'){
+        sseErr=new Error((ev.error&&ev.error.message)||'The API reported an error mid-answer.');
+      }
+    });
+    return buf;
+  };
+
   fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     signal:ctrl?ctrl.signal:undefined,
     headers:{'content-type':'application/json','x-api-key':prefs.apiKey,
       'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:prefs.model||'claude-sonnet-5',max_tokens:4000,
+    body:JSON.stringify({model:prefs.model||'claude-sonnet-5',max_tokens:4000,stream:true,
       system:coachSystem(),
-      messages:chat.slice(-16).map(function(m){return{role:m.role,content:m.content}})})
+      messages:chat.slice(0,streamIdx).slice(-16).map(function(m){return{role:m.role,content:m.content}})})
   }).then(function(r){
-    return r.json().then(function(j){
-      if(!r.ok){
+    if(!r.ok){
+      return r.json()['catch'](function(){return{}}).then(function(j){
         var err=new Error((j&&j.error&&j.error.message)||('HTTP '+r.status));
         if(r.status===401)err.authFail=true;
         throw err;
-      }
-      return j;
-    });
-  }).then(function(j){
-    var blocks=j.content||[];
-    var txt=blocks.map(function(c){return (c&&c.type==='text')?(c.text||''):''})
-      .filter(Boolean).join('\n').trim();
-    if(!txt){
-      /* an empty reply is nearly always the token budget being eaten before any
-         text was emitted — say so rather than the useless "(no reply)" */
-      var kinds=blocks.map(function(c){return c&&c.type}).filter(Boolean).join(', ')||'nothing';
-      var why=j.stop_reason||'unknown';
-      txt=(why==='max_tokens'
-        ? 'That answer hit the token ceiling before any text came back. Ask something narrower, or send it again.'
-        : 'The API replied with no text.')+
-        '\n\n[stop reason: '+why+' · blocks returned: '+kinds+']';
-    } else if(j.stop_reason==='max_tokens'){
-      txt+='\n\n[cut off at the token limit]';
+      });
     }
-    chat.push({role:'assistant',content:txt});
+    if(r.body&&r.body.getReader&&window.TextDecoder){
+      var reader=r.body.getReader(), dec=new window.TextDecoder(), buf='';
+      var pump=function(){
+        return reader.read().then(function(res){
+          arm();
+          if(sseErr)throw sseErr;
+          if(res.done)return;
+          buf=feed(dec.decode(res.value,{stream:true}),buf);
+          return pump();
+        });
+      };
+      return pump();
+    }
+    /* older engines with no streaming reader: take the whole body, parse the same events */
+    return r.text().then(function(t){ feed(t,''); if(sseErr)throw sseErr });
+  }).then(function(){
+    if(sseErr)throw sseErr;
+    var m=chat[streamIdx];
+    delete m.streaming;
+    if(!m.content.trim()){
+      m.content=(stop==='max_tokens'
+        ? 'The whole token budget went on working the answer out, so no text ever arrived. Ask something narrower and it will come through.'
+        : 'The API finished without sending any text.')+'\n\n[stop reason: '+(stop||'unknown')+']';
+    } else if(stop==='max_tokens'){
+      m.content+='\n\n[cut off at the token limit]';
+      coachTrunc=true;
+    }
   })['catch'](function(e){
-    if(e.authFail){
+    var m=chat[streamIdx];
+    var partial=m&&m.content?m.content.trim():'';
+    if(m)delete m.streaming;
+    if(e&&e.authFail){
+      if(m&&!partial)chat.splice(streamIdx,1);
       prefs.keyOk=false; savePrefs();
       keyTest={busy:false,ok:false,msg:'Your key stopped working mid-conversation — expired or revoked. The rest of the app carries on as normal.'};
       prefs.layout='full'; prefs.prevLayout='full'; savePrefs(); splash=true;
       coachError='';
     } else if(e&&(e.name==='AbortError'||/abort/i.test(e.message||''))){
-      coachError='No answer after 90 seconds, so I stopped waiting. Send it again.';
+      coachError=partial
+        ? 'The answer stopped arriving and nothing came for 30 seconds. What got through is above — press Continue, or send it again.'
+        : 'Nothing came back for 30 seconds, so I stopped waiting. Send it again.';
+      if(partial){m.content+='\n\n[the connection went quiet here]'; coachTrunc=true}
+      else if(m)chat.splice(streamIdx,1);
     } else {
       coachError=e.message||'Could not reach the API.';
+      if(m&&!partial)chat.splice(streamIdx,1);
+      else if(partial){m.content+='\n\n[the answer broke off here]'; coachTrunc=true}
     }
   }).then(function(){
-    clearTimeout(bail);
-    coachBusy=false; saveChat(); render();
+    clearTimeout(stall);
+    streamIdx=-1; coachBusy=false; saveChat(); render();
     var log=document.getElementById('coachlog'); if(log)log.scrollTop=log.scrollHeight;
   });
 }
@@ -1129,11 +1198,13 @@ function renderCoach(){
   }
   chat.forEach(function(m,i){
     out+='<div class="msg '+(m.role==='user'?'me':'ai')+'"><span class="who">'+(m.role==='user'?'You':'Coach')+
-      (m.role==='assistant'&&speechOn()?'<button class="minispk" data-act="sayone" data-i="'+i+'">'+
+      (m.role==='assistant'&&!m.streaming&&speechOn()?'<button class="minispk" data-act="sayone" data-i="'+i+'">'+
         (isSaying()?'stop':'listen')+'</button>':'')+
-      '</span><div class="bubble">'+esc(m.content)+'</div></div>';
+      (m.streaming?'<span class="livedot">writing</span>':'')+
+      '</span><div class="bubble'+(m.streaming?' live" id="streambubble':'')+'">'+esc(m.content)+'</div></div>';
   });
-  if(coachBusy)out+='<div class="msg ai"><span class="who">Coach</span><div class="bubble" style="color:var(--muted)">Thinking…</div></div>';
+  if(coachTrunc&&!coachBusy)
+    out+='<button class="btn" data-act="coachcont">Continue the answer</button>';
   if(coachError)out+='<div class="msg ai"><span class="who">Problem</span><div class="bubble" style="color:var(--off)">'+esc(coachError)+'</div></div>';
   out+='</div>';
   out+='<div class="coachform">';
@@ -2173,7 +2244,8 @@ document.addEventListener('click',function(e){
   else if(a==='side'){prefs.coachSide=prefs.coachSide==='left'?'right':'left'; savePrefs()}
   else if(a==='coachsend'){sendCoach(); return}
   else if(a==='coachask'){coachDraft=el.getAttribute('data-v'); sendCoach(); return}
-  else if(a==='coachclear'){chat=[]; coachError=''; saveChat()}
+  else if(a==='coachclear'){chat=[]; coachError=''; coachTrunc=false; saveChat()}
+  else if(a==='coachcont'){coachDraft='Carry on from exactly where you were cut off. Do not repeat what you already said.'; sendCoach(); return}
   else if(a==='say'){speakCurrent(); return}
   else if(a==='spktoggle'){togglePlay(); return}
   else if(a==='spkstop'){stopSpeech(); render(); return}
