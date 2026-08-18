@@ -46,6 +46,66 @@ header{
   background-image:repeating-linear-gradient(45deg,rgba(120,90,50,.05) 0 2px,transparent 2px 6px);
 }
 .bg-carbon .card{box-shadow:0 1px 2px rgba(0,0,0,.05)}
+
+/* --- racing: brushed steel chequer plate --- */
+.bg-chequer .work{
+  background-color:#c6cbcf;
+  background-image:
+    linear-gradient(135deg,rgba(255,255,255,.16) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.05) 75%),
+    linear-gradient(135deg,rgba(255,255,255,.16) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.05) 75%),
+    repeating-linear-gradient(96deg,rgba(255,255,255,.30) 0 1px,rgba(0,0,0,.045) 1px 3px),
+    linear-gradient(165deg,#dee2e5,#b4babf 52%,#cdd2d6);
+  background-size:44px 44px,44px 44px,5px 5px,100% 100%;
+  background-position:0 0,22px 22px,0 0,0 0;
+}
+.bg-chequer header{background-color:transparent}
+.bg-chequer .card{background:rgba(255,255,255,.93);border-color:#9aa1a7;
+  box-shadow:0 1px 0 rgba(255,255,255,.8),0 2px 6px rgba(0,0,0,.16)}
+.bg-chequer h1,.bg-chequer h2,.bg-chequer .gq{letter-spacing:.02em}
+.bg-chequer .side{background:linear-gradient(180deg,#eceef0,#dce0e3);border-right-color:#9aa1a7}
+
+/* --- racing: chrome toggle switch panel --- */
+.cockpit{position:relative;display:flex;align-items:center;gap:14px;padding:11px 20px 12px;
+  width:max-content;max-width:100%;border-radius:5px;
+  border:1px solid #7a8188;border-top-color:#f2f5f6;border-bottom-color:#5b6167;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.20) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.07) 75%),
+    linear-gradient(135deg,rgba(255,255,255,.20) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.07) 75%),
+    repeating-linear-gradient(96deg,rgba(255,255,255,.26) 0 1px,rgba(0,0,0,.05) 1px 3px),
+    linear-gradient(170deg,#dde1e4,#b0b6bb 55%,#ccd1d5);
+  background-size:26px 26px,26px 26px,5px 5px,100% 100%;
+  background-position:0 0,13px 13px,0 0,0 0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 3px 9px rgba(0,0,0,.28)}
+.rivet{position:absolute;top:5px;left:6px;width:7px;height:7px;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,#fff,#9aa1a7 55%,#5f666c);
+  box-shadow:inset 0 0 0 .5px rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.6)}
+.rivet.r{left:auto;right:6px;top:auto;bottom:5px}
+.togs{display:flex;gap:10px;flex:none}
+.tog{display:flex;flex-direction:column;align-items:center;gap:5px;padding:0;border:0;
+  background:transparent;cursor:pointer}
+.slot{position:relative;display:block;width:26px;height:44px;border-radius:4px;
+  background:linear-gradient(#8d949a,#4d5359 45%,#2f3439);
+  border:1px solid #5b6167;box-shadow:inset 0 2px 4px rgba(0,0,0,.65),0 1px 0 rgba(255,255,255,.55)}
+.slot i{position:absolute;left:50%;top:5px;width:13px;height:22px;margin-left:-6.5px;border-radius:7px;
+  background:linear-gradient(90deg,#fbfcfc,#c6ccd1 40%,#8b9298 62%,#e3e7ea);
+  border:1px solid #6f767c;box-shadow:0 2px 3px rgba(0,0,0,.45);
+  transition:top .12s cubic-bezier(.3,1.5,.5,1)}
+.slot i::after{content:"";position:absolute;left:2px;right:2px;top:3px;height:3px;border-radius:2px;
+  background:rgba(255,255,255,.85)}
+.tog.on .slot i,.tog:active .slot i{top:17px}
+.tog.on .slot{background:linear-gradient(#6f767c,#3c4247 45%,#22272b)}
+.tlab{font:600 8px/1 var(--display);letter-spacing:.16em;text-transform:uppercase;color:#3d4348}
+.cockpit .vum{width:74px}
+.cockpit .counter{min-width:56px;padding:5px 9px;border-radius:2px;
+  background:linear-gradient(#1a1d20,#2b3034);border:1px solid #6d7378;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.8)}
+@media (max-width:520px){
+  .cockpit{gap:9px;padding:9px 12px}
+  .cockpit .vum{width:54px}
+  .slot{width:22px;height:38px}
+  .slot i{height:18px}
+  .tog.on .slot i,.tog:active .slot i{top:15px}
+}
 .eyebrow{font:600 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 h1{font:800 27px/1.02 var(--display);letter-spacing:-.035em;text-transform:uppercase;margin:8px 0 0}
 .sub{font:400 13px/1.45 var(--display);color:var(--muted);margin:6px 0 0}
@@ -343,7 +403,11 @@ body.guiding #nav,body.guiding header{display:none}
 @media (prefers-reduced-motion:reduce){.msg.ai .bubble.live::after{animation:none}}
 .coachform{flex:none;padding:12px 16px 16px;border-top:1px solid var(--line)}
 .coachform.top{border-top:0;border-bottom:1px solid var(--line);padding:14px 16px 14px}
-.coachtools{display:flex;gap:8px;align-items:baseline}
+.coachtools{display:flex;gap:8px;align-items:center}
+.orderpick{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.orderpick button{padding:5px 8px;border:0;background:transparent;cursor:pointer;color:var(--muted);
+  font:600 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.orderpick button[aria-pressed="true"]{background:var(--ink);color:var(--inv)}
 .coachform textarea{min-height:66px;font:400 14px/1.45 var(--display)}
 .coachrow{display:flex;gap:8px;margin-top:9px}
 .prompts{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
@@ -449,7 +513,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='24';
+var APP_VERSION='25';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -483,6 +547,7 @@ var FONTS={
   sans:'"Helvetica Neue",Helvetica,Arial,sans-serif',
   grotesk:'system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,sans-serif',
   serif:'Georgia,"Iowan Old Style",Palatino,"Times New Roman",serif',
+  deco:'Futura,"Century Gothic",Optima,Copperplate,"Trebuchet MS",sans-serif',
   mono:'ui-monospace,SFMono-Regular,Menlo,Consolas,monospace'
 };
 var SKINS={
@@ -493,9 +558,11 @@ var SKINS={
   blueprint:{name:'Blueprint',blurb:'Drafting grid throughout, monospaced headings, flat gauges.',
     dials:'flat',deck:'plain',bg:'blueprint',font:'mono',palette:'indigo',keyOnly:true},
   workshop:{name:'Workshop',blurb:'Instrument dials on a warm textured bench, serif headings.',
-    dials:'vintage',deck:'tapedeck',bg:'carbon',font:'serif',palette:'clay',keyOnly:true}
+    dials:'vintage',deck:'tapedeck',bg:'carbon',font:'serif',palette:'clay',keyOnly:true},
+  racing:{name:'Racing',blurb:'1930s cockpit — chequer plate, cream dials, chrome toggle switches.',
+    dials:'racing',deck:'switches',bg:'chequer',font:'deco',palette:'ember',keyOnly:true}
 };
-var SKIN_ORDER=['standard','instrument','blueprint','workshop'];
+var SKIN_ORDER=['standard','instrument','blueprint','workshop','racing'];
 function skinOf(id){return SKINS[id]||SKINS.standard}
 /* what is actually in force — a locked skin falls back to standard without a key */
 function activeSkin(){
@@ -790,6 +857,72 @@ function dialVintage(p,size,uid,o){
     '<circle cx="100" cy="100" r="88.5" fill="none" stroke="#000" stroke-opacity="0.55" stroke-width="3"/>'+
     '</svg>';
 }
+/* 1930s racing instrument: cream face, knurled chrome bezel, slim red needle */
+function dialRacing(p,size,uid,o){
+  o=o||{};
+  var v=p===null?0:Math.max(0,Math.min(100,p));
+  var cx=100,cy=100,R=82,W=200,H=200;
+  var A=function(x){return -120+x*2.4};
+  var at=function(a,r){var t=a*Math.PI/180;
+    return [(cx+r*Math.sin(t)).toFixed(2),(cy-r*Math.cos(t)).toFixed(2)]};
+  var showNums=size!=='sm', showLegend=size==='big';
+  var knurl='';
+  for(var k=0;k<72;k++){
+    var ka=k*5, a1=at(ka,97), a2=at(ka,90.5);
+    knurl+='<line x1="'+a1[0]+'" y1="'+a1[1]+'" x2="'+a2[0]+'" y2="'+a2[1]+
+      '" stroke="'+(k%2?'#6f767c':'#e9edef')+'" stroke-width="1.6" stroke-linecap="butt"/>';
+  }
+  var ticks='',nums='';
+  for(var x=0;x<=100;x+=5){
+    var big=x%20===0, a=A(x);
+    var q1=at(a,R-3), q2=at(a,R-(big?14:8));
+    ticks+='<line x1="'+q1[0]+'" y1="'+q1[1]+'" x2="'+q2[0]+'" y2="'+q2[1]+
+      '" stroke="#22201c" stroke-width="'+(big?2.6:1.2)+'"/>';
+    if(big&&showNums&&!(size==='mid'&&(x===0||x===100))){
+      var n=at(a,R-26);
+      nums+='<text x="'+n[0]+'" y="'+(parseFloat(n[1])+5).toFixed(2)+'" text-anchor="middle" font-size="14" '+
+        'font-family="Futura,\'Century Gothic\',Optima,sans-serif" letter-spacing="0.5" fill="#22201c">'+x+'</text>';
+    }
+  }
+  var markAt=o.mark===undefined?85:o.mark;
+  var m1=at(A(markAt),R-2), m2=at(A(markAt),R-17);
+  var lo=p===null;
+  return '<svg class="dial racing '+size+'" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">'+
+    '<defs>'+
+      '<linearGradient id="rb'+uid+'" x1="0.1" y1="0" x2="0.9" y2="1">'+
+        '<stop offset="0" stop-color="#fdfefe"/><stop offset="0.3" stop-color="#aeb5bb"/>'+
+        '<stop offset="0.55" stop-color="#6e767d"/><stop offset="0.8" stop-color="#d5dade"/>'+
+        '<stop offset="1" stop-color="#7d858c"/></linearGradient>'+
+      '<radialGradient id="rf'+uid+'" cx="0.42" cy="0.35" r="0.85">'+
+        '<stop offset="0" stop-color="#fbf5e4"/><stop offset="0.6" stop-color="#efe5c9"/>'+
+        '<stop offset="1" stop-color="#d8caa6"/></radialGradient>'+
+      '<linearGradient id="rg'+uid+'" x1="0.15" y1="0" x2="0.7" y2="0.95">'+
+        '<stop offset="0" stop-color="#fff" stop-opacity="0.45"/>'+
+        '<stop offset="0.4" stop-color="#fff" stop-opacity="0.05"/>'+
+        '<stop offset="1" stop-color="#000" stop-opacity="0.10"/></linearGradient>'+
+    '</defs>'+
+    '<circle cx="100" cy="100" r="99" fill="url(#rb'+uid+')"/>'+knurl+
+    '<circle cx="100" cy="100" r="89" fill="#2a2723"/>'+
+    '<circle cx="100" cy="100" r="86" fill="url(#rf'+uid+')"/>'+
+    '<path d="'+arcPath(A(0),A(Math.max(1,markAt)),R+2,cx,cy)+'" fill="none" stroke="var(--off)" stroke-width="4" opacity="0.75"/>'+
+    (markAt<100?'<path d="'+arcPath(A(markAt),A(100),R+2,cx,cy)+'" fill="none" stroke="var(--on)" stroke-width="4" opacity="0.8"/>':'')+
+    ticks+nums+
+    '<line x1="'+m1[0]+'" y1="'+m1[1]+'" x2="'+m2[0]+'" y2="'+m2[1]+'" stroke="#b32b1e" stroke-width="3"/>'+
+    '<text x="100" y="'+(size==='sm'?152:156)+'" text-anchor="middle" font-size="'+(size==='sm'?42:32)+'" '+
+      'font-family="Futura,\'Century Gothic\',Optima,sans-serif" font-weight="600" letter-spacing="1" '+
+      'fill="'+(lo?'#9c9382':'#22201c')+'">'+(lo?'—':(o.text!==undefined?o.text:Math.round(v)))+'</text>'+
+    (showLegend?'<text x="100" y="172" text-anchor="middle" font-size="9" letter-spacing="3" '+
+      'font-family="Futura,\'Century Gothic\',Optima,sans-serif" fill="#6d6455">'+(o.legend||'PER CENT')+'</text>':'')+
+    '<g class="dneedle" transform="rotate('+A(v).toFixed(1)+' 100 100)">'+
+      '<polygon points="97.6,104 100,'+(cy-(R-8))+' 102.4,104" fill="'+(lo?'#9c9382':'#c62d1c')+'"/>'+
+      '<polygon points="98.4,100 101.6,100 100,116" fill="#22201c"/>'+
+    '</g>'+
+    '<circle cx="100" cy="100" r="8" fill="#2a2723"/>'+
+    '<circle cx="100" cy="100" r="4.4" fill="#cfd4d8"/>'+
+    '<circle cx="100" cy="100" r="86" fill="url(#rg'+uid+')"/>'+
+    '</svg>';
+}
+
 function dialFlat(p,size,o){
   o=o||{};
   var v=p===null?0:Math.max(0,Math.min(100,p));
@@ -818,8 +951,12 @@ function dialFlat(p,size,o){
 var dialSeq=0;
 function dial(p,size,o){
   dialSeq++;
-  return activeSkin().dials==='vintage'?dialVintage(p,size,'d'+dialSeq,o):dialFlat(p,size,o);
+  var st=activeSkin().dials;
+  if(st==='vintage')return dialVintage(p,size,'d'+dialSeq,o);
+  if(st==='racing')return dialRacing(p,size,'d'+dialSeq,o);
+  return dialFlat(p,size,o);
 }
+function instrumented(){var d=activeSkin().dials; return d==='vintage'||d==='racing'}
 
 /* a measurement as a dial: needle = distance travelled toward target,
    the marker tick = where the pace line says you should be by now */
@@ -832,7 +969,7 @@ function measureDial(m,se,cw){
 
 /* the goal number, as a matching instrument for key holders */
 function numBox(n,title){
-  if(activeSkin().dials!=='vintage')return '<div class="gnumbox" title="'+title+'">'+n+'</div>';
+  if(!instrumented())return '<div class="gnumbox" title="'+title+'">'+n+'</div>';
   return '<div class="gnumwrap" title="'+title+'">'+
     '<svg viewBox="0 0 100 100" aria-hidden="true">'+
       '<defs><linearGradient id="nb'+n+'" x1="0.15" y1="0" x2="0.85" y2="1">'+
@@ -926,7 +1063,7 @@ function measureChart(m,s){
       '" width="'+(W/12-3).toFixed(1)+'" height="'+Math.max(1,H-yv).toFixed(1)+
       '" fill="var(--'+(good?'on':'off')+')" opacity="0.9"/>';
   }
-  var inst=activeSkin().dials==='vintage';
+  var inst=instrumented();
   var grid='';
   if(inst){
     for(var gx=1;gx<12;gx++)grid+='<line x1="'+(gx*W/12).toFixed(1)+'" y1="0" x2="'+(gx*W/12).toFixed(1)+'" y2="'+H+
@@ -1253,7 +1390,9 @@ var COACH_PROMPTS={
 function renderCoach(){
   var newest=prefs.coachOrder!=='oldest';
   var out='<div class="coachhead"><span class="coachtitle">Coach</span><span class="coachtools">'+
-    (chat.length?'<button class="btn ghost" data-act="coachorder">'+(newest?'Newest first':'Oldest first')+'</button>':'')+
+    (chat.length?'<span class="orderpick" role="group" aria-label="Reading order">'+
+      '<button data-act="coachorder" data-v="newest" aria-pressed="'+newest+'">Newest top</button>'+
+      '<button data-act="coachorder" data-v="oldest" aria-pressed="'+(!newest)+'">Oldest top</button></span>':'')+
     (guide?'<button class="btn ghost" data-act="gresume">\u2039 Back to the guide</button>':
       (chat.length?'<button class="btn ghost" data-act="coachclear">Clear</button>':''))+'</span></div>';
 
@@ -1696,9 +1835,31 @@ function vuMeter(ch){
     '<circle class="vupk" cx="90" cy="10.5" r="2.4" fill="#c0392b" opacity="0.16"/>'+
   '</svg></span>';
 }
+/* chrome toggles on a chequer plate — the racing cockpit control panel */
+function switchPanel(){
+  var live=isSaying();
+  var sw=function(act,lab,on){
+    return '<button class="tog'+(on?' on':'')+'" data-act="'+act+'" aria-pressed="'+(!!on)+'" aria-label="'+lab+'">'+
+      '<span class="slot"><i></i></span><span class="tlab">'+lab+'</span></button>';
+  };
+  var pos=spk.segs.length?(spk.i+1)+' / '+spk.segs.length:'—';
+  return '<div class="cockpit'+(live?' live':'')+'">'+
+    '<span class="rivet"></span><span class="rivet r"></span>'+
+    '<div class="vupair">'+vuMeter('l')+vuMeter('r')+'</div>'+
+    '<div class="counter"><span>'+esc(pos)+'</span></div>'+
+    '<div class="togs">'+
+      sw('spkprev','Back',false)+
+      sw('spkstop','Stop',false)+
+      sw('spktoggle',live?'Run':'Play',live)+
+      sw('spknext','Fwd',false)+
+    '</div></div>';
+}
+
 function transport(label){
   if(!speechOn())return '';
-  if(activeSkin().deck!=='tapedeck')return sayBtn(label);
+  var dk=activeSkin().deck;
+  if(dk==='switches')return switchPanel();
+  if(dk!=='tapedeck')return sayBtn(label);
   var pos=spk.segs.length?(spk.i+1)+' / '+spk.segs.length:'—';
   return '<div class="deck'+(isSaying()?' live':'')+'">'+
     '<span class="screw"></span><span class="screw r"></span>'+
@@ -2115,7 +2276,7 @@ function renderScore(){
                 (m.unit?' '+esc(m.unit):'')+
                 (se.lastWeek?' · '+(se.gap===0?'exactly on pace':(se.onPace?'ahead by ':'behind by ')+tidy(Math.abs(se.gap))):' · no entries yet')+
               '</div>'+
-              '<div class="bbar'+(activeSkin().dials==='vintage'?' inst':'')+'"><i style="width:'+(se.pctOfTarget===null?0:se.pctOfTarget.toFixed(1))+
+              '<div class="bbar'+(instrumented()?' inst':'')+'"><i style="width:'+(se.pctOfTarget===null?0:se.pctOfTarget.toFixed(1))+
                 '%;background:'+col+'"></i></div>'+
               measureChart(m,se)+
               '<div class="statl">Dashed line is the pace needed to reach your target by week 12.</div>'+
@@ -2347,7 +2508,7 @@ document.addEventListener('click',function(e){
   else if(a==='coachsend'){sendCoach(); return}
   else if(a==='coachask'){coachDraft=el.getAttribute('data-v'); sendCoach(); return}
   else if(a==='coachclear'){chat=[]; coachError=''; coachTrunc=false; saveChat()}
-  else if(a==='coachorder'){prefs.coachOrder=(prefs.coachOrder==='oldest'?'newest':'oldest'); savePrefs()}
+  else if(a==='coachorder'){prefs.coachOrder=el.getAttribute('data-v')||'newest'; savePrefs()}
   else if(a==='coachcont'){coachDraft='Carry on from exactly where you were cut off. Do not repeat what you already said.'; sendCoach(); return}
   else if(a==='say'){speakCurrent(); return}
   else if(a==='spktoggle'){togglePlay(); return}
