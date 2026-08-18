@@ -38,10 +38,20 @@ header{
   background-size:22px 22px;background-position:-1px -1px;
 }
 .bg-blueprint .work{
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:26px 26px;background-position:-1px -1px;
+  background-color:#10405f;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='320'%20height='320'%20viewBox='0%200%20320%20320'%3E%20%3Cg%20fill='none'%20stroke='%23dCEBF5'%20stroke-width='0.6'%20opacity='0.20'%3E%20%3Cpath%20d='M0%2020H320M0%2040H320M0%2060H320M0%2080H320M0%20100H320M0%20120H320M0%20140H320M0%20160H320M0%20180H320M0%20200H320M0%20220H320M0%20240H320M0%20260H320M0%20280H320M0%20300H320'/%3E%20%3Cpath%20d='M20%200V320M40%200V320M60%200V320M80%200V320M100%200V320M120%200V320M140%200V320M160%200V320M180%200V320M200%200V320M220%200V320M240%200V320M260%200V320M280%200V320M300%200V320'/%3E%20%3C/g%3E%20%3Cg%20fill='none'%20stroke='%23e8f3fa'%20stroke-width='1'%20opacity='0.34'%3E%20%3Cpath%20d='M0%200H320M0%20100H320M0%20200H320M0%20300H320M0%200V320M100%200V320M200%200V320M300%200V320'/%3E%20%3C/g%3E%20%3Cg%20fill='none'%20stroke='%23f2f8fc'%20stroke-width='1.1'%20opacity='0.5'%3E%20%3Ccircle%20cx='72'%20cy='74'%20r='34'/%3E%3Ccircle%20cx='72'%20cy='74'%20r='19'/%3E%20%3Cpath%20d='M28%2074H116M72%2030V118'%20stroke-dasharray='10%204%202%204'%20opacity='0.75'/%3E%20%3Ccircle%20cx='72'%20cy='45'%20r='3.4'/%3E%3Ccircle%20cx='101'%20cy='74'%20r='3.4'/%3E%3Ccircle%20cx='72'%20cy='103'%20r='3.4'/%3E%3Ccircle%20cx='43'%20cy='74'%20r='3.4'/%3E%20%3Cpath%20d='M150%2040h96v52h-96z'/%3E%3Cpath%20d='M150%2092l96-52'%20opacity='0.35'/%3E%20%3Cpath%20d='M150%20104h96M150%20100v8M246%20100v8'/%3E%20%3Cpath%20d='M262%20150v78M258%20150h8M258%20228h8'/%3E%20%3Cpath%20d='M40%20200h60l14%2022h-60z'/%3E%20%3Cpath%20d='M44%20206l8%2012M52%20206l8%2012M60%20206l8%2012M68%20206l8%2012M76%20206l8%2012M84%20206l8%2012M92%20206l8%2012'%20stroke-width='0.7'%20opacity='0.6'/%3E%20%3Cpath%20d='M150%20250c22-30%2058-30%2080%200'/%3E%3Cpath%20d='M150%20250h80'%20stroke-dasharray='8%205'%20opacity='0.6'/%3E%20%3Cpath%20d='M12%20268h72M12%20264v8M84%20264v8'/%3E%20%3C/g%3E%20%3Cg%20fill='%23f2f8fc'%20opacity='0.42'%20font-family='Bradley%20Hand,Segoe%20Print,Chalkboard,cursive'%20font-size='11'%3E%20%3Ctext%20x='176'%20y='118'%3E96.5%3C/text%3E%3Ctext%20x='268'%20y='192'%3ER%2024%3C/text%3E%20%3Ctext%20x='120'%20y='40'%3E68%20DIA%3C/text%3E%3Ctext%20x='30'%20y='262'%3E72.0%3C/text%3E%20%3Ctext%20x='196'%20y='276'%3ESECT%20A-A%3C/text%3E%3Ctext%20x='40'%20y='150'%3E1:2%3C/text%3E%20%3C/g%3E%20%3C/svg%3E"),radial-gradient(120% 90% at 22% 8%,rgba(120,190,225,.22),rgba(0,0,0,.30) 78%);
+  background-size:320px 320px,100% 100%;
+  background-repeat:repeat,no-repeat;
 }
+.bg-blueprint header{background-image:none}
 .bg-blueprint h1,.bg-blueprint h2,.bg-blueprint .gq{letter-spacing:0}
+/* anything sitting straight on the board reads in drawing white */
+.bg-blueprint h1,.bg-blueprint h2,.bg-blueprint .sub,.bg-blueprint .eyebrow,
+.bg-blueprint .save,.bg-blueprint .work>.split>main>.statl{color:#e9f4fb}
+.bg-blueprint .weekbar{background:#10405f}
+.bg-blueprint .gostart{background:rgba(255,255,255,.94);color:#10405f;border-color:rgba(255,255,255,.6)}
+.bg-blueprint .empty{color:#cfe4f0}
+.bg-blueprint .card{box-shadow:0 2px 10px rgba(0,0,0,.28)}
 .bg-carbon .work{
   background-image:repeating-linear-gradient(45deg,rgba(120,90,50,.05) 0 2px,transparent 2px 6px);
 }
@@ -68,14 +78,13 @@ header{
 .cockpit{position:relative;display:flex;align-items:center;gap:14px;padding:11px 20px 12px;
   width:max-content;max-width:100%;border-radius:5px;
   border:1px solid #7a8188;border-top-color:#f2f5f6;border-bottom-color:#5b6167;
-  background:
-    linear-gradient(135deg,rgba(255,255,255,.20) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.07) 75%),
-    linear-gradient(135deg,rgba(255,255,255,.20) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.07) 75%),
-    repeating-linear-gradient(96deg,rgba(255,255,255,.26) 0 1px,rgba(0,0,0,.05) 1px 3px),
-    linear-gradient(170deg,#dde1e4,#b0b6bb 55%,#ccd1d5);
-  background-size:26px 26px,26px 26px,5px 5px,100% 100%;
-  background-position:0 0,13px 13px,0 0,0 0;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 3px 9px rgba(0,0,0,.28)}
+  background-color:#c2c8cd;
+  background-image:
+    repeating-linear-gradient(96deg,rgba(255,255,255,.34) 0 1px,rgba(0,0,0,.05) 1px 3px),
+    linear-gradient(168deg,#e7eaec 0%,#c9ced2 46%,#aab0b5 54%,#d9dde0 100%);
+  background-size:4px 4px,100% 100%;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -1px 2px rgba(0,0,0,.25),
+    0 4px 12px rgba(0,0,0,.34),0 1px 0 rgba(255,255,255,.5)}
 .rivet{position:absolute;top:5px;left:6px;width:7px;height:7px;border-radius:50%;
   background:radial-gradient(circle at 34% 30%,#fff,#9aa1a7 55%,#5f666c);
   box-shadow:inset 0 0 0 .5px rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.6)}
@@ -513,7 +522,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='25';
+var APP_VERSION='26';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
