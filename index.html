@@ -324,6 +324,8 @@ body.guiding #nav,body.guiding header{display:none}
 .livedot{margin-left:9px;color:var(--on);font:600 9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
 @media (prefers-reduced-motion:reduce){.msg.ai .bubble.live::after{animation:none}}
 .coachform{flex:none;padding:12px 16px 16px;border-top:1px solid var(--line)}
+.coachform.top{border-top:0;border-bottom:1px solid var(--line);padding:14px 16px 14px}
+.coachtools{display:flex;gap:8px;align-items:baseline}
 .coachform textarea{min-height:66px;font:400 14px/1.45 var(--display)}
 .coachrow{display:flex;gap:8px;margin-top:9px}
 .prompts{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
@@ -422,7 +424,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='22';
+var APP_VERSION='23';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -452,7 +454,7 @@ var theme={preset:'graphite',mode:'auto'};
 var openGoal=null;
 var PREFS_KEY='twy:prefs:v1';
 var CHAT_KEY='twy:chat:v1';
-var prefs={tips:true,layout:'split',prevLayout:'split',coachSide:'right',apiKey:'',model:'claude-sonnet-5',keyOk:null};
+var prefs={tips:true,layout:'split',prevLayout:'split',coachSide:'right',apiKey:'',model:'claude-sonnet-5',keyOk:null,coachOrder:'newest'};
 var guide=null;
 var splash=false;
 var COACH_MAIL='Ripley.foster+anthropickey@gmail.com';
@@ -1054,11 +1056,23 @@ function coachSystem(){
    - the model runs out of tokens    -> mark the answer cut off, offer to continue */
 var coachTrunc=false, streamIdx=-1;
 
+/* Only pull the log to the live edge if the reader is already sitting there.
+   If they have scrolled away to read something, leave them alone. */
+function coachEdge(log){
+  if(!log)return true;
+  return prefs.coachOrder!=='oldest'
+    ? log.scrollTop<48
+    : (log.scrollHeight-log.scrollTop-log.clientHeight)<64;
+}
+function coachToEdge(log){
+  if(!log)return;
+  log.scrollTop=prefs.coachOrder!=='oldest'?0:log.scrollHeight;
+}
 function paintStream(){
   var el=document.getElementById('streambubble');
   if(el&&streamIdx>-1&&chat[streamIdx])el.textContent=chat[streamIdx].content||'';
   var log=document.getElementById('coachlog');
-  if(log)log.scrollTop=log.scrollHeight;
+  if(log&&coachEdge(log))coachToEdge(log);
 }
 
 function sendCoach(){
@@ -1170,7 +1184,6 @@ function sendCoach(){
   }).then(function(){
     clearTimeout(stall);
     streamIdx=-1; coachBusy=false; saveChat(); render();
-    var log=document.getElementById('coachlog'); if(log)log.scrollTop=log.scrollHeight;
   });
 }
 
@@ -1183,9 +1196,23 @@ var COACH_PROMPTS={
 };
 
 function renderCoach(){
-  var out='<div class="coachhead"><span class="coachtitle">Coach</span>'+
+  var newest=prefs.coachOrder!=='oldest';
+  var out='<div class="coachhead"><span class="coachtitle">Coach</span><span class="coachtools">'+
+    (chat.length?'<button class="btn ghost" data-act="coachorder">'+(newest?'Newest first':'Oldest first')+'</button>':'')+
     (guide?'<button class="btn ghost" data-act="gresume">\u2039 Back to the guide</button>':
-      (chat.length?'<button class="btn ghost" data-act="coachclear">Clear</button>':''))+'</div>';
+      (chat.length?'<button class="btn ghost" data-act="coachclear">Clear</button>':''))+'</span></div>';
+
+  var form='<div class="coachform'+(newest?' top':'')+'">';
+  if(coachReady()&&!chat.length){
+    form+='<div class="prompts">'+(COACH_PROMPTS[view]||COACH_PROMPTS.coach).map(function(q){
+      return '<button class="chip" data-act="coachask" data-v="'+esc(q)+'">'+esc(q)+'</button>';
+    }).join('')+'</div>';
+  }
+  form+='<textarea id="coachin" placeholder="Ask the coach…">'+esc(coachDraft)+'</textarea>'+
+    '<div class="coachrow"><button class="btn solid" data-act="coachsend"'+(coachBusy?' disabled':'')+'>Send</button>'+
+    '<span class="note" style="margin:0;align-self:center">Sees your plan and this week</span></div></div>';
+  if(newest)out+=form;
+
   out+='<div class="coachlog" id="coachlog">';
   if(!coachReady()){
     out+='<div class="msg ai"><span class="who">Setup</span><div class="bubble">'+
@@ -1196,26 +1223,26 @@ function renderCoach(){
     out+='<div class="msg ai"><span class="who">Coach</span><div class="bubble">'+
       'I can see your goals, tactics, this week\'s ticks and your measurements. Ask me anything about the plan or the week.</div></div>';
   }
-  chat.forEach(function(m,i){
-    out+='<div class="msg '+(m.role==='user'?'me':'ai')+'"><span class="who">'+(m.role==='user'?'You':'Coach')+
+  var msgs=chat.map(function(m,i){
+    return '<div class="msg '+(m.role==='user'?'me':'ai')+'"><span class="who">'+(m.role==='user'?'You':'Coach')+
       (m.role==='assistant'&&!m.streaming&&speechOn()?'<button class="minispk" data-act="sayone" data-i="'+i+'">'+
         (isSaying()?'stop':'listen')+'</button>':'')+
       (m.streaming?'<span class="livedot">writing</span>':'')+
       '</span><div class="bubble'+(m.streaming?' live" id="streambubble':'')+'">'+esc(m.content)+'</div></div>';
   });
+  var extras='';
   if(coachTrunc&&!coachBusy)
-    out+='<button class="btn" data-act="coachcont">Continue the answer</button>';
-  if(coachError)out+='<div class="msg ai"><span class="who">Problem</span><div class="bubble" style="color:var(--off)">'+esc(coachError)+'</div></div>';
-  out+='</div>';
-  out+='<div class="coachform">';
-  if(coachReady()&&!chat.length){
-    out+='<div class="prompts">'+(COACH_PROMPTS[view]||COACH_PROMPTS.coach).map(function(q){
-      return '<button class="chip" data-act="coachask" data-v="'+esc(q)+'">'+esc(q)+'</button>';
-    }).join('')+'</div>';
+    extras+='<button class="btn" data-act="coachcont">Continue the answer</button>';
+  if(coachError)extras+='<div class="msg ai"><span class="who">Problem</span><div class="bubble" style="color:var(--off)">'+esc(coachError)+'</div></div>';
+
+  if(newest){
+    /* newest exchange sits at the top, directly under the box you typed in */
+    out+=extras+msgs.slice().reverse().join('');
+  } else {
+    out+=msgs.join('')+extras;
   }
-  out+='<textarea id="coachin" placeholder="Ask the coach…">'+esc(coachDraft)+'</textarea>'+
-    '<div class="coachrow"><button class="btn solid" data-act="coachsend"'+(coachBusy?' disabled':'')+'>Send</button>'+
-    '<span class="note" style="margin:0;align-self:center">Sees your plan and this week</span></div></div>';
+  out+='</div>';
+  if(!newest)out+=form;
   return out;
 }
 
@@ -2154,7 +2181,11 @@ function render(){
   var b=document.body;
   b.className=('lay-'+prefs.layout)+(prefs.coachSide==='left'?' side-left':'')+
     (onCoach?' mob-coach':'')+(((guide||splash)&&!onCoach)?' guiding':'');
+  var oldLog=document.getElementById('coachlog');
+  var keepAt=oldLog?oldLog.scrollTop:0, stick=coachEdge(oldLog);
   document.getElementById('coach').innerHTML=renderCoach();
+  var newLog=document.getElementById('coachlog');
+  if(newLog){ if(stick)coachToEdge(newLog); else newLog.scrollTop=keepAt; }
   main.scrollTop=y;
 }
 
@@ -2245,6 +2276,7 @@ document.addEventListener('click',function(e){
   else if(a==='coachsend'){sendCoach(); return}
   else if(a==='coachask'){coachDraft=el.getAttribute('data-v'); sendCoach(); return}
   else if(a==='coachclear'){chat=[]; coachError=''; coachTrunc=false; saveChat()}
+  else if(a==='coachorder'){prefs.coachOrder=(prefs.coachOrder==='oldest'?'newest':'oldest'); savePrefs()}
   else if(a==='coachcont'){coachDraft='Carry on from exactly where you were cut off. Do not repeat what you already said.'; sendCoach(); return}
   else if(a==='say'){speakCurrent(); return}
   else if(a==='spktoggle'){togglePlay(); return}
