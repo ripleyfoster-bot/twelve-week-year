@@ -522,7 +522,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='27';
+var APP_VERSION='28';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -568,8 +568,8 @@ var SKINS={
     dials:'boiler',deck:'plain',bg:'blueprint',font:'mono',palette:'indigo',keyOnly:true},
   workshop:{name:'Workshop',blurb:'Instrument dials on a warm textured bench, serif headings.',
     dials:'vintage',deck:'tapedeck',bg:'carbon',font:'serif',palette:'clay',keyOnly:true},
-  racing:{name:'Racing',blurb:'1930s cockpit — chequer plate, cream dials, chrome toggle switches.',
-    dials:'racing',deck:'switches',bg:'chequer',font:'deco',palette:'ember',keyOnly:true}
+  racing:{name:'Racing',blurb:'1930s cockpit — chequer plate, cream dials, chrome toggles, period icons.',
+    dials:'racing',deck:'switches',bg:'chequer',font:'deco',palette:'ember',icons:'racing',keyOnly:true}
 };
 var SKIN_ORDER=['standard','instrument','blueprint','workshop','racing'];
 function skinOf(id){return SKINS[id]||SKINS.standard}
@@ -2448,6 +2448,39 @@ var ICONS={
   coach:IC('<path d="M21 12a8 8 0 0 1-8 8H8l-4 3v-5.5A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 15h3"/>'),
   guide:IC('<path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M9 13h6M9 17h4"/>')
 };
+
+/* Per-desktop icon sets. The label fixes the meaning, the desktop fixes the drawing.
+   Racing, c.1930: pocket diary, pit board, scorecard, monocle, driver's helmet. */
+var ICONSETS={
+  racing:{
+    week:IC('<path d="M12 6.6c-2.4-1.5-5.2-1.7-8.2-1.1v12.9c3-.6 5.8-.4 8.2 1.1"/>'+
+      '<path d="M12 6.6c2.4-1.5 5.2-1.7 8.2-1.1v12.9c-3-.6-5.8-.4-8.2 1.1"/>'+
+      '<path d="M12 6.6v12.9"/>'+
+      '<path d="M5.6 9.1h4.6M5.6 12h4.6M5.6 14.9h4.6" opacity=".65"/>'+
+      '<path d="M13.8 9.1h4.6M13.8 12h4.6M13.8 14.9h4.6" opacity=".65"/>'),
+    plan:IC('<rect x="4.4" y="2.6" width="15.2" height="11.8" rx="1"/>'+
+      '<path d="M12 14.4v6.8"/>'+
+      '<path d="M7.2 5.9h5.4M7.2 8.5h9.2M7.2 11.1h6.8" stroke-width="1.9" opacity=".75"/>'),
+    score:IC('<rect x="3.4" y="4.2" width="17.2" height="15.6" rx="1"/>'+
+      '<rect x="5.2" y="6" width="6.4" height="2.4" rx=".4" opacity=".8"/>'+
+      '<path d="M3.4 10.4h17.2"/>'+
+      '<path d="M9 10.4v9.4M13.4 10.4v9.4M17.4 10.4v9.4" opacity=".65"/>'+
+      '<path d="M3.4 13.6h17.2M3.4 16.7h17.2" opacity=".65"/>'),
+    vision:IC('<circle cx="13.6" cy="10" r="5.1"/>'+
+      '<circle cx="13.6" cy="10" r="1.25" fill="currentColor" stroke="none"/>'+
+      '<path d="M9.6 13.2 8 17.1c-.5 1.4-.1 2.5 1.1 3.1"/>'),
+    coach:IC('<path d="M4.4 14.2a7.6 7.6 0 0 1 15.2 0"/>'+
+      '<path d="M12 6.7v3.4" opacity=".5"/>'+
+      '<path d="M4.4 14.2v1.7c0 1.4 1.1 2.5 2.5 2.5h.7"/>'+
+      '<circle cx="9.1" cy="13.6" r="2.5"/><circle cx="15.7" cy="13.6" r="2.5"/>'+
+      '<path d="M11.6 13.6h1.9"/>'+
+      '<path d="M8.2 18.6c1.3 1.4 3 2 4.9 1.8"/>')
+  }
+};
+function icon(mode){
+  var set=ICONSETS[activeSkin().icons||''];
+  return (set&&set[mode])||ICONS[mode]||'';
+}
 function render(){
   var main=document.getElementById('app');
   var y=main.scrollTop;
@@ -2482,18 +2515,18 @@ function render(){
   var lock=!coachReady();
   document.getElementById('nav').innerHTML=TABS.map(function(x){
     return '<button data-act="tab" data-v="'+x[0]+'" aria-current="'+(!onCoach&&view===x[0])+'">'+
-      ICONS[x[0]]+'<span>'+x[1]+'</span></button>';
+      icon(x[0])+'<span>'+x[1]+'</span></button>';
   }).join('')+
     '<button data-act="'+(lock?'splash':'lay')+'" data-v="coach" aria-current="'+onCoach+'"'+
-    (lock?' class="locked"':'')+'>'+ICONS.coach+'<span>Coach</span></button>';
+    (lock?' class="locked"':'')+'>'+icon('coach')+'<span>Coach</span></button>';
 
   document.getElementById('modes').innerHTML=
     TABS.map(function(x){
       return '<button data-act="tab" data-v="'+x[0]+'" aria-current="'+(!onCoach&&view===x[0])+'">'+
-        ICONS[x[0]]+'<span>'+x[1]+'</span></button>';
+        icon(x[0])+'<span>'+x[1]+'</span></button>';
     }).join('')+'<span class="spacer"></span>'+
     '<button data-act="'+(lock?'splash':'lay')+'" data-v="coach" aria-current="'+onCoach+'"'+
-    (lock?' class="locked"':'')+'>'+ICONS.coach+'<span>Coach</span></button>';
+    (lock?' class="locked"':'')+'>'+icon('coach')+'<span>Coach</span></button>';
 
   document.getElementById('laybox').innerHTML=
     '<span class="lbl">Layout</span>'+
