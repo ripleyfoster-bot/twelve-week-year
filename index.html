@@ -32,9 +32,20 @@ main{flex:1 1 auto;min-width:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
 .coachpane{display:none;flex-direction:column;min-height:0;min-width:0}
 header{
   flex:none;position:relative;padding:22px 16px 16px;width:100%;max-width:720px;margin:0 auto;
+}
+.bg-grid header,.bg-blueprint header{
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:22px 22px;background-position:-1px -1px;
 }
+.bg-blueprint .work{
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:26px 26px;background-position:-1px -1px;
+}
+.bg-blueprint h1,.bg-blueprint h2,.bg-blueprint .gq{letter-spacing:0}
+.bg-carbon .work{
+  background-image:repeating-linear-gradient(45deg,rgba(120,90,50,.05) 0 2px,transparent 2px 6px);
+}
+.bg-carbon .card{box-shadow:0 1px 2px rgba(0,0,0,.05)}
 .eyebrow{font:600 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 h1{font:800 27px/1.02 var(--display);letter-spacing:-.035em;text-transform:uppercase;margin:8px 0 0}
 .sub{font:400 13px/1.45 var(--display);color:var(--muted);margin:6px 0 0}
@@ -298,6 +309,13 @@ hr{height:1px;background:var(--line);border:0;margin:18px 0}
 .sp .tips b{font-weight:600;color:var(--ink)}
 .sp a{color:var(--ink)}
 .promo{border-left:2px solid var(--on)}
+.skinlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:4px}
+.skincard{display:block;text-align:left;padding:11px 12px;border:1px solid var(--line);border-radius:5px;
+  background:transparent;cursor:pointer;color:var(--ink)}
+.skincard[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.skincard.locked{opacity:.5}
+.skinname{display:block;font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.skinblurb{display:block;font:400 12px/1.4 var(--display);color:var(--muted);margin-top:6px}
 .keybanner{margin-top:18px;padding:12px 13px;border-left:2px solid var(--off);background:var(--cell);
   border-radius:0 4px 4px 0;font:400 14px/1.5 var(--display);color:var(--ink)}
 .keyres{margin-top:12px}
@@ -373,6 +391,13 @@ body.guiding #nav,body.guiding header{display:none}
   .radio.locked em{font:600 8px/1 var(--mono);letter-spacing:.1em;font-style:normal;border:1px solid var(--line);
     border-radius:3px;padding:2px 4px;margin-left:auto}
   .modes button.locked{opacity:.5}
+  .skins{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+  .skinbtn{display:flex;align-items:center;gap:5px;padding:6px 8px;border:1px solid var(--line);
+    background:transparent;border-radius:4px;cursor:pointer;color:var(--muted);
+    font:600 9px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase}
+  .skinbtn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--inv)}
+  .skinbtn.locked{opacity:.45}
+  .skinbtn em{font-style:normal;font-size:7px;border:1px solid var(--line);border-radius:2px;padding:1px 3px}
   .swatches{display:flex;gap:5px;margin-top:2px}
   .sw{display:flex;width:19px;height:19px;padding:0;border:1px solid var(--line);border-radius:11px;
     overflow:hidden;cursor:pointer;background:transparent}
@@ -424,7 +449,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='23';
+var APP_VERSION='24';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -449,12 +474,40 @@ var THEMES={
     dark:{paper:'#121110',grid:'#232120',card:'#1A1817',cell:'#161413',track:'#262322',line:'#302C2A',ink:'#EFEAE5',muted:'#A39A92',dim:'#6B635C',on:'#6EA88A',off:'#E2884A',inv:'#121110',navbg:'#181615'}}
 };
 var THEME_ORDER=['graphite','clay','pine','indigo','ember'];
+
+/* A desktop = the style layer. Colour, light/dark and skin are independent,
+   so a new skin is one entry here plus (optionally) one CSS block.
+   dials: flat|vintage · deck: plain|tapedeck · bg: grid|plain|blueprint|carbon
+   font: sans|grotesk|serif|mono · palette: a colour preset applied when chosen */
+var FONTS={
+  sans:'"Helvetica Neue",Helvetica,Arial,sans-serif',
+  grotesk:'system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,sans-serif',
+  serif:'Georgia,"Iowan Old Style",Palatino,"Times New Roman",serif',
+  mono:'ui-monospace,SFMono-Regular,Menlo,Consolas,monospace'
+};
+var SKINS={
+  standard:{name:'Standard',blurb:'Flat gauges, plain controls, graph-paper header.',
+    dials:'flat',deck:'plain',bg:'grid',font:'sans',keyOnly:false},
+  instrument:{name:'Instrument',blurb:'Vintage chrome dials and a brushed-steel tape deck.',
+    dials:'vintage',deck:'tapedeck',bg:'grid',font:'sans',keyOnly:true},
+  blueprint:{name:'Blueprint',blurb:'Drafting grid throughout, monospaced headings, flat gauges.',
+    dials:'flat',deck:'plain',bg:'blueprint',font:'mono',palette:'indigo',keyOnly:true},
+  workshop:{name:'Workshop',blurb:'Instrument dials on a warm textured bench, serif headings.',
+    dials:'vintage',deck:'tapedeck',bg:'carbon',font:'serif',palette:'clay',keyOnly:true}
+};
+var SKIN_ORDER=['standard','instrument','blueprint','workshop'];
+function skinOf(id){return SKINS[id]||SKINS.standard}
+/* what is actually in force — a locked skin falls back to standard without a key */
+function activeSkin(){
+  var s=skinOf(prefs.skin);
+  return (s.keyOnly&&!coachReady())?SKINS.standard:s;
+}
 var MODES=[['light','Light'],['dark','Dark'],['auto','Auto']];
 var theme={preset:'graphite',mode:'auto'};
 var openGoal=null;
 var PREFS_KEY='twy:prefs:v1';
 var CHAT_KEY='twy:chat:v1';
-var prefs={tips:true,layout:'split',prevLayout:'split',coachSide:'right',apiKey:'',model:'claude-sonnet-5',keyOk:null,coachOrder:'newest'};
+var prefs={tips:true,layout:'split',prevLayout:'split',coachSide:'right',apiKey:'',model:'claude-sonnet-5',keyOk:null,coachOrder:'newest',skin:'standard'};
 var guide=null;
 var splash=false;
 var COACH_MAIL='Ripley.foster+anthropickey@gmail.com';
@@ -513,6 +566,8 @@ function applyTheme(){
   var dark=darkNow(), p=dark?t.dark:t.light, r=document.documentElement;
   Object.keys(p).forEach(function(k){r.style.setProperty('--'+k,p[k])});
   r.style.colorScheme=dark?'dark':'light';
+  var sk=activeSkin();
+  r.style.setProperty('--display',FONTS[sk.font]||FONTS.sans);
   var m=document.querySelector('meta[name=theme-color]');
   if(m)m.setAttribute('content',p.navbg);
 }
@@ -763,7 +818,7 @@ function dialFlat(p,size,o){
 var dialSeq=0;
 function dial(p,size,o){
   dialSeq++;
-  return coachReady()?dialVintage(p,size,'d'+dialSeq,o):dialFlat(p,size,o);
+  return activeSkin().dials==='vintage'?dialVintage(p,size,'d'+dialSeq,o):dialFlat(p,size,o);
 }
 
 /* a measurement as a dial: needle = distance travelled toward target,
@@ -777,7 +832,7 @@ function measureDial(m,se,cw){
 
 /* the goal number, as a matching instrument for key holders */
 function numBox(n,title){
-  if(!coachReady())return '<div class="gnumbox" title="'+title+'">'+n+'</div>';
+  if(activeSkin().dials!=='vintage')return '<div class="gnumbox" title="'+title+'">'+n+'</div>';
   return '<div class="gnumwrap" title="'+title+'">'+
     '<svg viewBox="0 0 100 100" aria-hidden="true">'+
       '<defs><linearGradient id="nb'+n+'" x1="0.15" y1="0" x2="0.85" y2="1">'+
@@ -871,7 +926,7 @@ function measureChart(m,s){
       '" width="'+(W/12-3).toFixed(1)+'" height="'+Math.max(1,H-yv).toFixed(1)+
       '" fill="var(--'+(good?'on':'off')+')" opacity="0.9"/>';
   }
-  var inst=coachReady();
+  var inst=activeSkin().dials==='vintage';
   var grid='';
   if(inst){
     for(var gx=1;gx<12;gx++)grid+='<line x1="'+(gx*W/12).toFixed(1)+'" y1="0" x2="'+(gx*W/12).toFixed(1)+'" y2="'+H+
@@ -1643,7 +1698,7 @@ function vuMeter(ch){
 }
 function transport(label){
   if(!speechOn())return '';
-  if(!coachReady())return sayBtn(label);
+  if(activeSkin().deck!=='tapedeck')return sayBtn(label);
   var pos=spk.segs.length?(spk.i+1)+' / '+spk.segs.length:'—';
   return '<div class="deck'+(isSaying()?' live':'')+'">'+
     '<span class="screw"></span><span class="screw r"></span>'+
@@ -2060,7 +2115,7 @@ function renderScore(){
                 (m.unit?' '+esc(m.unit):'')+
                 (se.lastWeek?' · '+(se.gap===0?'exactly on pace':(se.onPace?'ahead by ':'behind by ')+tidy(Math.abs(se.gap))):' · no entries yet')+
               '</div>'+
-              '<div class="bbar'+(coachReady()?' inst':'')+'"><i style="width:'+(se.pctOfTarget===null?0:se.pctOfTarget.toFixed(1))+
+              '<div class="bbar'+(activeSkin().dials==='vintage'?' inst':'')+'"><i style="width:'+(se.pctOfTarget===null?0:se.pctOfTarget.toFixed(1))+
                 '%;background:'+col+'"></i></div>'+
               measureChart(m,se)+
               '<div class="statl">Dashed line is the pace needed to reach your target by week 12.</div>'+
@@ -2071,7 +2126,15 @@ function renderScore(){
   }
 
   out+='<h2>Appearance</h2><div class="card">'+
-    '<label class="lbl">Colour</label>'+chips(THEME_ORDER.map(function(k){
+    '<label class="lbl">Desktop</label>'+
+    '<div class="skinlist">'+SKIN_ORDER.map(function(k){
+      var sk=SKINS[k], off=sk.keyOnly&&!coachReady();
+      return '<button class="skincard'+(off?' locked':'')+'" aria-pressed="'+(prefs.skin===k&&!off)+
+        '" data-act="'+(off?'splash':'skin')+'" data-v="'+k+'">'+
+        '<span class="skinname">'+sk.name+(off?' · key':'')+'</span>'+
+        '<span class="skinblurb">'+esc(sk.blurb)+'</span></button>';
+    }).join('')+'</div>'+
+    '<label class="lbl" style="margin-top:16px">Colour</label>'+chips(THEME_ORDER.map(function(k){
       return chip(THEMES[k].name,theme.preset===k,'data-act="theme" data-v="'+k+'"');
     }).join(''))+
     '<label class="lbl" style="margin-top:14px">Mode</label>'+chips(MODES.map(function(m){
@@ -2166,6 +2229,13 @@ function render(){
     }).join('')+
     (lock?'<button class="btn ghost" style="margin-top:6px" data-act="splash">Why coach?</button>'
         :'<button class="btn ghost" style="margin-top:8px" data-act="side">Switch sides</button>')+
+    '<span class="lbl" style="margin-top:14px;display:block">Desktop</span>'+
+    '<div class="skins">'+SKIN_ORDER.map(function(k){
+      var sk=SKINS[k], off=sk.keyOnly&&lock;
+      return '<button class="skinbtn'+(off?' locked':'')+'" aria-pressed="'+(prefs.skin===k&&!off)+
+        '" data-act="'+(off?'splash':'skin')+'" data-v="'+k+'" title="'+esc(sk.blurb)+'">'+sk.name+
+        (off?'<em>key</em>':'')+'</button>';
+    }).join('')+'</div>'+
     '<span class="lbl" style="margin-top:14px;display:block">Colour</span>'+
     '<div class="swatches">'+THEME_ORDER.map(function(k){
       var pal=THEMES[k][darkNow()?'dark':'light'];
@@ -2179,7 +2249,8 @@ function render(){
     '<div class="note" style="margin-top:10px">v'+APP_VERSION+'</div>';
 
   var b=document.body;
-  b.className=('lay-'+prefs.layout)+(prefs.coachSide==='left'?' side-left':'')+
+  var sk=activeSkin();
+  b.className=('lay-'+prefs.layout)+' bg-'+sk.bg+(prefs.coachSide==='left'?' side-left':'')+
     (onCoach?' mob-coach':'')+(((guide||splash)&&!onCoach)?' guiding':'');
   var oldLog=document.getElementById('coachlog');
   var keepAt=oldLog?oldLog.scrollTop:0, stick=coachEdge(oldLog);
@@ -2342,6 +2413,13 @@ document.addEventListener('click',function(e){
   }
   else if(a==='theme'){theme.preset=el.getAttribute('data-v'); saveTheme(); applyTheme(); render(); return}
   else if(a==='mode'){theme.mode=el.getAttribute('data-v'); saveTheme(); applyTheme(); render(); return}
+  else if(a==='skin'){
+    var sid=el.getAttribute('data-v');
+    prefs.skin=sid; savePrefs();
+    var sk=SKINS[sid];
+    if(sk&&sk.palette&&THEMES[sk.palette]){theme.preset=sk.palette; saveTheme()}
+    applyTheme(); render(); return;
+  }
   else if(a==='update'){
     var step=window.caches?caches.keys().then(function(k){return Promise.all(k.map(function(x){return caches.delete(x)}))}):Promise.resolve();
     step.then(function(){
