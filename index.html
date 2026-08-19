@@ -74,6 +74,43 @@ header{
 .bg-chequer h1,.bg-chequer h2,.bg-chequer .gq{letter-spacing:.02em}
 .bg-chequer .side{background:linear-gradient(180deg,#eceef0,#dce0e3);border-right-color:#9aa1a7}
 
+/* --- racing after dark: the plate lit only by the meter lamps --- */
+html.dark .bg-chequer .work{
+  background-color:#121518;
+  background-image:
+    radial-gradient(72% 62% at 50% -8%,rgba(255,193,104,.15),rgba(255,193,104,.055) 42%,rgba(255,193,104,0) 76%),
+    linear-gradient(135deg,rgba(255,255,255,.05) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.30) 75%),
+    linear-gradient(135deg,rgba(255,255,255,.05) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.30) 75%),
+    repeating-linear-gradient(96deg,rgba(255,255,255,.055) 0 1px,rgba(0,0,0,.24) 1px 3px),
+    linear-gradient(165deg,#1c2024,#0d1013 54%,#181c20);
+  background-size:100% 100%,44px 44px,44px 44px,5px 5px,100% 100%;
+  background-position:0 0,0 0,22px 22px,0 0,0 0;
+  background-repeat:no-repeat,repeat,repeat,repeat,no-repeat;
+}
+/* the light comes from wherever the deck actually is */
+html.dark .bg-chequer.lay-split .work{background-position:-20% 0,0 0,22px 22px,0 0,0 0}
+html.dark .bg-chequer .side{
+  background:linear-gradient(180deg,#1b1f23,#101315);border-right-color:#2b3136}
+html.dark .bg-chequer .card{
+  background:rgba(22,26,29,.94);border-color:#333a3f;
+  box-shadow:0 1px 0 rgba(255,255,255,.04),0 3px 10px rgba(0,0,0,.5)}
+html.dark .bg-chequer .cockpit{
+  background-color:#1a1e22;
+  background-image:
+    repeating-linear-gradient(96deg,rgba(255,255,255,.07) 0 1px,rgba(0,0,0,.3) 1px 3px),
+    linear-gradient(168deg,#2b3035 0%,#191d21 46%,#0f1215 54%,#23282c 100%);
+  border-color:#33393e;border-top-color:#4b5257;border-bottom-color:#0a0c0e;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 -1px 2px rgba(0,0,0,.6),
+    0 4px 16px rgba(0,0,0,.6),0 0 26px rgba(255,193,104,.09)}
+html.dark .cockpit .slot{
+  background:linear-gradient(#2e3439,#171b1e 45%,#0c0f11);border-color:#0a0c0e;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.85),0 1px 0 rgba(255,255,255,.12)}
+html.dark .cockpit .slot i{
+  background:linear-gradient(90deg,#dfe4e7,#a9b0b5 40%,#6c7378 62%,#c6ccd0);border-color:#4a5055}
+html.dark .cockpit .tlab{color:#a7b0b6}
+html.dark .cockpit .rivet{background:radial-gradient(circle at 34% 30%,#c9d0d5,#5f666c 55%,#2b3035)}
+html.dark .bg-chequer .gnumwrap svg rect:first-of-type{opacity:.9}
+
 /* --- racing: chrome toggle switch panel --- */
 .cockpit{position:relative;display:flex;align-items:center;gap:14px;padding:11px 20px 12px;
   width:max-content;max-width:100%;border-radius:5px;
@@ -393,8 +430,10 @@ hr{height:1px;background:var(--line);border:0;margin:18px 0}
 nav button.locked{opacity:.5}
 body.guiding #nav,body.guiding header{display:none}
 @media (min-width:960px){
-  body.guiding .side,body.guiding .coachpane{display:none}
+  body.guiding .side{display:none}
   body.guiding main{padding-top:26px}
+  /* in split the guide keeps the coach alongside; full screen hides it as before */
+  body.guiding.lay-split main{padding-left:34px;padding-right:34px}
 }
 
 /* ---------------- coach ---------------- */
@@ -522,7 +561,7 @@ body.guiding #nav,body.guiding header{display:none}
 
 <script>
 /* ------------------------------------------------------------------ model */
-var APP_VERSION='28';
+var APP_VERSION='29';
 var KEY='twy:plan:v1';
 var DAYS=['M','T','W','T','F','S','S'];
 var DAY_NAMES=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
@@ -642,6 +681,7 @@ function applyTheme(){
   var dark=darkNow(), p=dark?t.dark:t.light, r=document.documentElement;
   Object.keys(p).forEach(function(k){r.style.setProperty('--'+k,p[k])});
   r.style.colorScheme=dark?'dark':'light';
+  if(r.classList){dark?r.classList.add('dark'):r.classList.remove('dark')}
   var sk=activeSkin();
   r.style.setProperty('--display',FONTS[sk.font]||FONTS.sans);
   var m=document.querySelector('meta[name=theme-color]');
@@ -1352,7 +1392,25 @@ function coachSystem(){
     ''
   ];
   L=L.concat(STANCE[view]||[]);
-  if(guide)L.push('','THEY ARE IN THE GUIDED FLOW right now, on the step: "'+guide.flow+' / '+(guide.label||'')+'". Help them answer just that step. Do not race ahead.');
+  if(guide){
+    L.push('','THEY ARE IN THE GUIDED FLOW, on the step: "'+guide.flow+' / '+(guide.label||'')+'".',
+      'Help them answer THAT step and nothing else. One question at a time. When they have answered it, say so plainly and tell them to press Next — do not try to fill in later steps for them.');
+    var noVision=!(state.vision.longTerm||'').trim()&&!(state.vision.threeYear||'').trim();
+    if(guide.flow==='plan'&&noVision){
+      L.push('',
+        'IMPORTANT: they are building goals and there is NO VISION written at all. Goals set in a vacuum are just activity, and in twelve weeks they will not know whether any of it mattered.',
+        'So before you help with this goal, turn them to the vision — warmly, not as a telling-off. Explain the chain in plain terms: the vision says where they are going, the goals are the twelve-week bites of that journey, and the tactics are what they do this week. Without the top of the chain there is nothing for a goal to serve.',
+        'Draw it out of them in this order, one question at a time, and get concrete each time before moving on:',
+        '  1. Ten years out — what does life look like, on an ordinary day, if this has gone well?',
+        '  2. Five years out — the halfway picture on the road to that ten-year one.',
+        '  3. Thirty-six months — the near waypoint, close enough to feel real and to plan against.',
+        'After each answer, say back how it connects to the one before, so they can see the line running through it. If two horizons point different ways, name it and help them reconcile it.',
+        'Tell them the long-term box on the Vision tab takes the ten-year and five-year picture, and the 36-month box takes the waypoint — so they can paste what you work out together straight in.',
+        'ONLY when the vision has direction should you come back to the goal they were writing, and then judge it against what they just told you: does this goal move them toward the 36-month picture? If not, say which goal would.');
+    } else if(guide.flow==='plan'){
+      L.push('','Their vision is written (above). Judge the goal on this step against it and say plainly whether it serves the 36-month picture, and how. Hold the line on fewer goals achieved over more neglected.');
+    }
+  }
   L.push('','--- THEIR PLAN AND CURRENT POSITION ---',planBrief());
   return L.join('\n');
 }
@@ -1493,6 +1551,19 @@ function sendCoach(){
   });
 }
 
+function guidePrompts(){
+  var noVision=!(state.vision.longTerm||'').trim()&&!(state.vision.threeYear||'').trim();
+  if(guide&&guide.flow==='plan'&&noVision)
+    return ['I have not written a vision — help me start','Where should this goal be pointing?','What do I actually want in ten years?'];
+  if(guide&&guide.flow==='plan')
+    return ['Does this goal serve my vision?','Is this goal too big for twelve weeks?','Turn this into real tactics'];
+  if(guide&&guide.flow==='vision')
+    return ['I do not know where to start','Help me get honest about this','Do my horizons line up?'];
+  if(guide&&guide.flow==='week')
+    return ['Am I on track this week?','I am behind — what do I drop?'];
+  return null;
+}
+
 var COACH_PROMPTS={
   week:['Am I on track this week?','What should I do first today?','I am behind — what do I drop?'],
   plan:['Are my goals worth twelve weeks?','Are these tactics really actions?','Is this plan too much?','Suggest a measurement'],
@@ -1512,7 +1583,7 @@ function renderCoach(){
 
   var form='<div class="coachform'+(newest?' top':'')+'">';
   if(coachReady()&&!chat.length){
-    form+='<div class="prompts">'+(COACH_PROMPTS[view]||COACH_PROMPTS.coach).map(function(q){
+    form+='<div class="prompts">'+(guidePrompts()||COACH_PROMPTS[view]||COACH_PROMPTS.coach).map(function(q){
       return '<button class="chip" data-act="coachask" data-v="'+esc(q)+'">'+esc(q)+'</button>';
     }).join('')+'</div>';
   }
@@ -1771,7 +1842,9 @@ function renderGuide(){
     '<div class="gbody">'+guideBody(st)+'</div>'+
     '<div class="gnav">'+
       (guide.i>0?'<button class="btn" data-act="gback">Back</button>':'<span></span>')+
-      '<button class="btn ghost" data-act="gcoach">Ask the coach</button>'+
+      (prefs.layout==='split'
+        ? '<button class="btn ghost" data-act="gsplit">Hide coach</button>'
+        : '<button class="btn ghost" data-act="gcoach">Ask the coach</button>')+
       (speechOn()?'<button class="btn ghost" data-act="say">'+(isSaying()?'Stop':'Listen')+'</button>':'')+
       (st.finish?'<button class="btn solid" data-act="gexit">Finish</button>'
                :'<button class="btn solid" data-act="gnext">Next</button>')+
@@ -2673,6 +2746,9 @@ document.addEventListener('click',function(e){
   else if(a==='spenable'){testKey(true); return}
   else if(a==='keytest'){testKey(false); return}
   else if(a==='gstart'){guide={flow:el.getAttribute('data-v'),i:0}; splash=false}
+  else if(a==='gsplit'){
+    prefs.layout=prefs.layout==='split'?'full':'split'; prefs.prevLayout=prefs.layout; savePrefs();
+  }
   else if(a==='gexit'){guide=null}
   else if(a==='gnext'){guide.i=guide.i+1}
   else if(a==='gback'){guide.i=Math.max(0,guide.i-1)}
@@ -2694,8 +2770,11 @@ document.addEventListener('click',function(e){
   }
   else if(a==='gresume'){prefs.layout=prefs.prevLayout||'split'; savePrefs()}
   else if(a==='gcoach'){
+    /* keep the step on screen and bring the coach alongside it */
+    var wide=!(window.matchMedia&&window.matchMedia('(max-width:959px)').matches);
     if(prefs.layout!=='coach')prefs.prevLayout=prefs.layout;
-    prefs.layout='coach'; savePrefs();
+    prefs.layout=wide?'split':'coach';
+    savePrefs();
   }
   else if(a==='rmg'){
     if(!confirm('Delete goal '+(gi+1)+' and its tactics? Your weekly ticks for it will be discarded.'))return;
